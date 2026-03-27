@@ -11,20 +11,6 @@ def matches():
             "away_team": "Chelsea",
             "date": "27.03.2026",
             "time": "20:30"
-        },
-        {
-            "league": "Bundesliga",
-            "home_team": "Bayern München",
-            "away_team": "Borussia Dortmund",
-            "date": "28.03.2026",
-            "time": "18:30"
-        },
-        {
-            "league": "Serie A",
-            "home_team": "Inter",
-            "away_team": "Juventus",
-            "date": "29.03.2026",
-            "time": "20:45"
         }
     ]
 
