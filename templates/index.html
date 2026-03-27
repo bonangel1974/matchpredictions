@@ -1,32 +1,221 @@
-<!DOCTYPE html>
-<html lang="de">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>matchpredictions.net</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-</head>
-<body>
+{% extends "base.html" %}
 
-    <div class="container">
-
-        <h1>⚽ matchpredictions.net</h1>
-        <p>Willkommen bei deiner Plattform für Fussball Vorhersagen.</p>
-
-        <div class="home-box">
-            <h2>🔥 Features</h2>
-            <ul>
-                <li>⚽ Aktuelle Fussball Spiele</li>
-                <li>📊 Match Predictions (bald)</li>
-                <li>📈 Statistiken & Analysen (bald)</li>
-            </ul>
-        </div>
-
-        <div class="home-actions">
-            <a href="/matches" class="btn-primary">➡️ Fussball Spiele ansehen</a>
-        </div>
-
+{% block content %}
+<header class="topbar">
+  <div class="container topbar-inner">
+    <div class="brand">
+      <div class="brand-icon"></div>
+      <div class="brand-name">{{ t.brand }}</div>
     </div>
 
-</body>
-</html>
+    <nav class="nav">
+      <a href="#">{{ t.nav1 }}</a>
+      <a href="#">{{ t.nav2 }}</a>
+      <a href="#">{{ t.nav3 }}</a>
+      <a href="#">{{ t.nav4 }}</a>
+    </nav>
+
+    <div class="top-actions">
+      <form method="get">
+        <select name="lang" onchange="this.form.submit()">
+          <option value="de" {% if lang == 'de' %}selected{% endif %}>DE</option>
+          <option value="en" {% if lang == 'en' %}selected{% endif %}>EN</option>
+          <option value="it" {% if lang == 'it' %}selected{% endif %}>IT</option>
+          <option value="hu" {% if lang == 'hu' %}selected{% endif %}>HU</option>
+        </select>
+      </form>
+      <button class="btn btn-outline">{{ t.login }}</button>
+    </div>
+  </div>
+</header>
+
+<main class="container">
+  <section class="hero">
+    <div class="hero-overlay">
+      <div class="hero-status">{{ t.hero_status }}</div>
+
+      <div class="hero-match">
+        <div class="team">Bayern Munich</div>
+        <div class="score-block">
+          <div class="score">2 - 1</div>
+          <div class="minute">72'</div>
+        </div>
+        <div class="team">Borussia Dortmund</div>
+      </div>
+
+      <div class="hero-stats-card">
+        <div class="hero-stat-row">
+          <div class="hero-stat-label">{{ t.possession }}</div>
+          <div class="bar"><span style="width:72%"></span></div>
+          <div class="hero-stat-value">62%</div>
+        </div>
+        <div class="hero-stat-row">
+          <div class="hero-stat-label">{{ t.shots }}</div>
+          <div class="bar"><span style="width:58%"></span></div>
+          <div class="hero-stat-value">15</div>
+        </div>
+        <div class="hero-stat-row">
+          <div class="hero-stat-label">{{ t.xg }}</div>
+          <div class="bar"><span style="width:36%"></span></div>
+          <div class="hero-stat-value">0.83</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2>{{ t.team_stats }}</h2>
+
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-header gradient">Bundesliga</div>
+        <table>
+          <thead>
+            <tr>
+              <th>Pos</th>
+              <th>Team</th>
+              <th>Sp</th>
+              <th>GD</th>
+              <th>Pts</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for row in table_rows %}
+            <tr>
+              <td>{{ loop.index }}</td>
+              <td>{{ row[0] }}</td>
+              <td>{{ row[1] }}</td>
+              <td>{{ row[2] }}</td>
+              <td><strong>{{ row[3] }}</strong></td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+        <div class="card-footer">
+          <button class="btn btn-primary">{{ t.view_full_table }}</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header plain">{{ t.top_teams }}</div>
+        <div class="split-lists">
+          <div>
+            <div class="subhead">Champions League</div>
+            {% for team in top_teams_left %}
+            <div class="list-row">
+              <span>{{ team }}</span>
+              <strong>{{ 12 if loop.index <= 2 else 11 }}</strong>
+            </div>
+            {% endfor %}
+          </div>
+          <div>
+            <div class="subhead">Serie A</div>
+            {% for team in top_teams_right %}
+            <div class="list-row">
+              <span>{{ team }}</span>
+              <strong>{{ 12 if loop.index <= 2 else 11 }}</strong>
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+        <div class="card-footer">
+          <button class="btn btn-soft">{{ t.see_all_teams }}</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="search-section">
+    <div class="search-box">
+      <input type="text" placeholder="{{ t.search_placeholder }}">
+      <button>⌕</button>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2>{{ t.player_stats }}</h2>
+
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-header plain between">
+          <span>{{ t.top_scorer }}</span>
+          <small>40 Goals</small>
+        </div>
+        <table>
+          <thead>
+            <tr>
+              <th>Pl</th>
+              <th>Team</th>
+              <th>Sp</th>
+              <th>Pts</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for row in scorers %}
+            <tr>
+              <td>{{ loop.index }}</td>
+              <td>
+                <div>{{ row[0] }}</div>
+                <small>{{ row[1] }}</small>
+              </td>
+              <td>{{ row[2] }}</td>
+              <td><strong>{{ row[3] }}</strong></td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+        <div class="card-footer">
+          <button class="btn btn-primary">{{ t.view_full_scorers }}</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header plain between">
+          <span>{{ t.top_assists }}</span>
+          <small>40 Assists</small>
+        </div>
+        <table>
+          <thead>
+            <tr>
+              <th>Pl</th>
+              <th>Team</th>
+              <th>Ass</th>
+              <th>Gs</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for row in assists %}
+            <tr>
+              <td>{{ loop.index }}</td>
+              <td>
+                <div>{{ row[0] }}</div>
+                <small>{{ row[1] }}</small>
+              </td>
+              <td>{{ row[2] }}</td>
+              <td><strong>{{ row[3] }}</strong></td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+        <div class="card-footer">
+          <button class="btn btn-soft">{{ t.view_all_assists }}</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="grid-2 banners">
+    <div class="banner banner-dark">
+      <h3>{{ t.trust_title }}</h3>
+      <p>{{ t.trust_text }}</p>
+      <button class="btn btn-white">{{ t.learn_more }}</button>
+    </div>
+
+    <div class="banner banner-blue">
+      <h3>{{ t.premium_title }}</h3>
+      <p>{{ t.premium_text }}</p>
+      <button class="btn btn-white">{{ t.register_now }}</button>
+    </div>
+  </section>
+</main>
+{% endblock %}
