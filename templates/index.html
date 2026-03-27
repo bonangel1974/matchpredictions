@@ -4,9 +4,29 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>matchpredictions.net</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
-    <h1>matchpredictions.net läuft</h1>
-    <p>Die neue Flask-App ist erfolgreich gestartet.</p>
+
+    <div class="container">
+
+        <h1>⚽ matchpredictions.net</h1>
+        <p>Willkommen bei deiner Plattform für Fussball Vorhersagen.</p>
+
+        <div class="home-box">
+            <h2>🔥 Features</h2>
+            <ul>
+                <li>⚽ Aktuelle Fussball Spiele</li>
+                <li>📊 Match Predictions (bald)</li>
+                <li>📈 Statistiken & Analysen (bald)</li>
+            </ul>
+        </div>
+
+        <div class="home-actions">
+            <a href="/matches" class="btn-primary">➡️ Fussball Spiele ansehen</a>
+        </div>
+
+    </div>
+
 </body>
 </html>

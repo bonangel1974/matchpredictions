@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fussball Spiele | matchpredictions</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Fussball Spiele</h1>
+        <p>Übersicht der nächsten Spiele</p>
+
+        <div class="matches-grid">
+            {% for match in matches %}
+            <div class="match-card">
+                <div class="league">{{ match.league }}</div>
+                <div class="teams">
+                    <span>{{ match.home_team }}</span>
+                    <span class="vs">vs</span>
+                    <span>{{ match.away_team }}</span>
+                </div>
+                <div class="match-info">
+                    <span>{{ match.date }}</span>
+                    <span>{{ match.time }}</span>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+</html>
