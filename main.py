@@ -28,6 +28,10 @@ TRANSLATIONS = {
         "login": "Login",
         "register": "Registrieren",
         "premium": "Premium",
+        "forgot_title": "Passwort zurücksetzen",
+        "forgot_text": "Gib deine E-Mail-Adresse ein. Später senden wir dir einen Link zum Zurücksetzen deines Passworts.",
+        "forgot_button": "Reset-Link senden",
+        "back_to_login": "Zurück zum Login",
         "nav": {
             "bundesliga": "Deutschland",
             "premierleague": "England",
@@ -35,7 +39,8 @@ TRANSLATIONS = {
             "ligue1": "Frankreich",
             "championsleague": "Champions League",
             "euro": "EURO",
-            "worldcup": "WM"
+            "worldcup": "WM",
+            
         },
         "hero_title": "Fussball Statistiken mit Vertrauen",
         "hero_text": "Live Spiele, kommende Partien, Tabellen und Top Scorer. Premium Analysen, Prognosen und Wahrscheinlichkeiten nach Login.",
@@ -83,6 +88,10 @@ TRANSLATIONS = {
         "login": "Login",
         "register": "Register",
         "premium": "Premium",
+        "forgot_title": "Reset password",
+        "forgot_text": "Enter your email address. Later we will send you a password reset link.",
+        "forgot_button": "Send reset link",
+        "back_to_login": "Back to login",
         "nav": {
             "bundesliga": "Germany",
             "premierleague": "England",
@@ -138,6 +147,10 @@ TRANSLATIONS = {
         "login": "Login",
         "register": "Registrati",
         "premium": "Premium",
+        "forgot_title": "Reimposta password",
+        "forgot_text": "Inserisci il tuo indirizzo e-mail. In seguito ti invieremo un link per reimpostare la password.",
+        "forgot_button": "Invia link di reset",
+        "back_to_login": "Torna al login",
         "nav": {
             "bundesliga": "Germania",
             "premierleague": "Inghilterra",
@@ -193,6 +206,10 @@ TRANSLATIONS = {
         "login": "Connexion",
         "register": "Inscription",
         "premium": "Premium",
+        "forgot_title": "Réinitialiser le mot de passe",
+        "forgot_text": "Saisis ton adresse e-mail. Plus tard nous t’enverrons un lien pour réinitialiser ton mot de passe.",
+        "forgot_button": "Envoyer le lien de réinitialisation",
+        "back_to_login": "Retour au login",
         "nav": {
             "bundesliga": "Allemagne",
             "premierleague": "Angleterre",
@@ -391,6 +408,12 @@ def premium():
     lang, t = get_translation()
     league = request.args.get("league", "bundesliga")
     return render_template("premium.html", t=t, lang=lang, league=league)
+
+@app.route("/forgot-password")
+def forgot_password():
+    lang, t = get_translation()
+    league = request.args.get("league", "bundesliga")
+    return render_template("forgot_password.html", t=t, lang=lang, league=league)
 
 
 if __name__ == "__main__":
