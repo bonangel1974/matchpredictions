@@ -263,6 +263,7 @@ TRANSLATIONS = {
 }
 
 
+
 def format_kickoff(utc_value: str) -> str:
     if not utc_value:
         return "-"
