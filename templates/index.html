@@ -3,58 +3,61 @@
 {% block content %}
 
 <header class="topbar">
-
-  <div class="brand">{{ t.brand }}</div>
-
-  <nav>
-    {% for key, value in t.nav.items() %}
-      <a href="/?league={{ key }}&lang={{ lang }}">{{ value }}</a>
-    {% endfor %}
-  </nav>
-
-  <div class="right">
-    <a href="/?league={{ league }}&lang=de">DE</a>
-    <a href="/?league={{ league }}&lang=en">EN</a>
-    <a href="/?league={{ league }}&lang=it">IT</a>
-    <a href="/?league={{ league }}&lang=fr">FR</a>
-    <button>{{ t.login }}</button>
-  </div>
-
+  <h1>MatchPredictions</h1>
 </header>
-
 
 <main class="container">
 
-{% if matches %}
+<!-- MATCHES -->
+<h2>Upcoming Matches</h2>
 
-  {% for match in matches %}
-
-  <div class="match-card">
-
-    <div class="team">
-      <img src="{{ match.home_logo }}">
-      {{ match.home }}
-    </div>
-
-    <div class="score">
-      {{ match.score_home }} - {{ match.score_away }}
-      <div class="minute">{{ match.minute }}'</div>
-    </div>
-
-    <div class="team">
-      <img src="{{ match.away_logo }}">
-      {{ match.away }}
-    </div>
-
+{% for match in matches %}
+<div class="match-card">
+  <div class="team">
+    <img src="{{ match.home_logo }}"> {{ match.home }}
   </div>
 
+  <div class="vs">vs</div>
+
+  <div class="team">
+    <img src="{{ match.away_logo }}"> {{ match.away }}
+  </div>
+</div>
+{% endfor %}
+
+
+<!-- TABLE -->
+<h2>League Table</h2>
+
+<table class="table">
+  <tr>
+    <th>#</th>
+    <th>Team</th>
+    <th>Pts</th>
+  </tr>
+
+  {% for t in table %}
+  <tr>
+    <td>{{ t.rank }}</td>
+    <td>
+      <img src="{{ t.logo }}" class="team-logo">
+      {{ t.team }}
+    </td>
+    <td><strong>{{ t.points }}</strong></td>
+  </tr>
   {% endfor %}
+</table>
 
-{% else %}
 
-<h2>{{ t.no_games }}</h2>
+<!-- SCORERS -->
+<h2>Top Scorers</h2>
 
-{% endif %}
+{% for p in scorers %}
+<div class="player-row">
+  {{ p.name }} ({{ p.team }})
+  <strong>{{ p.goals }}</strong>
+</div>
+{% endfor %}
 
 </main>
 
