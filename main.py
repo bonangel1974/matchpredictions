@@ -4,7 +4,7 @@ from datetime import datetime
 
 app = Flask(__name__)
 
-API_KEY = "DEIN_API_KEY"
+API_KEY = "df937b3818fbbb2af5dc5e1512d5aeaf"
 
 LEAGUES = {
     "bundesliga": 78,
