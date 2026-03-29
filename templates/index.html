@@ -3,61 +3,63 @@
 {% block content %}
 
 <header class="topbar">
-  <h1>MatchPredictions</h1>
+
+  <div class="brand">{{ t.brand }}</div>
+
+  <nav>
+    {% for key, value in t.nav.items() %}
+      <a href="/?league={{ key }}&lang={{ lang }}">{{ value }}</a>
+    {% endfor %}
+  </nav>
+
+  <div class="right">
+    <a href="/?league={{ league }}&lang=de">DE</a>
+    <a href="/?league={{ league }}&lang=en">EN</a>
+    <a href="/?league={{ league }}&lang=it">IT</a>
+    <a href="/?league={{ league }}&lang=fr">FR</a>
+    <button>{{ t.login }}</button>
+  </div>
+
 </header>
 
 <main class="container">
 
-<!-- MATCHES -->
-<h2>Upcoming Matches</h2>
+  {% if error_message %}
+    <div class="error-box">
+      API / Server Hinweis: {{ error_message }}
+    </div>
+  {% endif %}
 
-{% for match in matches %}
-<div class="match-card">
-  <div class="team">
-    <img src="{{ match.home_logo }}"> {{ match.home }}
-  </div>
+  {% if matches and matches|length > 0 %}
 
-  <div class="vs">vs</div>
+    {% for match in matches %}
+      <div class="match-card">
 
-  <div class="team">
-    <img src="{{ match.away_logo }}"> {{ match.away }}
-  </div>
-</div>
-{% endfor %}
+        <div class="team">
+          {% if match.home_logo %}
+            <img src="{{ match.home_logo }}" alt="{{ match.home }}">
+          {% endif %}
+          {{ match.home }}
+        </div>
 
+        <div class="score">
+          {{ match.score_home }} - {{ match.score_away }}
+          <div class="minute">{{ match.minute }}'</div>
+        </div>
 
-<!-- TABLE -->
-<h2>League Table</h2>
+        <div class="team">
+          {% if match.away_logo %}
+            <img src="{{ match.away_logo }}" alt="{{ match.away }}">
+          {% endif %}
+          {{ match.away }}
+        </div>
 
-<table class="table">
-  <tr>
-    <th>#</th>
-    <th>Team</th>
-    <th>Pts</th>
-  </tr>
+      </div>
+    {% endfor %}
 
-  {% for t in table %}
-  <tr>
-    <td>{{ t.rank }}</td>
-    <td>
-      <img src="{{ t.logo }}" class="team-logo">
-      {{ t.team }}
-    </td>
-    <td><strong>{{ t.points }}</strong></td>
-  </tr>
-  {% endfor %}
-</table>
-
-
-<!-- SCORERS -->
-<h2>Top Scorers</h2>
-
-{% for p in scorers %}
-<div class="player-row">
-  {{ p.name }} ({{ p.team }})
-  <strong>{{ p.goals }}</strong>
-</div>
-{% endfor %}
+  {% else %}
+    <h2>{{ t.no_games }}</h2>
+  {% endif %}
 
 </main>
 
