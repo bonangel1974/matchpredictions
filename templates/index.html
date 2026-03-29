@@ -1,66 +1,105 @@
 {% extends "base.html" %}
 
 {% block content %}
-
 <header class="topbar">
+  <div class="container topbar-inner">
+    <div class="brand">{{ t.brand }}</div>
 
-  <div class="brand">{{ t.brand }}</div>
+    <nav class="nav">
+      <a href="/?league=bundesliga&lang={{ lang }}" class="{% if league == 'bundesliga' %}active{% endif %}">
+        {{ t.country_germany }}
+      </a>
+      <a href="/?league=seriea&lang={{ lang }}" class="{% if league == 'seriea' %}active{% endif %}">
+        {{ t.country_italy }}
+      </a>
+      <a href="/?league=ligue1&lang={{ lang }}" class="{% if league == 'ligue1' %}active{% endif %}">
+        {{ t.country_france }}
+      </a>
+      <a href="/?league=championsleague&lang={{ lang }}" class="{% if league == 'championsleague' %}active{% endif %}">
+        {{ t.champions_league }}
+      </a>
+      <a href="/?league=worldcup&lang={{ lang }}" class="{% if league == 'worldcup' %}active{% endif %}">
+        {{ t.world_cup }}
+      </a>
+    </nav>
 
-  <nav>
-    {% for key, value in t.nav.items() %}
-      <a href="/?league={{ key }}&lang={{ lang }}">{{ value }}</a>
-    {% endfor %}
-  </nav>
-
-  <div class="right">
-    <a href="/?league={{ league }}&lang=de">DE</a>
-    <a href="/?league={{ league }}&lang=en">EN</a>
-    <a href="/?league={{ league }}&lang=it">IT</a>
-    <a href="/?league={{ league }}&lang=fr">FR</a>
-    <button>{{ t.login }}</button>
+    <div class="top-actions">
+      <div class="lang-switch">
+        <a href="/?league={{ league }}&lang=de" class="{% if lang == 'de' %}active{% endif %}">DE</a>
+        <a href="/?league={{ league }}&lang=en" class="{% if lang == 'en' %}active{% endif %}">EN</a>
+        <a href="/?league={{ league }}&lang=it" class="{% if lang == 'it' %}active{% endif %}">IT</a>
+        <a href="/?league={{ league }}&lang=fr" class="{% if lang == 'fr' %}active{% endif %}">FR</a>
+      </div>
+      <button class="btn-login">{{ t.login }}</button>
+    </div>
   </div>
-
 </header>
 
-<main class="container">
+<main class="container page-content">
 
-  {% if error_message %}
+  {% if error %}
     <div class="error-box">
-      API / Server Hinweis: {{ error_message }}
+      {{ error }}
     </div>
   {% endif %}
 
-  {% if matches and matches|length > 0 %}
-
-    {% for match in matches %}
-      <div class="match-card">
-
-        <div class="team">
-          {% if match.home_logo %}
-            <img src="{{ match.home_logo }}" alt="{{ match.home }}">
-          {% endif %}
-          {{ match.home }}
-        </div>
-
-        <div class="score">
-          {{ match.score_home }} - {{ match.score_away }}
-          <div class="minute">{{ match.minute }}'</div>
-        </div>
-
-        <div class="team">
-          {% if match.away_logo %}
-            <img src="{{ match.away_logo }}" alt="{{ match.away }}">
-          {% endif %}
-          {{ match.away }}
-        </div>
-
+  <section class="content-grid">
+    <div class="card">
+      <div class="card-header">
+        <h2>{{ t.upcoming_matches }}</h2>
       </div>
-    {% endfor %}
 
-  {% else %}
-    <h2>{{ t.no_games }}</h2>
-  {% endif %}
+      {% if matches %}
+        <div class="matches-list">
+          {% for m in matches %}
+            <div class="match-card">
+              <div class="team-name">{{ m.home }}</div>
+              <div class="vs-block">
+                <div class="vs">vs</div>
+                <div class="meta">
+                  {% if m.matchday %}MD {{ m.matchday }}{% endif %}
+                </div>
+              </div>
+              <div class="team-name align-right">{{ m.away }}</div>
+            </div>
+          {% endfor %}
+        </div>
+      {% else %}
+        <div class="empty-state">{{ t.no_matches }}</div>
+      {% endif %}
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <h2>{{ t.league_table }}</h2>
+      </div>
+
+      {% if table %}
+        <div class="table-wrapper">
+          <table class="league-table">
+            <thead>
+              <tr>
+                <th>{{ t.position }}</th>
+                <th>{{ t.team }}</th>
+                <th>{{ t.points }}</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for row in table %}
+                <tr>
+                  <td>{{ row.pos }}</td>
+                  <td>{{ row.team }}</td>
+                  <td><strong>{{ row.points }}</strong></td>
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      {% else %}
+        <div class="empty-state">Keine Tabelle verfügbar</div>
+      {% endif %}
+    </div>
+  </section>
 
 </main>
-
 {% endblock %}

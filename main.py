@@ -1,82 +1,85 @@
 from flask import Flask, render_template, request
 import requests
+import os
 
 app = Flask(__name__)
 
-API_KEY = "df937b3818fbbb2af5dc5e1512d5aeaf"
+API_KEY = os.environ.get("API_KEY")
+
+BASE_URL = "https://api.football-data.org/v4"
+
+HEADERS = {
+    "X-Auth-Token": API_KEY
+}
 
 LEAGUES = {
-    "bundesliga": 78,
-    "switzerland": 207,
-    "austria": 218,
-    "seriea": 135,
-    "ligue1": 61,
-    "premierleague": 39,
-    "championsleague": 2,
-    "euro": 4,
-    "worldcup": 1
+    "bundesliga": "BL1",
+    "seriea": "SA",
+    "ligue1": "FL1",
+    "championsleague": "CL",
+    "worldcup": "WC"
 }
 
 TRANSLATIONS = {
     "de": {
         "brand": "MatchPredictions",
         "login": "Login",
-        "no_games": "Keine Live Spiele",
-        "nav": {
-            "bundesliga": "Deutschland",
-            "switzerland": "Schweiz",
-            "austria": "Österreich",
-            "seriea": "Italien",
-            "ligue1": "Frankreich",
-            "championsleague": "Champions League",
-            "euro": "EURO",
-            "worldcup": "WM"
-        }
+        "no_matches": "Keine Spiele verfügbar",
+        "upcoming_matches": "Kommende Spiele",
+        "league_table": "Tabelle",
+        "country_germany": "Deutschland",
+        "country_italy": "Italien",
+        "country_france": "Frankreich",
+        "champions_league": "Champions League",
+        "world_cup": "WM",
+        "team": "Team",
+        "points": "Punkte",
+        "position": "#"
     },
     "en": {
         "brand": "MatchPredictions",
         "login": "Login",
-        "no_games": "No live games",
-        "nav": {
-            "bundesliga": "Germany",
-            "switzerland": "Switzerland",
-            "austria": "Austria",
-            "seriea": "Italy",
-            "ligue1": "France",
-            "championsleague": "Champions League",
-            "euro": "EURO",
-            "worldcup": "World Cup"
-        }
+        "no_matches": "No matches available",
+        "upcoming_matches": "Upcoming Matches",
+        "league_table": "Table",
+        "country_germany": "Germany",
+        "country_italy": "Italy",
+        "country_france": "France",
+        "champions_league": "Champions League",
+        "world_cup": "World Cup",
+        "team": "Team",
+        "points": "Points",
+        "position": "#"
     },
     "it": {
         "brand": "MatchPredictions",
         "login": "Login",
-        "no_games": "Nessuna partita live",
-        "nav": {
-            "bundesliga": "Germania",
-            "switzerland": "Svizzera",
-            "austria": "Austria",
-            "seriea": "Italia",
-            "ligue1": "Francia",
-            "championsleague": "Champions League",
-            "euro": "EURO",
-            "worldcup": "Mondiali"
-        }
+        "no_matches": "Nessuna partita disponibile",
+        "upcoming_matches": "Prossime partite",
+        "league_table": "Classifica",
+        "country_germany": "Germania",
+        "country_italy": "Italia",
+        "country_france": "Francia",
+        "champions_league": "Champions League",
+        "world_cup": "Mondiali",
+        "team": "Squadra",
+        "points": "Punti",
+        "position": "#"
     },
     "fr": {
         "brand": "MatchPredictions",
         "login": "Connexion",
-        "no_games": "Aucun match en direct",
-        "nav": {
-            "bundesliga": "Allemagne",
-            "switzerland": "Suisse",
-            "austria": "Autriche",
-            "seriea": "Italie",
-            "ligue1": "France",
-            "championsleague": "Ligue des Champions",
-            "euro": "EURO",
-            "worldcup": "Coupe du Monde"
-        }
+        "no_matches": "Aucun match disponible",
+        "upcoming_matches": "Matchs à venir",
+        "league_table": "Classement",
+        "country_germany": "Allemagne",
+        "country_italy": "Italie",
+        "country_france": "France",
+        "champions_league": "Ligue des Champions",
+        "world_cup": "Coupe du Monde",
+        "team": "Equipe",
+        "points": "Points",
+        "position": "#"
     }
 }
 
@@ -86,55 +89,68 @@ def home():
     lang = request.args.get("lang", "de")
     league_key = request.args.get("league", "bundesliga")
 
-    league_id = LEAGUES.get(league_key, 78)
     t = TRANSLATIONS.get(lang, TRANSLATIONS["de"])
+    league_code = LEAGUES.get(league_key, "BL1")
 
     matches = []
-    error_message = None
+    table = []
+    error = None
+
+    if not API_KEY:
+        error = "API_KEY fehlt. Bitte in Render oder lokal als Environment Variable setzen."
+        return render_template(
+            "index.html",
+            t=t,
+            lang=lang,
+            league=league_key,
+            matches=matches,
+            table=table,
+            error=error
+        )
 
     try:
-        headers = {"x-apisports-key": API_KEY}
-        url = "https://v3.football.api-sports.io/fixtures?live=all"
+        # Kommende Spiele
+        url_matches = f"{BASE_URL}/competitions/{league_code}/matches?status=SCHEDULED"
+        res_matches = requests.get(url_matches, headers=HEADERS, timeout=20)
+        res_matches.raise_for_status()
+        data_matches = res_matches.json()
 
-        response = requests.get(url, headers=headers, timeout=20)
-        response.raise_for_status()
+        for m in data_matches.get("matches", [])[:8]:
+            matches.append({
+                "home": m.get("homeTeam", {}).get("name", "Home"),
+                "away": m.get("awayTeam", {}).get("name", "Away"),
+                "utc_date": m.get("utcDate", ""),
+                "matchday": m.get("matchday", "")
+            })
 
-        data = response.json()
+        # Tabelle
+        url_table = f"{BASE_URL}/competitions/{league_code}/standings"
+        res_table = requests.get(url_table, headers=HEADERS, timeout=20)
+        res_table.raise_for_status()
+        data_table = res_table.json()
 
-        api_response = data.get("response", [])
-        if not isinstance(api_response, list):
-            api_response = []
+        standings = data_table.get("standings", [])
 
-        for m in api_response:
-            league = m.get("league", {})
-            if league.get("id") == league_id:
-                teams = m.get("teams", {})
-                home_team = teams.get("home", {})
-                away_team = teams.get("away", {})
-                goals = m.get("goals", {})
-                fixture = m.get("fixture", {})
-                status = fixture.get("status", {})
-
-                matches.append({
-                    "home": home_team.get("name", "Home"),
-                    "away": away_team.get("name", "Away"),
-                    "home_logo": home_team.get("logo", ""),
-                    "away_logo": away_team.get("logo", ""),
-                    "score_home": goals.get("home", 0),
-                    "score_away": goals.get("away", 0),
-                    "minute": status.get("elapsed", "-")
+        if standings:
+            first_table = standings[0].get("table", [])
+            for row in first_table[:10]:
+                table.append({
+                    "pos": row.get("position", ""),
+                    "team": row.get("team", {}).get("name", ""),
+                    "points": row.get("points", "")
                 })
 
     except Exception as e:
-        error_message = str(e)
+        error = f"API Fehler: {str(e)}"
 
     return render_template(
         "index.html",
-        matches=matches,
         t=t,
         lang=lang,
         league=league_key,
-        error_message=error_message
+        matches=matches,
+        table=table,
+        error=error
     )
 
 
