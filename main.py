@@ -26,6 +26,8 @@ TRANSLATIONS = {
     "de": {
         "brand": "MatchPredictions",
         "login": "Login",
+        "register": "Registrieren",
+        "premium": "Premium",
         "nav": {
             "bundesliga": "Deutschland",
             "premierleague": "England",
@@ -36,7 +38,7 @@ TRANSLATIONS = {
             "worldcup": "WM"
         },
         "hero_title": "Fussball Statistiken mit Vertrauen",
-        "hero_text": "Live Spiele, kommende Partien, Tabellen und Top Scorer. Premium Analysen, Prognosen und Wahrscheinlichkeiten spaeter nach Login.",
+        "hero_text": "Live Spiele, kommende Partien, Tabellen und Top Scorer. Premium Analysen, Prognosen und Wahrscheinlichkeiten nach Login.",
         "matches_title": "Kommende Spiele",
         "table_title": "Tabelle",
         "scorers_title": "Top Scorer",
@@ -52,12 +54,35 @@ TRANSLATIONS = {
         "top_scorers_badge": "Top 10",
         "table_badge": "Live Stand",
         "premium_box_title": "Mehr Analysen nach Login",
-        "premium_box_text": "Spaeter mit Gewinnwahrscheinlichkeiten, Head-to-Head, Formanalyse und weiteren Premium Features.",
-        "premium_button": "Mehr erfahren"
+        "premium_box_text": "Mit Gewinnwahrscheinlichkeiten, Head-to-Head, Formanalyse und weiteren Premium Features.",
+        "premium_button": "Mehr erfahren",
+        "login_title": "Willkommen zurück",
+        "login_text": "Melde dich an, um Premium Prognosen, gespeicherte Favoriten und tiefere Analysen zu sehen.",
+        "email": "E-Mail",
+        "password": "Passwort",
+        "forgot_password": "Passwort vergessen?",
+        "login_button": "Jetzt einloggen",
+        "register_title": "Konto erstellen",
+        "register_text": "Erstelle dein Konto, um Premium Bereiche, personalisierte Statistiken und spätere Prognosen zu nutzen.",
+        "name": "Name",
+        "confirm_password": "Passwort bestätigen",
+        "register_button": "Konto erstellen",
+        "premium_title": "Premium Analyse Bereich",
+        "premium_text": "Hier werden später exklusive Wahrscheinlichkeiten, Teamvergleiche, Formanalysen und Premium Dashboards freigeschaltet.",
+        "premium_feature_1": "Gewinnwahrscheinlichkeiten",
+        "premium_feature_2": "Head-to-Head Analysen",
+        "premium_feature_3": "Form und Trend Modelle",
+        "premium_feature_4": "Top Value Match Hinweise",
+        "premium_feature_5": "Persönliche Favoriten",
+        "premium_feature_6": "Werbefreier Bereich",
+        "cta_register": "Jetzt registrieren",
+        "cta_login": "Zum Login"
     },
     "en": {
         "brand": "MatchPredictions",
         "login": "Login",
+        "register": "Register",
+        "premium": "Premium",
         "nav": {
             "bundesliga": "Germany",
             "premierleague": "England",
@@ -68,7 +93,7 @@ TRANSLATIONS = {
             "worldcup": "World Cup"
         },
         "hero_title": "Football statistics with trust",
-        "hero_text": "Live matches, upcoming fixtures, standings and top scorers. Premium analysis, predictions and probabilities later after login.",
+        "hero_text": "Live matches, upcoming fixtures, standings and top scorers. Premium analysis, predictions and probabilities after login.",
         "matches_title": "Upcoming Matches",
         "table_title": "Table",
         "scorers_title": "Top Scorers",
@@ -84,12 +109,35 @@ TRANSLATIONS = {
         "top_scorers_badge": "Top 10",
         "table_badge": "Live Table",
         "premium_box_title": "More analysis after login",
-        "premium_box_text": "Later with win probabilities, head-to-head, form analysis and more premium features.",
-        "premium_button": "Learn more"
+        "premium_box_text": "With win probabilities, head-to-head, form analysis and more premium features.",
+        "premium_button": "Learn more",
+        "login_title": "Welcome back",
+        "login_text": "Sign in to access premium predictions, saved favorites and deeper analysis.",
+        "email": "Email",
+        "password": "Password",
+        "forgot_password": "Forgot password?",
+        "login_button": "Login now",
+        "register_title": "Create account",
+        "register_text": "Create your account to unlock premium areas, personalized statistics and future predictions.",
+        "name": "Name",
+        "confirm_password": "Confirm password",
+        "register_button": "Create account",
+        "premium_title": "Premium analysis area",
+        "premium_text": "Exclusive probabilities, team comparisons, form analysis and premium dashboards will be unlocked here later.",
+        "premium_feature_1": "Win probabilities",
+        "premium_feature_2": "Head-to-head analysis",
+        "premium_feature_3": "Form and trend models",
+        "premium_feature_4": "Top value match hints",
+        "premium_feature_5": "Personal favorites",
+        "premium_feature_6": "Ad free area",
+        "cta_register": "Register now",
+        "cta_login": "Go to login"
     },
     "it": {
         "brand": "MatchPredictions",
         "login": "Login",
+        "register": "Registrati",
+        "premium": "Premium",
         "nav": {
             "bundesliga": "Germania",
             "premierleague": "Inghilterra",
@@ -100,7 +148,7 @@ TRANSLATIONS = {
             "worldcup": "Mondiali"
         },
         "hero_title": "Statistiche calcio con fiducia",
-        "hero_text": "Partite live, prossimi incontri, classifiche e migliori marcatori. Analisi premium, pronostici e probabilità più avanti dopo il login.",
+        "hero_text": "Partite live, incontri in arrivo, classifiche e migliori marcatori. Analisi premium, pronostici e probabilità dopo il login.",
         "matches_title": "Prossime Partite",
         "table_title": "Classifica",
         "scorers_title": "Top Marcatori",
@@ -116,12 +164,35 @@ TRANSLATIONS = {
         "top_scorers_badge": "Top 10",
         "table_badge": "Classifica Live",
         "premium_box_title": "Più analisi dopo il login",
-        "premium_box_text": "Più avanti con probabilità di vittoria, testa a testa, analisi della forma e altre funzioni premium.",
-        "premium_button": "Scopri di più"
+        "premium_box_text": "Con probabilità di vittoria, testa a testa, analisi della forma e altre funzioni premium.",
+        "premium_button": "Scopri di più",
+        "login_title": "Bentornato",
+        "login_text": "Accedi per vedere pronostici premium, preferiti salvati e analisi più profonde.",
+        "email": "E-mail",
+        "password": "Password",
+        "forgot_password": "Password dimenticata?",
+        "login_button": "Accedi ora",
+        "register_title": "Crea account",
+        "register_text": "Crea il tuo account per sbloccare aree premium, statistiche personalizzate e futuri pronostici.",
+        "name": "Nome",
+        "confirm_password": "Conferma password",
+        "register_button": "Crea account",
+        "premium_title": "Area analisi premium",
+        "premium_text": "Qui verranno sbloccate probabilità esclusive, confronti tra squadre, analisi della forma e dashboard premium.",
+        "premium_feature_1": "Probabilità di vittoria",
+        "premium_feature_2": "Analisi testa a testa",
+        "premium_feature_3": "Modelli di forma e trend",
+        "premium_feature_4": "Segnali top value match",
+        "premium_feature_5": "Preferiti personali",
+        "premium_feature_6": "Area senza pubblicità",
+        "cta_register": "Registrati ora",
+        "cta_login": "Vai al login"
     },
     "fr": {
         "brand": "MatchPredictions",
         "login": "Connexion",
+        "register": "Inscription",
+        "premium": "Premium",
         "nav": {
             "bundesliga": "Allemagne",
             "premierleague": "Angleterre",
@@ -132,7 +203,7 @@ TRANSLATIONS = {
             "worldcup": "Coupe du Monde"
         },
         "hero_title": "Statistiques football avec confiance",
-        "hero_text": "Matchs en direct, rencontres à venir, classements et meilleurs buteurs. Analyses premium, pronostics et probabilités plus tard après connexion.",
+        "hero_text": "Matchs en direct, rencontres à venir, classements et meilleurs buteurs. Analyses premium, pronostics et probabilités après connexion.",
         "matches_title": "Matchs à venir",
         "table_title": "Classement",
         "scorers_title": "Top Buteurs",
@@ -148,8 +219,29 @@ TRANSLATIONS = {
         "top_scorers_badge": "Top 10",
         "table_badge": "Classement Live",
         "premium_box_title": "Plus d analyses après connexion",
-        "premium_box_text": "Plus tard avec probabilités de victoire, head-to-head, analyse de forme et autres fonctions premium.",
-        "premium_button": "En savoir plus"
+        "premium_box_text": "Avec probabilités de victoire, head-to-head, analyse de forme et autres fonctions premium.",
+        "premium_button": "En savoir plus",
+        "login_title": "Bon retour",
+        "login_text": "Connecte-toi pour voir les pronostics premium, les favoris enregistrés et des analyses plus poussées.",
+        "email": "E-mail",
+        "password": "Mot de passe",
+        "forgot_password": "Mot de passe oublié ?",
+        "login_button": "Se connecter",
+        "register_title": "Créer un compte",
+        "register_text": "Crée ton compte pour débloquer les zones premium, les statistiques personnalisées et les futurs pronostics.",
+        "name": "Nom",
+        "confirm_password": "Confirmer le mot de passe",
+        "register_button": "Créer un compte",
+        "premium_title": "Zone analyse premium",
+        "premium_text": "Ici seront débloqués plus tard des probabilités exclusives, comparaisons d équipes, analyses de forme et dashboards premium.",
+        "premium_feature_1": "Probabilités de victoire",
+        "premium_feature_2": "Analyses head-to-head",
+        "premium_feature_3": "Modèles de forme et tendance",
+        "premium_feature_4": "Indications top value match",
+        "premium_feature_5": "Favoris personnels",
+        "premium_feature_6": "Zone sans publicité",
+        "cta_register": "S inscrire maintenant",
+        "cta_login": "Aller au login"
     }
 }
 
@@ -164,12 +256,16 @@ def format_kickoff(utc_value: str) -> str:
         return utc_value
 
 
+def get_translation():
+    lang = request.args.get("lang", "de")
+    t = TRANSLATIONS.get(lang, TRANSLATIONS["de"])
+    return lang, t
+
+
 @app.route("/")
 def home():
-    lang = request.args.get("lang", "de")
+    lang, t = get_translation()
     league_key = request.args.get("league", "bundesliga")
-
-    t = TRANSLATIONS.get(lang, TRANSLATIONS["de"])
     league_code = LEAGUES.get(league_key, "BL1")
 
     matches = []
@@ -196,7 +292,6 @@ def home():
         today = datetime.now(timezone.utc).date()
         future = today + timedelta(days=7)
 
-        # Spiele
         url_matches = (
             f"{BASE_URL}/competitions/{league_code}/matches"
             f"?dateFrom={today}&dateTo={future}"
@@ -229,7 +324,6 @@ def home():
         if matches:
             featured_match = matches[0]
 
-        # Tabelle
         url_table = f"{BASE_URL}/competitions/{league_code}/standings"
         res_table = requests.get(url_table, headers=HEADERS, timeout=20)
         res_table.raise_for_status()
@@ -248,7 +342,6 @@ def home():
                     "goal_diff": row.get("goalDifference", "")
                 })
 
-        # Top Scorer
         url_scorers = f"{BASE_URL}/competitions/{league_code}/scorers"
         res_scorers = requests.get(url_scorers, headers=HEADERS, timeout=20)
         res_scorers.raise_for_status()
@@ -277,6 +370,27 @@ def home():
         featured_match=featured_match,
         error=error
     )
+
+
+@app.route("/login")
+def login():
+    lang, t = get_translation()
+    league = request.args.get("league", "bundesliga")
+    return render_template("login.html", t=t, lang=lang, league=league)
+
+
+@app.route("/register")
+def register():
+    lang, t = get_translation()
+    league = request.args.get("league", "bundesliga")
+    return render_template("register.html", t=t, lang=lang, league=league)
+
+
+@app.route("/premium")
+def premium():
+    lang, t = get_translation()
+    league = request.args.get("league", "bundesliga")
+    return render_template("premium.html", t=t, lang=lang, league=league)
 
 
 if __name__ == "__main__":

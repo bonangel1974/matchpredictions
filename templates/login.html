@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block content %}
+<main class="container auth-page">
+  <div class="auth-shell">
+    <div class="auth-card">
+      <div class="auth-badge">{{ t.login }}</div>
+      <h1>{{ t.login_title }}</h1>
+      <p>{{ t.login_text }}</p>
+
+      <form class="auth-form">
+        <label>{{ t.email }}</label>
+        <input type="email" placeholder="name@example.com">
+
+        <label>{{ t.password }}</label>
+        <input type="password" placeholder="••••••••">
+
+        <div class="auth-links">
+          <a href="#">{{ t.forgot_password }}</a>
+        </div>
+
+        <button type="submit" class="auth-btn">{{ t.login_button }}</button>
+      </form>
+
+      <div class="auth-bottom">
+        <span>{{ t.register }}?</span>
+        <a href="/register?league={{ league }}&lang={{ lang }}">{{ t.cta_register }}</a>
+      </div>
+    </div>
+  </div>
+</main>
+{% endblock %}

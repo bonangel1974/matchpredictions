@@ -1,32 +1,6 @@
 {% extends "base.html" %}
 
 {% block content %}
-<header class="topbar">
-  <div class="container topbar-inner">
-    <div class="brand">{{ t.brand }}</div>
-
-    <nav class="nav">
-      <a href="/?league=bundesliga&lang={{ lang }}" class="{% if league == 'bundesliga' %}active{% endif %}">{{ t.nav.bundesliga }}</a>
-      <a href="/?league=premierleague&lang={{ lang }}" class="{% if league == 'premierleague' %}active{% endif %}">{{ t.nav.premierleague }}</a>
-      <a href="/?league=seriea&lang={{ lang }}" class="{% if league == 'seriea' %}active{% endif %}">{{ t.nav.seriea }}</a>
-      <a href="/?league=ligue1&lang={{ lang }}" class="{% if league == 'ligue1' %}active{% endif %}">{{ t.nav.ligue1 }}</a>
-      <a href="/?league=championsleague&lang={{ lang }}" class="{% if league == 'championsleague' %}active{% endif %}">{{ t.nav.championsleague }}</a>
-      <a href="/?league=euro&lang={{ lang }}" class="{% if league == 'euro' %}active{% endif %}">{{ t.nav.euro }}</a>
-      <a href="/?league=worldcup&lang={{ lang }}" class="{% if league == 'worldcup' %}active{% endif %}">{{ t.nav.worldcup }}</a>
-    </nav>
-
-    <div class="top-actions">
-      <div class="lang-switch">
-        <a href="/?league={{ league }}&lang=de" class="{% if lang == 'de' %}active{% endif %}">DE</a>
-        <a href="/?league={{ league }}&lang=en" class="{% if lang == 'en' %}active{% endif %}">EN</a>
-        <a href="/?league={{ league }}&lang=it" class="{% if lang == 'it' %}active{% endif %}">IT</a>
-        <a href="/?league={{ league }}&lang=fr" class="{% if lang == 'fr' %}active{% endif %}">FR</a>
-      </div>
-      <button class="btn-login">{{ t.login }}</button>
-    </div>
-  </div>
-</header>
-
 <main class="container page-content">
 
   {% if error %}
@@ -180,10 +154,10 @@
 
     <div class="premium-box">
       <div class="premium-inner">
-        <div class="premium-tag">Premium</div>
+        <div class="premium-tag">{{ t.premium }}</div>
         <h3>{{ t.premium_box_title }}</h3>
         <p>{{ t.premium_box_text }}</p>
-        <button class="premium-btn">{{ t.premium_button }}</button>
+        <a class="premium-btn-link" href="/premium?league={{ league }}&lang={{ lang }}">{{ t.premium_button }}</a>
       </div>
     </div>
   </section>
