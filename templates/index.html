@@ -27,8 +27,51 @@
 </header>
 
 <section class="hero">
-    <h1>Football Stats & Predictions</h1>
-    <p>Europaweit. Live. Schnell.</p>
+    <div class="hero-inner">
+        <div class="hero-text">
+            <span class="hero-badge">LIVE FOOTBALL PLATFORM</span>
+            <h1>Football Stats & Predictions</h1>
+            <p>Europaweit. Live. Schnell. Modern.</p>
+        </div>
+
+        {% if matches and matches|length > 0 %}
+        <div class="featured-match-card" id="featuredMatch">
+            <div class="featured-topline">
+                <span class="featured-label">Featured Match</span>
+                <span class="featured-status">{{ matches[0].status }}</span>
+            </div>
+
+            <div class="featured-main">
+                <div class="featured-team">
+                    <img src="{{ matches[0].home_logo }}" alt="{{ matches[0].home }}">
+                    <div class="featured-team-name">{{ matches[0].home }}</div>
+                </div>
+
+                <div class="featured-center">
+                    {% if matches[0].score_home is not none and matches[0].score_away is not none %}
+                        <div class="featured-score">{{ matches[0].score_home }} - {{ matches[0].score_away }}</div>
+                    {% else %}
+                        <div class="featured-score">VS</div>
+                    {% endif %}
+                    <div class="featured-time">{{ matches[0].time }}</div>
+                </div>
+
+                <div class="featured-team">
+                    <img src="{{ matches[0].away_logo }}" alt="{{ matches[0].away }}">
+                    <div class="featured-team-name">{{ matches[0].away }}</div>
+                </div>
+            </div>
+        </div>
+        {% else %}
+        <div class="featured-match-card empty-featured">
+            <div class="featured-topline">
+                <span class="featured-label">Featured Match</span>
+                <span class="featured-status">NO DATA</span>
+            </div>
+            <div class="featured-empty-text">Aktuell keine Spiele verfügbar</div>
+        </div>
+        {% endif %}
+    </div>
 </section>
 
 {% if error %}
@@ -68,48 +111,85 @@
     </div>
 </section>
 
-<section class="table-section">
-    <h2>Tabelle</h2>
+<section class="content-grid">
+    <section class="table-section">
+        <h2>Tabelle</h2>
 
-    <table>
-        <tr>
-            <th>#</th>
-            <th>Team</th>
-            <th>Punkte</th>
-        </tr>
+        <table>
+            <tr>
+                <th>#</th>
+                <th>Team</th>
+                <th>Punkte</th>
+            </tr>
 
-        {% for t in table %}
-        <tr>
-            <td>{{ t.pos }}</td>
-            <td class="team-cell">
-                <img src="{{ t.logo }}" alt="{{ t.team }}">
-                {{ t.team }}
-            </td>
-            <td>{{ t.points }}</td>
-        </tr>
-        {% endfor %}
-    </table>
-</section>
+            {% for t in table %}
+            <tr>
+                <td>{{ t.pos }}</td>
+                <td class="team-cell">
+                    <img src="{{ t.logo }}" alt="{{ t.team }}">
+                    {{ t.team }}
+                </td>
+                <td>{{ t.points }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </section>
 
-<section class="scorers">
-    <h2>Top Scorer</h2>
+    <section class="scorers">
+        <h2>Top Scorer</h2>
 
-    {% for s in scorers %}
-    <div class="scorer-row">
-        <div class="scorer-left">
-            <img src="{{ s.logo }}" alt="{{ s.team }}">
-            <div>
-                <div>{{ s.name }}</div>
-                <small>{{ s.team }}</small>
+        {% for s in scorers %}
+        <div class="scorer-row">
+            <div class="scorer-left">
+                <img src="{{ s.logo }}" alt="{{ s.team }}">
+                <div>
+                    <div>{{ s.name }}</div>
+                    <small>{{ s.team }}</small>
+                </div>
             </div>
+            <span class="goals">{{ s.goals }}</span>
         </div>
-        <span class="goals">{{ s.goals }}</span>
-    </div>
-    {% endfor %}
+        {% endfor %}
+    </section>
 </section>
 
 <script>
 const currentLeague = "{{ league }}";
+
+function renderFeaturedMatch(matches) {
+    const featured = document.getElementById("featuredMatch");
+    if (!featured || !matches || matches.length === 0) return;
+
+    const m = matches[0];
+
+    const scoreHtml = (m.score_home !== null && m.score_away !== null)
+        ? `${m.score_home} - ${m.score_away}`
+        : `VS`;
+
+    featured.innerHTML = `
+        <div class="featured-topline">
+            <span class="featured-label">Featured Match</span>
+            <span class="featured-status">${m.status}</span>
+        </div>
+
+        <div class="featured-main">
+            <div class="featured-team">
+                <img src="${m.home_logo}" alt="${m.home}">
+                <div class="featured-team-name">${m.home}</div>
+            </div>
+
+            <div class="featured-center">
+                <div class="featured-score">${scoreHtml}</div>
+                <div class="featured-time">${m.time}</div>
+            </div>
+
+            <div class="featured-team">
+                <img src="${m.away_logo}" alt="${m.away}">
+                <div class="featured-team-name">${m.away}</div>
+            </div>
+        </div>
+    `;
+}
 
 function renderMatches(matches) {
     const grid = document.getElementById("matchGrid");
@@ -156,6 +236,7 @@ async function refreshLiveMatches() {
         const data = await res.json();
 
         if (data.success) {
+            renderFeaturedMatch(data.matches);
             renderMatches(data.matches);
             document.getElementById("liveStatus").textContent = "Live Update aktiv";
         } else {
