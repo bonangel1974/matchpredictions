@@ -1,178 +1,113 @@
-{% extends "base.html" %}
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <title>MatchPredictions</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
 
-{% block content %}
-<main class="container page-content">
+<body>
 
-  {% if error %}
-    <div class="error-box">
-      {{ error }}
-    </div>
-  {% endif %}
+<header class="header">
+    <div class="logo">MatchPredictions</div>
 
-  <section class="hero">
-    <div class="hero-content">
-      <div class="hero-copy">
-        <div class="hero-badge">{{ t.hero_badge }}</div>
-        <h1>{{ t.hero_title }}</h1>
-        <p>{{ t.hero_text }}</p>
-      </div>
+    <nav>
+        <a href="/?league=bundesliga">Deutschland</a>
+        <a href="/?league=switzerland">Schweiz</a>
+        <a href="/?league=austria">Österreich</a>
+        <a href="/?league=seriea">Italien</a>
+        <a href="/?league=ligue1">Frankreich</a>
+        <a href="/?league=championsleague">Champions League</a>
+        <a href="/?league=euro">EURO</a>
+        <a href="/?league=worldcup">WM</a>
+    </nav>
 
-      <div class="featured-card">
-        {% if featured_match %}
-          <div class="featured-top">
-            <span>{{ t.featured_match }}</span>
-            <span>{{ t.next_days }}</span>
-          </div>
+    <a class="login-btn" href="#">Login</a>
+</header>
 
-          <div class="featured-versus">
-            <div class="featured-side">
-              <img src="{{ featured_match.home_logo }}" alt="{{ featured_match.home }}" class="featured-logo">
-              <div class="featured-short">{{ featured_match.home_short }}</div>
-              <div class="featured-name">{{ featured_match.home }}</div>
+
+<section class="hero">
+    <h1>Football Stats & Predictions</h1>
+    <p>Europaweit. Live. Schnell.</p>
+</section>
+
+
+<!-- MATCHES -->
+<section class="matches">
+
+    <h2>Live & Upcoming Matches</h2>
+
+    <div class="match-grid">
+
+        {% for m in matches %}
+        <div class="match-card">
+
+            <div class="team">
+                <img src="{{ m.home_logo }}">
+                <span>{{ m.home }}</span>
             </div>
 
-            <div class="featured-center">
-              {% if featured_match.score_home is not none and featured_match.score_away is not none %}
-                <div class="featured-score">{{ featured_match.score_home }} - {{ featured_match.score_away }}</div>
-              {% else %}
-                <div class="featured-score upcoming">vs</div>
-              {% endif %}
-              <div class="featured-kickoff">{{ featured_match.kickoff }}</div>
+            <div class="vs">
+                VS
+                <div class="time">{{ m.time }}</div>
             </div>
 
-            <div class="featured-side">
-              <img src="{{ featured_match.away_logo }}" alt="{{ featured_match.away }}" class="featured-logo">
-              <div class="featured-short">{{ featured_match.away_short }}</div>
-              <div class="featured-name">{{ featured_match.away }}</div>
+            <div class="team">
+                <img src="{{ m.away_logo }}">
+                <span>{{ m.away }}</span>
             </div>
-          </div>
-        {% else %}
-          <div class="empty-state dark">{{ t.empty_matches }}</div>
-        {% endif %}
-      </div>
-    </div>
-  </section>
 
-  <section class="dashboard-grid">
-    <div class="panel">
-      <div class="panel-header">
-        <h2>{{ t.matches_title }}</h2>
-        <span class="panel-badge">{{ t.next_days }}</span>
-      </div>
-
-      {% if matches %}
-        <div class="matches-list">
-          {% for m in matches %}
-            <div class="match-card-premium">
-              <div class="match-team-block">
-                <img src="{{ m.home_logo }}" alt="{{ m.home }}" class="club-logo">
-                <div class="match-team-text">
-                  <span class="club-short">{{ m.home_short }}</span>
-                  <strong>{{ m.home }}</strong>
-                </div>
-              </div>
-
-              <div class="match-middle-premium">
-                {% if m.score_home is not none and m.score_away is not none %}
-                  <div class="match-score-live">{{ m.score_home }} - {{ m.score_away }}</div>
-                {% else %}
-                  <div class="match-score-live upcoming">vs</div>
-                {% endif %}
-                <small>{{ m.kickoff }}</small>
-              </div>
-
-              <div class="match-team-block right">
-                <div class="match-team-text right">
-                  <span class="club-short">{{ m.away_short }}</span>
-                  <strong>{{ m.away }}</strong>
-                </div>
-                <img src="{{ m.away_logo }}" alt="{{ m.away }}" class="club-logo">
-              </div>
-            </div>
-          {% endfor %}
         </div>
-      {% else %}
-        <div class="empty-state">{{ t.empty_matches }}</div>
-      {% endif %}
+        {% endfor %}
+
     </div>
 
-    <div class="panel">
-      <div class="panel-header">
-        <h2>{{ t.table_title }}</h2>
-        <span class="panel-badge">{{ t.table_badge }}</span>
-      </div>
+</section>
 
-      {% if table %}
-        <div class="table-wrap">
-          <table class="league-table">
-            <thead>
-              <tr>
-                <th>{{ t.position }}</th>
-                <th>{{ t.team }}</th>
-                <th>GD</th>
-                <th>{{ t.points }}</th>
-              </tr>
-            </thead>
-            <tbody>
-              {% for row in table %}
-                <tr>
-                  <td>{{ row.pos }}</td>
-                  <td>
-                    <div class="team-cell">
-                      <img src="{{ row.logo }}" alt="{{ row.team }}" class="table-logo">
-                      <span>{{ row.team }}</span>
-                    </div>
-                  </td>
-                  <td>{{ row.goal_diff }}</td>
-                  <td><strong>{{ row.points }}</strong></td>
-                </tr>
-              {% endfor %}
-            </tbody>
-          </table>
-        </div>
-      {% else %}
-        <div class="empty-state">{{ t.empty_table }}</div>
-      {% endif %}
+
+<!-- TABLE -->
+<section class="table-section">
+
+    <h2>Tabelle</h2>
+
+    <table>
+        <tr>
+            <th>#</th>
+            <th>Team</th>
+            <th>Punkte</th>
+        </tr>
+
+        {% for t in table %}
+        <tr>
+            <td>{{ t.pos }}</td>
+            <td class="team-cell">
+                <img src="{{ t.logo }}">
+                {{ t.team }}
+            </td>
+            <td>{{ t.points }}</td>
+        </tr>
+        {% endfor %}
+
+    </table>
+
+</section>
+
+
+<!-- SCORERS -->
+<section class="scorers">
+
+    <h2>Top Scorer</h2>
+
+    {% for s in scorers %}
+    <div class="scorer-row">
+        <img src="{{ s.logo }}">
+        <span>{{ s.name }}</span>
+        <span class="goals">{{ s.goals }}</span>
     </div>
-  </section>
+    {% endfor %}
 
-  <section class="lower-grid">
-    <div class="panel">
-      <div class="panel-header">
-        <h2>{{ t.scorers_title }}</h2>
-        <span class="panel-badge">{{ t.scorers_badge }}</span>
-      </div>
+</section>
 
-      {% if scorers %}
-        <div class="scorer-list">
-          {% for s in scorers %}
-            <div class="scorer-row">
-              <div class="scorer-info">
-                <div class="player-avatar">{{ loop.index }}</div>
-                <img src="{{ s.team_logo }}" alt="{{ s.team }}" class="scorer-team-logo">
-                <div>
-                  <div class="player-name">{{ s.name }}</div>
-                  <div class="player-team">{{ s.team }}</div>
-                </div>
-              </div>
-              <div class="player-goals">{{ s.goals }} {{ t.goals }}</div>
-            </div>
-          {% endfor %}
-        </div>
-      {% else %}
-        <div class="empty-state">{{ t.empty_scorers }}</div>
-      {% endif %}
-    </div>
 
-    <div class="premium-box">
-      <div class="premium-inner">
-        <div class="premium-tag">Premium</div>
-        <h3>{{ t.premium_title }}</h3>
-        <p>{{ t.premium_text }}</p>
-        <a class="premium-btn-link" href="/premium?league={{ league }}&lang={{ lang }}">{{ t.premium_button }}</a>
-      </div>
-    </div>
-  </section>
-
-</main>
-{% endblock %}
+</body>
+</html>
