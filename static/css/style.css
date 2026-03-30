@@ -5,6 +5,78 @@ body {
     color: white;
 }
 
+
+/* STATUS COLORS */
+.status,
+.featured-status {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 6px 10px;
+    border-radius: 999px;
+    font-size: 11px;
+    font-weight: bold;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    border: 1px solid transparent;
+}
+
+/* Default */
+.status-default,
+.featured-status.status-default {
+    background: rgba(148, 163, 184, 0.14);
+    color: #cbd5e1;
+    border-color: rgba(148, 163, 184, 0.22);
+}
+
+/* Timed / Scheduled */
+.status-timed,
+.status-scheduled,
+.featured-status.status-timed,
+.featured-status.status-scheduled {
+    background: rgba(37, 99, 235, 0.16);
+    color: #93c5fd;
+    border-color: rgba(59, 130, 246, 0.28);
+}
+
+/* In Play / Live */
+.status-in_play,
+.status-live,
+.status-paused,
+.featured-status.status-in_play,
+.featured-status.status-live,
+.featured-status.status-paused {
+    background: rgba(22, 101, 52, 0.24);
+    color: #86efac;
+    border-color: rgba(34, 197, 94, 0.28);
+    box-shadow: 0 0 0 1px rgba(34, 197, 94, 0.08);
+}
+
+/* Finished */
+.status-finished,
+.featured-status.status-finished {
+    background: rgba(107, 114, 128, 0.18);
+    color: #d1d5db;
+    border-color: rgba(156, 163, 175, 0.24);
+}
+
+/* Postponed */
+.status-postponed,
+.featured-status.status-postponed {
+    background: rgba(180, 83, 9, 0.22);
+    color: #fcd34d;
+    border-color: rgba(245, 158, 11, 0.26);
+}
+
+/* Cancelled */
+.status-cancelled,
+.featured-status.status-cancelled {
+    background: rgba(127, 29, 29, 0.24);
+    color: #fca5a5;
+    border-color: rgba(239, 68, 68, 0.26);
+}
+
+
 /* HEADER */
 .header {
     display: flex;
