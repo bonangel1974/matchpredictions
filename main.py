@@ -129,6 +129,7 @@ def home():
     matches = []
     table = []
     scorers = []
+    featured_match = None
     error = None
 
     try:
@@ -139,6 +140,20 @@ def home():
         table = load_table(league_code)
         scorers = load_scorers(league_code)
 
+        # Featured Match: zuerst LIVE, sonst erstes Spiel
+        if matches:
+            live_statuses = {"IN_PLAY", "LIVE", "PAUSED"}
+
+            live_matches = [
+                m for m in matches
+                if str(m.get("status", "")).upper() in live_statuses
+            ]
+
+            if live_matches:
+                featured_match = live_matches[0]
+            else:
+                featured_match = matches[0]
+
     except Exception as e:
         error = str(e)
 
@@ -147,9 +162,11 @@ def home():
         matches=matches,
         table=table,
         scorers=scorers,
+        featured_match=featured_match,
         error=error,
         league=league_key
     )
+
 
 
 @app.route("/api/live-matches")

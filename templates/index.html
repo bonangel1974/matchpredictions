@@ -12,18 +12,18 @@
     <div class="logo">MatchPredictions</div>
 
     <nav>
-        <a href="/?league=bundesliga">Deutschland</a>
-        <a href="/?league=switzerland">Schweiz</a>
-        <a href="/?league=austria">Österreich</a>
-        <a href="/?league=premierleague">England</a>
-        <a href="/?league=seriea">Italien</a>
-        <a href="/?league=ligue1">Frankreich</a>
-        <a href="/?league=championsleague">Champions League</a>
-        <a href="/?league=euro">EURO</a>
-        <a href="/?league=worldcup">WM</a>
+        <a href="/?league=bundesliga" class="{% if league == 'bundesliga' %}active{% endif %}">Deutschland</a>
+        <a href="/?league=switzerland" class="{% if league == 'switzerland' %}active{% endif %}">Schweiz</a>
+        <a href="/?league=austria" class="{% if league == 'austria' %}active{% endif %}">Österreich</a>
+        <a href="/?league=premierleague" class="{% if league == 'premierleague' %}active{% endif %}">England</a>
+        <a href="/?league=seriea" class="{% if league == 'seriea' %}active{% endif %}">Italien</a>
+        <a href="/?league=ligue1" class="{% if league == 'ligue1' %}active{% endif %}">Frankreich</a>
+        <a href="/?league=championsleague" class="{% if league == 'championsleague' %}active{% endif %}">Champions League</a>
+        <a href="/?league=euro" class="{% if league == 'euro' %}active{% endif %}">EURO</a>
+        <a href="/?league=worldcup" class="{% if league == 'worldcup' %}active{% endif %}">WM</a>
     </nav>
 
-    <a class="login-btn" href="#">Login</a>
+    <a class="login-btn" href="/login?league={{ league }}">Login</a>
 </header>
 
 <section class="hero">
@@ -34,39 +34,39 @@
             <p>Europaweit. Live. Schnell. Modern.</p>
         </div>
 
-        {% if matches and matches|length > 0 %}
-        <div class="featured-match-card" id="featuredMatch">
+        {% if featured_match %}
+        <div class="featured-match-card {% if featured_match.status in ['IN_PLAY', 'LIVE', 'PAUSED'] %}live-glow{% endif %}" id="featuredMatch">
             <div class="featured-topline">
                 <span class="featured-label">Featured Match</span>
-                <span class="featured-status">{{ matches[0].status }}</span>
+                <span class="featured-status status-{{ featured_match.status|lower }}">{{ featured_match.status }}</span>
             </div>
 
             <div class="featured-main">
                 <div class="featured-team">
-                    <img src="{{ matches[0].home_logo }}" alt="{{ matches[0].home }}">
-                    <div class="featured-team-name">{{ matches[0].home }}</div>
+                    <img src="{{ featured_match.home_logo }}" alt="{{ featured_match.home }}">
+                    <div class="featured-team-name">{{ featured_match.home }}</div>
                 </div>
 
                 <div class="featured-center">
-                    {% if matches[0].score_home is not none and matches[0].score_away is not none %}
-                        <div class="featured-score">{{ matches[0].score_home }} - {{ matches[0].score_away }}</div>
+                    {% if featured_match.score_home is not none and featured_match.score_away is not none %}
+                        <div class="featured-score {% if featured_match.status in ['IN_PLAY', 'LIVE', 'PAUSED'] %}score-live{% endif %}">{{ featured_match.score_home }} - {{ featured_match.score_away }}</div>
                     {% else %}
                         <div class="featured-score">VS</div>
                     {% endif %}
-                    <div class="featured-time">{{ matches[0].time }}</div>
+                    <div class="featured-time">{{ featured_match.time }}</div>
                 </div>
 
                 <div class="featured-team">
-                    <img src="{{ matches[0].away_logo }}" alt="{{ matches[0].away }}">
-                    <div class="featured-team-name">{{ matches[0].away }}</div>
+                    <img src="{{ featured_match.away_logo }}" alt="{{ featured_match.away }}">
+                    <div class="featured-team-name">{{ featured_match.away }}</div>
                 </div>
             </div>
         </div>
         {% else %}
-        <div class="featured-match-card empty-featured">
+        <div class="featured-match-card empty-featured" id="featuredMatch">
             <div class="featured-topline">
                 <span class="featured-label">Featured Match</span>
-                <span class="featured-status">NO DATA</span>
+                <span class="featured-status status-default">NO DATA</span>
             </div>
             <div class="featured-empty-text">Aktuell keine Spiele verfügbar</div>
         </div>
@@ -86,7 +86,7 @@
 
     <div class="match-grid" id="matchGrid">
         {% for m in matches %}
-        <div class="match-card">
+        <div class="match-card {% if m.status in ['IN_PLAY', 'LIVE', 'PAUSED'] %}live-glow{% endif %}">
             <div class="team">
                 <img src="{{ m.home_logo }}" alt="{{ m.home }}">
                 <span>{{ m.home }}</span>
@@ -94,12 +94,12 @@
 
             <div class="vs">
                 {% if m.score_home is not none and m.score_away is not none %}
-                    <div class="score">{{ m.score_home }} - {{ m.score_away }}</div>
+                    <div class="score {% if m.status in ['IN_PLAY', 'LIVE', 'PAUSED'] %}score-live{% endif %}">{{ m.score_home }} - {{ m.score_away }}</div>
                 {% else %}
                     <div class="score">VS</div>
                 {% endif %}
                 <div class="time">{{ m.time }}</div>
-                <div class="status">{{ m.status }}</div>
+                <div class="status status-{{ m.status|lower }}">{{ m.status }}</div>
             </div>
 
             <div class="team">
@@ -156,20 +156,31 @@
 <script>
 const currentLeague = "{{ league }}";
 
+function isLiveStatus(status) {
+    const s = String(status || "").toUpperCase();
+    return ["IN_PLAY", "LIVE", "PAUSED"].includes(s);
+}
+
 function renderFeaturedMatch(matches) {
     const featured = document.getElementById("featuredMatch");
     if (!featured || !matches || matches.length === 0) return;
 
-    const m = matches[0];
+    const liveMatches = matches.filter(m => isLiveStatus(m.status));
+    const m = liveMatches.length > 0 ? liveMatches[0] : matches[0];
 
     const scoreHtml = (m.score_home !== null && m.score_away !== null)
         ? `${m.score_home} - ${m.score_away}`
         : `VS`;
 
+    const liveClass = isLiveStatus(m.status) ? "live-glow" : "";
+    const scoreLiveClass = isLiveStatus(m.status) ? "score-live" : "";
+
+    featured.className = `featured-match-card ${liveClass}`;
+
     featured.innerHTML = `
         <div class="featured-topline">
             <span class="featured-label">Featured Match</span>
-            <span class="featured-status">${m.status}</span>
+            <span class="featured-status status-${String(m.status || 'default').toLowerCase()}">${m.status || 'UNKNOWN'}</span>
         </div>
 
         <div class="featured-main">
@@ -179,7 +190,7 @@ function renderFeaturedMatch(matches) {
             </div>
 
             <div class="featured-center">
-                <div class="featured-score">${scoreHtml}</div>
+                <div class="featured-score ${scoreLiveClass}">${scoreHtml}</div>
                 <div class="featured-time">${m.time}</div>
             </div>
 
@@ -203,11 +214,11 @@ function renderMatches(matches) {
 
     matches.forEach(m => {
         const scoreHtml = (m.score_home !== null && m.score_away !== null)
-            ? `<div class="score">${m.score_home} - ${m.score_away}</div>`
+            ? `<div class="score ${isLiveStatus(m.status) ? 'score-live' : ''}">${m.score_home} - ${m.score_away}</div>`
             : `<div class="score">VS</div>`;
 
         html += `
-            <div class="match-card">
+            <div class="match-card ${isLiveStatus(m.status) ? 'live-glow' : ''}">
                 <div class="team">
                     <img src="${m.home_logo}" alt="${m.home}">
                     <span>${m.home}</span>
@@ -216,7 +227,7 @@ function renderMatches(matches) {
                 <div class="vs">
                     ${scoreHtml}
                     <div class="time">${m.time}</div>
-                    <div class="status">${m.status}</div>
+                    <div class="status status-${String(m.status || 'default').toLowerCase()}">${m.status || 'UNKNOWN'}</div>
                 </div>
 
                 <div class="team">

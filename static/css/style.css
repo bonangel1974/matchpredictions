@@ -517,3 +517,74 @@ nav a:hover {
         padding-right: 16px;
     }
 }
+
+/* ACTIVE NAV */
+nav a {
+    color: #94a3b8;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 600;
+    padding: 8px 10px;
+    border-radius: 8px;
+    transition: 0.2s ease;
+}
+
+nav a:hover {
+    color: white;
+    background: rgba(255,255,255,0.05);
+}
+
+nav a.active {
+    color: white;
+    background: rgba(37, 99, 235, 0.18);
+    box-shadow: inset 0 0 0 1px rgba(59, 130, 246, 0.22);
+}
+
+/* LIVE EFFECTS */
+.live-glow {
+    box-shadow:
+        0 0 0 1px rgba(34, 197, 94, 0.18),
+        0 0 24px rgba(34, 197, 94, 0.12),
+        0 10px 20px rgba(0, 0, 0, 0.18);
+    animation: livePulse 2.2s infinite ease-in-out;
+}
+
+.score-live {
+    animation: scorePulse 1.8s infinite ease-in-out;
+}
+
+@keyframes livePulse {
+    0% {
+        box-shadow:
+            0 0 0 1px rgba(34, 197, 94, 0.18),
+            0 0 18px rgba(34, 197, 94, 0.10),
+            0 10px 20px rgba(0, 0, 0, 0.18);
+    }
+    50% {
+        box-shadow:
+            0 0 0 1px rgba(34, 197, 94, 0.26),
+            0 0 30px rgba(34, 197, 94, 0.18),
+            0 10px 24px rgba(0, 0, 0, 0.22);
+    }
+    100% {
+        box-shadow:
+            0 0 0 1px rgba(34, 197, 94, 0.18),
+            0 0 18px rgba(34, 197, 94, 0.10),
+            0 10px 20px rgba(0, 0, 0, 0.18);
+    }
+}
+
+@keyframes scorePulse {
+    0% {
+        transform: scale(1);
+        color: white;
+    }
+    50% {
+        transform: scale(1.06);
+        color: #86efac;
+    }
+    100% {
+        transform: scale(1);
+        color: white;
+    }
+}
