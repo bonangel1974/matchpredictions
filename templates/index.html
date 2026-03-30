@@ -15,6 +15,7 @@
         <a href="/?league=bundesliga">Deutschland</a>
         <a href="/?league=switzerland">Schweiz</a>
         <a href="/?league=austria">Österreich</a>
+        <a href="/?league=premierleague">England</a>
         <a href="/?league=seriea">Italien</a>
         <a href="/?league=ligue1">Frankreich</a>
         <a href="/?league=championsleague">Champions League</a>
@@ -25,49 +26,49 @@
     <a class="login-btn" href="#">Login</a>
 </header>
 
-
 <section class="hero">
     <h1>Football Stats & Predictions</h1>
     <p>Europaweit. Live. Schnell.</p>
 </section>
 
+{% if error %}
+<div class="error-box">{{ error }}</div>
+{% endif %}
 
-<!-- MATCHES -->
 <section class="matches">
+    <div class="section-head">
+        <h2>Live & Upcoming Matches</h2>
+        <span class="live-badge" id="liveStatus">Live Update aktiv</span>
+    </div>
 
-    <h2>Live & Upcoming Matches</h2>
-
-    <div class="match-grid">
-
+    <div class="match-grid" id="matchGrid">
         {% for m in matches %}
         <div class="match-card">
-
             <div class="team">
-                <img src="{{ m.home_logo }}">
+                <img src="{{ m.home_logo }}" alt="{{ m.home }}">
                 <span>{{ m.home }}</span>
             </div>
 
             <div class="vs">
-                VS
+                {% if m.score_home is not none and m.score_away is not none %}
+                    <div class="score">{{ m.score_home }} - {{ m.score_away }}</div>
+                {% else %}
+                    <div class="score">VS</div>
+                {% endif %}
                 <div class="time">{{ m.time }}</div>
+                <div class="status">{{ m.status }}</div>
             </div>
 
             <div class="team">
-                <img src="{{ m.away_logo }}">
+                <img src="{{ m.away_logo }}" alt="{{ m.away }}">
                 <span>{{ m.away }}</span>
             </div>
-
         </div>
         {% endfor %}
-
     </div>
-
 </section>
 
-
-<!-- TABLE -->
 <section class="table-section">
-
     <h2>Tabelle</h2>
 
     <table>
@@ -81,33 +82,92 @@
         <tr>
             <td>{{ t.pos }}</td>
             <td class="team-cell">
-                <img src="{{ t.logo }}">
+                <img src="{{ t.logo }}" alt="{{ t.team }}">
                 {{ t.team }}
             </td>
             <td>{{ t.points }}</td>
         </tr>
         {% endfor %}
-
     </table>
-
 </section>
 
-
-<!-- SCORERS -->
 <section class="scorers">
-
     <h2>Top Scorer</h2>
 
     {% for s in scorers %}
     <div class="scorer-row">
-        <img src="{{ s.logo }}">
-        <span>{{ s.name }}</span>
+        <div class="scorer-left">
+            <img src="{{ s.logo }}" alt="{{ s.team }}">
+            <div>
+                <div>{{ s.name }}</div>
+                <small>{{ s.team }}</small>
+            </div>
+        </div>
         <span class="goals">{{ s.goals }}</span>
     </div>
     {% endfor %}
-
 </section>
 
+<script>
+const currentLeague = "{{ league }}";
+
+function renderMatches(matches) {
+    const grid = document.getElementById("matchGrid");
+
+    if (!matches || matches.length === 0) {
+        grid.innerHTML = "<p>Keine Spiele verfügbar</p>";
+        return;
+    }
+
+    let html = "";
+
+    matches.forEach(m => {
+        const scoreHtml = (m.score_home !== null && m.score_away !== null)
+            ? `<div class="score">${m.score_home} - ${m.score_away}</div>`
+            : `<div class="score">VS</div>`;
+
+        html += `
+            <div class="match-card">
+                <div class="team">
+                    <img src="${m.home_logo}" alt="${m.home}">
+                    <span>${m.home}</span>
+                </div>
+
+                <div class="vs">
+                    ${scoreHtml}
+                    <div class="time">${m.time}</div>
+                    <div class="status">${m.status}</div>
+                </div>
+
+                <div class="team">
+                    <img src="${m.away_logo}" alt="${m.away}">
+                    <span>${m.away}</span>
+                </div>
+            </div>
+        `;
+    });
+
+    grid.innerHTML = html;
+}
+
+async function refreshLiveMatches() {
+    try {
+        const res = await fetch(`/api/live-matches?league=${currentLeague}`);
+        const data = await res.json();
+
+        if (data.success) {
+            renderMatches(data.matches);
+            document.getElementById("liveStatus").textContent = "Live Update aktiv";
+        } else {
+            document.getElementById("liveStatus").textContent = "Live Update Fehler";
+        }
+    } catch (err) {
+        document.getElementById("liveStatus").textContent = "Live Update Fehler";
+    }
+}
+
+setInterval(refreshLiveMatches, 60000);
+</script>
 
 </body>
 </html>
