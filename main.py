@@ -14,6 +14,8 @@ HEADERS = {
 
 LEAGUES = {
     "bundesliga": "BL1",
+    "switzerland": "CLI",
+    "austria": "BSA",
     "premierleague": "PL",
     "seriea": "SA",
     "ligue1": "FL1",
@@ -26,8 +28,12 @@ TRANSLATIONS = {
     "de": {
         "brand": "MatchPredictions",
         "login": "Login",
+        "register": "Registrieren",
+        "premium": "Premium",
         "nav": {
             "bundesliga": "Deutschland",
+            "switzerland": "Schweiz",
+            "austria": "Österreich",
             "premierleague": "England",
             "seriea": "Italien",
             "ligue1": "Frankreich",
@@ -35,9 +41,9 @@ TRANSLATIONS = {
             "euro": "EURO",
             "worldcup": "WM"
         },
-        "hero_badge": "Fussball Datenplattform",
-        "hero_title": "Moderne Fussball Statistiken mit Premium Look",
-        "hero_text": "Kommende Spiele, Tabellen, Top Scorer und spaeter Prognosen, Formkurven und Premium Analysen nach Login.",
+        "hero_badge": "Europäische Fussball Plattform",
+        "hero_title": "Fussball Statistiken für Europa",
+        "hero_text": "Deutschland, Schweiz, Österreich, England, Italien, Frankreich sowie Champions League, EURO und WM direkt auf der Hauptseite.",
         "featured_match": "Featured Match",
         "next_days": "Nächste 7 Tage",
         "matches_title": "Kommende Spiele",
@@ -52,15 +58,19 @@ TRANSLATIONS = {
         "empty_matches": "Keine Spiele im gewählten Zeitraum verfügbar.",
         "empty_table": "Keine Tabelle verfügbar.",
         "empty_scorers": "Keine Torschützen verfügbar.",
-        "premium_title": "Premium Bereich vorbereiten",
-        "premium_text": "Hier kommen später Gewinnwahrscheinlichkeiten, Head-to-Head, Formanalyse, Value Matches und persönliche Favoriten hinein.",
+        "premium_title": "Mehr Analysen nach Login",
+        "premium_text": "Später mit Wahrscheinlichkeiten, Formanalyse, Head-to-Head und weiteren Premium Funktionen.",
         "premium_button": "Premium ansehen"
     },
     "en": {
         "brand": "MatchPredictions",
         "login": "Login",
+        "register": "Register",
+        "premium": "Premium",
         "nav": {
             "bundesliga": "Germany",
+            "switzerland": "Switzerland",
+            "austria": "Austria",
             "premierleague": "England",
             "seriea": "Italy",
             "ligue1": "France",
@@ -68,9 +78,9 @@ TRANSLATIONS = {
             "euro": "EURO",
             "worldcup": "World Cup"
         },
-        "hero_badge": "Football data platform",
-        "hero_title": "Modern football statistics with a premium look",
-        "hero_text": "Upcoming matches, standings, top scorers and later predictions, form curves and premium analysis after login.",
+        "hero_badge": "European football platform",
+        "hero_title": "Football statistics for Europe",
+        "hero_text": "Germany, Switzerland, Austria, England, Italy, France plus Champions League, EURO and World Cup directly on the homepage.",
         "featured_match": "Featured Match",
         "next_days": "Next 7 Days",
         "matches_title": "Upcoming Matches",
@@ -85,15 +95,19 @@ TRANSLATIONS = {
         "empty_matches": "No matches available in the selected period.",
         "empty_table": "No table available.",
         "empty_scorers": "No scorers available.",
-        "premium_title": "Prepare premium area",
-        "premium_text": "Later this area will include win probabilities, head-to-head analysis, form analysis, value matches and personal favorites.",
+        "premium_title": "More analysis after login",
+        "premium_text": "Later with probabilities, form analysis, head-to-head and more premium features.",
         "premium_button": "View premium"
     },
     "it": {
         "brand": "MatchPredictions",
         "login": "Login",
+        "register": "Registrati",
+        "premium": "Premium",
         "nav": {
             "bundesliga": "Germania",
+            "switzerland": "Svizzera",
+            "austria": "Austria",
             "premierleague": "Inghilterra",
             "seriea": "Italia",
             "ligue1": "Francia",
@@ -101,9 +115,9 @@ TRANSLATIONS = {
             "euro": "EURO",
             "worldcup": "Mondiali"
         },
-        "hero_badge": "Piattaforma dati calcio",
-        "hero_title": "Statistiche calcio moderne con look premium",
-        "hero_text": "Prossime partite, classifiche, top marcatori e più avanti pronostici, curve di forma e analisi premium dopo il login.",
+        "hero_badge": "Piattaforma europea di calcio",
+        "hero_title": "Statistiche calcio per Europa",
+        "hero_text": "Germania, Svizzera, Austria, Inghilterra, Italia, Francia più Champions League, EURO e Mondiali direttamente nella homepage.",
         "featured_match": "Partita in evidenza",
         "next_days": "Prossimi 7 giorni",
         "matches_title": "Prossime Partite",
@@ -118,15 +132,19 @@ TRANSLATIONS = {
         "empty_matches": "Nessuna partita disponibile nel periodo selezionato.",
         "empty_table": "Nessuna classifica disponibile.",
         "empty_scorers": "Nessun marcatore disponibile.",
-        "premium_title": "Preparare area premium",
-        "premium_text": "Qui arriveranno probabilità di vittoria, testa a testa, analisi della forma, value match e preferiti personali.",
+        "premium_title": "Più analisi dopo il login",
+        "premium_text": "Più avanti con probabilità, analisi della forma, head-to-head e altre funzioni premium.",
         "premium_button": "Vedi premium"
     },
     "fr": {
         "brand": "MatchPredictions",
         "login": "Connexion",
+        "register": "Inscription",
+        "premium": "Premium",
         "nav": {
             "bundesliga": "Allemagne",
+            "switzerland": "Suisse",
+            "austria": "Autriche",
             "premierleague": "Angleterre",
             "seriea": "Italie",
             "ligue1": "France",
@@ -134,9 +152,9 @@ TRANSLATIONS = {
             "euro": "EURO",
             "worldcup": "Coupe du Monde"
         },
-        "hero_badge": "Plateforme de données football",
-        "hero_title": "Statistiques football modernes avec look premium",
-        "hero_text": "Matchs à venir, classements, meilleurs buteurs et plus tard pronostics, courbes de forme et analyses premium après connexion.",
+        "hero_badge": "Plateforme européenne de football",
+        "hero_title": "Statistiques football pour Europe",
+        "hero_text": "Allemagne, Suisse, Autriche, Angleterre, Italie, France ainsi que Ligue des Champions, EURO et Coupe du Monde directement sur la page principale.",
         "featured_match": "Match vedette",
         "next_days": "7 prochains jours",
         "matches_title": "Matchs à venir",
@@ -151,8 +169,8 @@ TRANSLATIONS = {
         "empty_matches": "Aucun match disponible pour la période sélectionnée.",
         "empty_table": "Aucun classement disponible.",
         "empty_scorers": "Aucun buteur disponible.",
-        "premium_title": "Préparer la zone premium",
-        "premium_text": "Ici viendront plus tard probabilités de victoire, head-to-head, analyse de forme, value matches et favoris personnels.",
+        "premium_title": "Plus d analyses après connexion",
+        "premium_text": "Plus tard avec probabilités, analyse de forme, head-to-head et autres fonctions premium.",
         "premium_button": "Voir premium"
     }
 }
@@ -163,50 +181,42 @@ TEAM_LOGOS = {
     "Bayern Munich": "https://logo.clearbit.com/fcbayern.com",
     "Borussia Dortmund": "https://logo.clearbit.com/bvb.de",
     "Bayer 04 Leverkusen": "https://logo.clearbit.com/bayer04.de",
-    "RB Leipzig": "https://logo.clearbit.com/dierotenbullen.com",
-    "SC Freiburg": "https://logo.clearbit.com/scfreiburg.com",
-    "Eintracht Frankfurt": "https://logo.clearbit.com/eintracht.de",
-    "VfB Stuttgart": "https://logo.clearbit.com/vfb.de",
-    "TSG Hoffenheim": "https://logo.clearbit.com/tsg-hoffenheim.de",
-    "1. FSV Mainz 05": "https://logo.clearbit.com/mainz05.de",
-    "VfL Wolfsburg": "https://logo.clearbit.com.vfl-wolfsburg.de",
+    "RB Leipzig": "https://logo.clearbit.com/redbullsalzburg.at",
     "Juventus": "https://logo.clearbit.com/juventus.com",
-    "Inter Milan": "https://logo.clearbit.com/inter.it",
     "Inter": "https://logo.clearbit.com/inter.it",
+    "Inter Milan": "https://logo.clearbit.com/inter.it",
     "AC Milan": "https://logo.clearbit.com/acmilan.com",
     "Milan": "https://logo.clearbit.com/acmilan.com",
-    "Roma": "https://logo.clearbit.com/asroma.com",
     "Napoli": "https://logo.clearbit.com/sscnapoli.it",
-    "Lazio": "https://logo.clearbit.com.sslazio.it",
-    "Atalanta": "https://logo.clearbit.com/atalanta.it",
+    "Roma": "https://logo.clearbit.com/asroma.com",
     "Paris Saint-Germain": "https://logo.clearbit.com/psg.fr",
     "PSG": "https://logo.clearbit.com/psg.fr",
     "Olympique de Marseille": "https://logo.clearbit.com/om.fr",
     "AS Monaco": "https://logo.clearbit.com/asmonaco.com",
-    "Lille OSC": "https://logo.clearbit.com/losc.fr",
-    "Olympique Lyonnais": "https://logo.clearbit.com/ol.fr",
     "Manchester City": "https://logo.clearbit.com/mancity.com",
     "Manchester United": "https://logo.clearbit.com/manutd.com",
-    "Liverpool FC": "https://logo.clearbit.com/liverpoolfc.com",
-    "Liverpool": "https://logo.clearbit.com/liverpoolfc.com",
-    "Arsenal FC": "https://logo.clearbit.com/arsenal.com",
     "Arsenal": "https://logo.clearbit.com/arsenal.com",
-    "Chelsea FC": "https://logo.clearbit.com/chelseafc.com",
+    "Arsenal FC": "https://logo.clearbit.com/arsenal.com",
     "Chelsea": "https://logo.clearbit.com/chelseafc.com",
-    "Tottenham Hotspur": "https://logo.clearbit.com/tottenhamhotspur.com",
-    "Real Madrid CF": "https://logo.clearbit.com/realmadrid.com",
-    "Real Madrid": "https://logo.clearbit.com/realmadrid.com",
-    "FC Barcelona": "https://logo.clearbit.com/fcbarcelona.com",
-    "Barcelona": "https://logo.clearbit.com/fcbarcelona.com",
-    "Atlético de Madrid": "https://logo.clearbit.com/atleticodemadrid.com",
-    "Atlético Madrid": "https://logo.clearbit.com/atleticodemadrid.com",
-    "Spain": "https://flagcdn.com/w80/es.png",
+    "Chelsea FC": "https://logo.clearbit.com/chelseafc.com",
+    "Liverpool": "https://logo.clearbit.com/liverpoolfc.com",
+    "Liverpool FC": "https://logo.clearbit.com/liverpoolfc.com",
+    "FC Basel 1893": "https://logo.clearbit.com/fcb.ch",
+    "BSC Young Boys": "https://logo.clearbit.com/bscyb.ch",
+    "FC Zürich": "https://logo.clearbit.com/fcz.ch",
+    "Servette FC": "https://logo.clearbit.com/servettefc.ch",
+    "FC Lugano": "https://logo.clearbit.com/fclugano.com",
+    "FC St. Gallen 1879": "https://logo.clearbit.com/fcsg.ch",
+    "SK Rapid Wien": "https://logo.clearbit.com/skrapid.at",
+    "FK Austria Wien": "https://logo.clearbit.com/fk-austria.at",
+    "FC Red Bull Salzburg": "https://logo.clearbit.com/redbullsalzburg.at",
+    "LASK": "https://logo.clearbit.com/lask.at",
+    "Sturm Graz": "https://logo.clearbit.com/sksturm.at",
     "Germany": "https://flagcdn.com/w80/de.png",
-    "France": "https://flagcdn.com/w80/fr.png",
-    "Italy": "https://flagcdn.com/w80/it.png",
-    "Portugal": "https://flagcdn.com/w80/pt.png",
     "Switzerland": "https://flagcdn.com/w80/ch.png",
     "Austria": "https://flagcdn.com/w80/at.png",
+    "France": "https://flagcdn.com/w80/fr.png",
+    "Italy": "https://flagcdn.com/w80/it.png",
     "England": "https://flagcdn.com/w80/gb-eng.png"
 }
 
@@ -261,10 +271,7 @@ def home():
         today = datetime.now(timezone.utc).date()
         future = today + timedelta(days=7)
 
-        url_matches = (
-            f"{BASE_URL}/competitions/{league_code}/matches"
-            f"?dateFrom={today}&dateTo={future}"
-        )
+        url_matches = f"{BASE_URL}/competitions/{league_code}/matches?dateFrom={today}&dateTo={future}"
         res_matches = requests.get(url_matches, headers=HEADERS, timeout=20)
         res_matches.raise_for_status()
         data_matches = res_matches.json()
@@ -344,27 +351,6 @@ def home():
         featured_match=featured_match,
         error=error
     )
-
-
-@app.route("/login")
-def login():
-    lang, t = get_translation()
-    league = request.args.get("league", "bundesliga")
-    return render_template("login.html", t=t, lang=lang, league=league)
-
-
-@app.route("/register")
-def register():
-    lang, t = get_translation()
-    league = request.args.get("league", "bundesliga")
-    return render_template("register.html", t=t, lang=lang, league=league)
-
-
-@app.route("/premium")
-def premium():
-    lang, t = get_translation()
-    league = request.args.get("league", "bundesliga")
-    return render_template("premium.html", t=t, lang=lang, league=league)
 
 
 if __name__ == "__main__":
