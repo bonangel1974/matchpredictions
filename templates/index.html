@@ -12,7 +12,7 @@
   <section class="hero">
     <div class="hero-content">
       <div class="hero-copy">
-        <div class="hero-badge">{{ t.featured_match }}</div>
+        <div class="hero-badge">{{ t.hero_badge }}</div>
         <h1>{{ t.hero_title }}</h1>
         <p>{{ t.hero_text }}</p>
       </div>
@@ -20,12 +20,13 @@
       <div class="featured-card">
         {% if featured_match %}
           <div class="featured-top">
+            <span>{{ t.featured_match }}</span>
             <span>{{ t.next_days }}</span>
-            <span>MD {{ featured_match.matchday or "-" }}</span>
           </div>
 
-          <div class="featured-teams">
-            <div class="featured-team">
+          <div class="featured-versus">
+            <div class="featured-side">
+              <img src="{{ featured_match.home_logo }}" alt="{{ featured_match.home }}" class="featured-logo">
               <div class="featured-short">{{ featured_match.home_short }}</div>
               <div class="featured-name">{{ featured_match.home }}</div>
             </div>
@@ -39,7 +40,8 @@
               <div class="featured-kickoff">{{ featured_match.kickoff }}</div>
             </div>
 
-            <div class="featured-team right">
+            <div class="featured-side">
+              <img src="{{ featured_match.away_logo }}" alt="{{ featured_match.away }}" class="featured-logo">
               <div class="featured-short">{{ featured_match.away_short }}</div>
               <div class="featured-name">{{ featured_match.away }}</div>
             </div>
@@ -61,21 +63,30 @@
       {% if matches %}
         <div class="matches-list">
           {% for m in matches %}
-            <div class="match-row">
-              <div class="match-left">
-                <div class="club-dot"></div>
-                <span>{{ m.home }}</span>
+            <div class="match-card-premium">
+              <div class="match-team-block">
+                <img src="{{ m.home_logo }}" alt="{{ m.home }}" class="club-logo">
+                <div class="match-team-text">
+                  <span class="club-short">{{ m.home_short }}</span>
+                  <strong>{{ m.home }}</strong>
+                </div>
               </div>
-              <div class="match-middle">
+
+              <div class="match-middle-premium">
                 {% if m.score_home is not none and m.score_away is not none %}
-                  {{ m.score_home }} - {{ m.score_away }}
+                  <div class="match-score-live">{{ m.score_home }} - {{ m.score_away }}</div>
                 {% else %}
-                  vs
+                  <div class="match-score-live upcoming">vs</div>
                 {% endif %}
-              </div>
-              <div class="match-right">
-                <span>{{ m.away }}</span>
                 <small>{{ m.kickoff }}</small>
+              </div>
+
+              <div class="match-team-block right">
+                <div class="match-team-text right">
+                  <span class="club-short">{{ m.away_short }}</span>
+                  <strong>{{ m.away }}</strong>
+                </div>
+                <img src="{{ m.away_logo }}" alt="{{ m.away }}" class="club-logo">
               </div>
             </div>
           {% endfor %}
@@ -108,7 +119,7 @@
                   <td>{{ row.pos }}</td>
                   <td>
                     <div class="team-cell">
-                      <div class="club-dot small"></div>
+                      <img src="{{ row.logo }}" alt="{{ row.team }}" class="table-logo">
                       <span>{{ row.team }}</span>
                     </div>
                   </td>
@@ -129,7 +140,7 @@
     <div class="panel">
       <div class="panel-header">
         <h2>{{ t.scorers_title }}</h2>
-        <span class="panel-badge">{{ t.top_scorers_badge }}</span>
+        <span class="panel-badge">{{ t.scorers_badge }}</span>
       </div>
 
       {% if scorers %}
@@ -138,6 +149,7 @@
             <div class="scorer-row">
               <div class="scorer-info">
                 <div class="player-avatar">{{ loop.index }}</div>
+                <img src="{{ s.team_logo }}" alt="{{ s.team }}" class="scorer-team-logo">
                 <div>
                   <div class="player-name">{{ s.name }}</div>
                   <div class="player-team">{{ s.team }}</div>
@@ -154,9 +166,9 @@
 
     <div class="premium-box">
       <div class="premium-inner">
-        <div class="premium-tag">{{ t.premium }}</div>
-        <h3>{{ t.premium_box_title }}</h3>
-        <p>{{ t.premium_box_text }}</p>
+        <div class="premium-tag">Premium</div>
+        <h3>{{ t.premium_title }}</h3>
+        <p>{{ t.premium_text }}</p>
         <a class="premium-btn-link" href="/premium?league={{ league }}&lang={{ lang }}">{{ t.premium_button }}</a>
       </div>
     </div>
