@@ -2,6 +2,7 @@ from flask import Flask, render_template, request
 import requests
 import os
 from datetime import datetime, timedelta, timezone
+from team_logos import get_logo
 
 app = Flask(__name__)
 
@@ -174,55 +175,6 @@ TRANSLATIONS = {
         "premium_button": "Voir premium"
     }
 }
-
-TEAM_LOGOS = {
-    "Bayern München": "https://logo.clearbit.com/fcbayern.com",
-    "FC Bayern München": "https://logo.clearbit.com/fcbayern.com",
-    "Bayern Munich": "https://logo.clearbit.com/fcbayern.com",
-    "Borussia Dortmund": "https://logo.clearbit.com/bvb.de",
-    "Bayer 04 Leverkusen": "https://logo.clearbit.com/bayer04.de",
-    "RB Leipzig": "https://logo.clearbit.com/redbullsalzburg.at",
-    "Juventus": "https://logo.clearbit.com/juventus.com",
-    "Inter": "https://logo.clearbit.com/inter.it",
-    "Inter Milan": "https://logo.clearbit.com/inter.it",
-    "AC Milan": "https://logo.clearbit.com/acmilan.com",
-    "Milan": "https://logo.clearbit.com/acmilan.com",
-    "Napoli": "https://logo.clearbit.com/sscnapoli.it",
-    "Roma": "https://logo.clearbit.com/asroma.com",
-    "Paris Saint-Germain": "https://logo.clearbit.com/psg.fr",
-    "PSG": "https://logo.clearbit.com/psg.fr",
-    "Olympique de Marseille": "https://logo.clearbit.com/om.fr",
-    "AS Monaco": "https://logo.clearbit.com/asmonaco.com",
-    "Manchester City": "https://logo.clearbit.com/mancity.com",
-    "Manchester United": "https://logo.clearbit.com/manutd.com",
-    "Arsenal": "https://logo.clearbit.com/arsenal.com",
-    "Arsenal FC": "https://logo.clearbit.com/arsenal.com",
-    "Chelsea": "https://logo.clearbit.com/chelseafc.com",
-    "Chelsea FC": "https://logo.clearbit.com/chelseafc.com",
-    "Liverpool": "https://logo.clearbit.com/liverpoolfc.com",
-    "Liverpool FC": "https://logo.clearbit.com/liverpoolfc.com",
-    "FC Basel 1893": "https://logo.clearbit.com/fcb.ch",
-    "BSC Young Boys": "https://logo.clearbit.com/bscyb.ch",
-    "FC Zürich": "https://logo.clearbit.com/fcz.ch",
-    "Servette FC": "https://logo.clearbit.com/servettefc.ch",
-    "FC Lugano": "https://logo.clearbit.com/fclugano.com",
-    "FC St. Gallen 1879": "https://logo.clearbit.com/fcsg.ch",
-    "SK Rapid Wien": "https://logo.clearbit.com/skrapid.at",
-    "FK Austria Wien": "https://logo.clearbit.com/fk-austria.at",
-    "FC Red Bull Salzburg": "https://logo.clearbit.com/redbullsalzburg.at",
-    "LASK": "https://logo.clearbit.com/lask.at",
-    "Sturm Graz": "https://logo.clearbit.com/sksturm.at",
-    "Germany": "https://flagcdn.com/w80/de.png",
-    "Switzerland": "https://flagcdn.com/w80/ch.png",
-    "Austria": "https://flagcdn.com/w80/at.png",
-    "France": "https://flagcdn.com/w80/fr.png",
-    "Italy": "https://flagcdn.com/w80/it.png",
-    "England": "https://flagcdn.com/w80/gb-eng.png"
-}
-
-
-def get_logo(team_name: str) -> str:
-    return TEAM_LOGOS.get(team_name, "https://placehold.co/80x80/1f2a44/ffffff?text=%20")
 
 
 def format_kickoff(utc_value: str) -> str:
