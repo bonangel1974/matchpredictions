@@ -1468,3 +1468,439 @@ input{
     height: 16px;
   }
 }
+
+/* ===== MOBILE FIX FINAL ===== */
+
+html, body {
+  overflow-x: hidden;
+}
+
+body {
+  max-width: 100vw;
+}
+
+.site-header,
+.page-wrap,
+.site-footer,
+.hero,
+.section,
+.main-grid,
+.hero-grid,
+.bottom-duo-grid,
+.top-matches-grid,
+.footer-grid {
+  max-width: 100%;
+}
+
+@media (max-width: 900px) {
+  .container {
+    width: calc(100% - 24px);
+    margin: 0 auto;
+    padding: 0;
+  }
+
+  .site-header {
+    overflow: hidden;
+  }
+
+  .header-inner {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+    min-height: auto;
+    padding: 12px 0;
+  }
+
+  .brand {
+    font-size: 19px;
+    gap: 10px;
+  }
+
+  .brand-mark {
+    width: 32px;
+    height: 32px;
+    font-size: 18px;
+  }
+
+  .mobile-nav-scroll {
+    width: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 2px;
+  }
+
+  .main-nav {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 8px;
+    min-width: max-content;
+    width: max-content;
+    padding-right: 12px;
+  }
+
+  .main-nav a {
+    white-space: nowrap;
+    font-size: 14px;
+    padding: 9px 11px;
+    border-radius: 10px;
+  }
+
+  .header-right {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: 100%;
+  }
+
+  .language-switch {
+    display: flex;
+    gap: 8px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 2px;
+  }
+
+  .language-switch .lang-btn {
+    flex: 0 0 auto;
+    white-space: nowrap;
+  }
+
+  .header-actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    width: 100%;
+  }
+
+  .header-btn,
+  .header-actions .btn {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .hero {
+    padding: 16px 0 10px;
+  }
+
+  .hero-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .hero-main {
+    min-height: 260px;
+    border-radius: 18px;
+  }
+
+  .hero-content {
+    padding: 22px 18px;
+    max-width: 100%;
+  }
+
+  .hero-kicker {
+    font-size: 11px;
+    padding: 8px 10px;
+    margin-bottom: 12px;
+  }
+
+  .hero-title {
+    font-size: 34px;
+    line-height: 1.08;
+  }
+
+  .hero-subtitle {
+    font-size: 15px;
+    margin: 12px 0 20px;
+  }
+
+  .hero-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .hero-buttons .btn {
+    width: 100%;
+  }
+
+  .hero-side,
+  .right-rail {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .ai-panel,
+  .premium-panel,
+  .top-teams-panel,
+  .panel-box,
+  .match-prediction-card,
+  .live-strip {
+    border-radius: 18px;
+    padding: 16px;
+  }
+
+  .main-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .top-matches-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+  .match-row {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 12px;
+    text-align: center;
+  }
+
+  .club,
+  .club.right {
+    justify-content: center;
+    text-align: center;
+  }
+
+  .club-logo {
+    width: 52px;
+    height: 52px;
+    border-radius: 14px;
+  }
+
+  .club-name {
+    font-size: 15px;
+  }
+
+  .prediction-box {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .prediction-percent {
+    font-size: 30px;
+  }
+
+  .card-footer {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+  }
+
+  .footer-actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    width: 100%;
+  }
+
+  .live-strip-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+  .live-team-side {
+    justify-content: flex-start;
+  }
+
+  .live-big-score {
+    font-size: 34px;
+  }
+
+  .live-prediction {
+    min-width: 0;
+    width: 100%;
+  }
+
+  .live-percent {
+    font-size: 30px;
+    text-align: left;
+  }
+
+  .bottom-duo-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .panel-header h3 {
+    font-size: 22px;
+  }
+
+  .table-mobile-wrap {
+    width: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .styled-table {
+    min-width: 360px;
+    width: 100%;
+  }
+
+  .styled-table th,
+  .styled-table td {
+    padding: 10px 8px;
+    font-size: 13px;
+  }
+
+  .table-team-cell img {
+    width: 20px;
+    height: 20px;
+  }
+
+  .table-team-cell span {
+    font-size: 13px;
+    max-width: 160px;
+  }
+
+  .scorer-card {
+    padding: 12px 14px;
+    border-radius: 14px;
+  }
+
+  .scorer-left img {
+    width: 28px;
+    height: 28px;
+  }
+
+  .scorer-name {
+    font-size: 14px;
+  }
+
+  .scorer-team {
+    font-size: 12px;
+  }
+
+  .scorer-right {
+    font-size: 24px;
+  }
+
+  .upgrade-title {
+    font-size: 28px;
+  }
+
+  .upgrade-subtitle {
+    font-size: 17px;
+  }
+
+  .bullet-list li {
+    font-size: 15px;
+  }
+
+  .sidebar-title {
+    font-size: 21px;
+  }
+
+  .team-mini span {
+    font-size: 14px;
+  }
+
+  .footer-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 18px;
+    padding: 24px 0;
+  }
+
+  .subscribe-box {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .subscribe-box .btn {
+    width: 100%;
+  }
+}
+
+@media (max-width: 520px) {
+  .container {
+    width: calc(100% - 20px);
+  }
+
+  .brand {
+    font-size: 18px;
+  }
+
+  .hero-title {
+    font-size: 30px;
+  }
+
+  .hero-subtitle {
+    font-size: 14px;
+  }
+
+  .section-title {
+    font-size: 20px;
+  }
+
+  .section-subtitle {
+    font-size: 13px;
+  }
+
+  .main-nav a {
+    font-size: 13px;
+    padding: 8px 10px;
+  }
+
+  .lang-btn {
+    font-size: 12px;
+    padding: 7px 8px;
+  }
+
+  .lang-btn img {
+    width: 16px;
+    height: 16px;
+  }
+
+  .btn {
+    padding: 11px 14px;
+  }
+
+  .hero-main,
+  .ai-panel,
+  .premium-panel,
+  .top-teams-panel,
+  .panel-box,
+  .match-prediction-card,
+  .live-strip {
+    border-radius: 16px;
+  }
+
+  .club-logo {
+    width: 48px;
+    height: 48px;
+  }
+
+  .live-big-score {
+    font-size: 30px;
+  }
+
+  .prediction-percent {
+    font-size: 26px;
+  }
+
+  .upgrade-title {
+    font-size: 24px;
+  }
+
+  .styled-table {
+    min-width: 320px;
+  }
+
+  .table-team-cell span {
+    max-width: 130px;
+  }
+}
+
