@@ -2,156 +2,348 @@
 <html lang="de">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MatchPredictions</title>
     <link rel="stylesheet" href="/static/css/style.css">
 </head>
-
 <body>
 
-<header class="header">
-    <div class="logo">MatchPredictions</div>
+<header class="site-header">
+    <div class="container header-inner">
+        <div class="brand-wrap">
+            <div class="brand-icon">M</div>
+            <div class="brand-text">MatchPredictions</div>
+        </div>
 
-    <nav>
-        <a href="/?league=bundesliga" class="{% if league == 'bundesliga' %}active{% endif %}">Deutschland</a>
-        <a href="/?league=switzerland" class="{% if league == 'switzerland' %}active{% endif %}">Schweiz</a>
-        <a href="/?league=austria" class="{% if league == 'austria' %}active{% endif %}">Österreich</a>
-        <a href="/?league=premierleague" class="{% if league == 'premierleague' %}active{% endif %}">England</a>
-        <a href="/?league=seriea" class="{% if league == 'seriea' %}active{% endif %}">Italien</a>
-        <a href="/?league=ligue1" class="{% if league == 'ligue1' %}active{% endif %}">Frankreich</a>
-        <a href="/?league=championsleague" class="{% if league == 'championsleague' %}active{% endif %}">Champions League</a>
-        <a href="/?league=euro" class="{% if league == 'euro' %}active{% endif %}">EURO</a>
-        <a href="/?league=worldcup" class="{% if league == 'worldcup' %}active{% endif %}">WM</a>
-    </nav>
+        <div class="nav-scroll">
+            <nav class="main-nav">
+                <a href="/?league=bundesliga" class="{% if league == 'bundesliga' %}active{% endif %}">Deutschland</a>
+                <a href="/?league=switzerland" class="{% if league == 'switzerland' %}active{% endif %}">Schweiz</a>
+                <a href="/?league=austria" class="{% if league == 'austria' %}active{% endif %}">Österreich</a>
+                <a href="/?league=premierleague" class="{% if league == 'premierleague' %}active{% endif %}">England</a>
+                <a href="/?league=seriea" class="{% if league == 'seriea' %}active{% endif %}">Italien</a>
+                <a href="/?league=ligue1" class="{% if league == 'ligue1' %}active{% endif %}">Frankreich</a>
+                <a href="/?league=championsleague" class="{% if league == 'championsleague' %}active{% endif %}">Europa</a>
+                <a href="#" class="live-link"><span class="live-dot"></span>Live</a>
+            </nav>
+        </div>
 
-    <a class="login-btn" href="/login?league={{ league }}">Login</a>
+        <div class="header-actions">
+            <a class="btn btn-dark" href="/login?league={{ league }}">Login</a>
+            <a class="btn btn-green" href="/premium?league={{ league }}">Premium</a>
+        </div>
+    </div>
 </header>
 
-<section class="hero">
-    <div class="hero-inner">
-        <div class="hero-text">
-            <span class="hero-badge">LIVE FOOTBALL PLATFORM</span>
-            <h1>Football Stats & Predictions</h1>
-            <p>Europaweit. Live. Schnell. Modern.</p>
-        </div>
+<main class="page-wrap">
+    <div class="container">
 
-        {% if featured_match %}
-        <div class="featured-match-card {% if featured_match.status in ['IN_PLAY', 'LIVE', 'PAUSED'] %}live-glow{% endif %}" id="featuredMatch">
-            <div class="featured-topline">
-                <span class="featured-label">Featured Match</span>
-                <span class="featured-status status-{{ featured_match.status|lower }}">{{ featured_match.status }}</span>
-            </div>
-
-            <div class="featured-main">
-                <div class="featured-team">
-                    <img src="{{ featured_match.home_logo }}" alt="{{ featured_match.home }}">
-                    <div class="featured-team-name">{{ featured_match.home }}</div>
-                </div>
-
-                <div class="featured-center">
-                    {% if featured_match.score_home is not none and featured_match.score_away is not none %}
-                        <div class="featured-score {% if featured_match.status in ['IN_PLAY', 'LIVE', 'PAUSED'] %}score-live{% endif %}">{{ featured_match.score_home }} - {{ featured_match.score_away }}</div>
-                    {% else %}
-                        <div class="featured-score">VS</div>
-                    {% endif %}
-                    <div class="featured-time">{{ featured_match.time }}</div>
-                </div>
-
-                <div class="featured-team">
-                    <img src="{{ featured_match.away_logo }}" alt="{{ featured_match.away }}">
-                    <div class="featured-team-name">{{ featured_match.away }}</div>
-                </div>
-            </div>
-        </div>
-        {% else %}
-        <div class="featured-match-card empty-featured" id="featuredMatch">
-            <div class="featured-topline">
-                <span class="featured-label">Featured Match</span>
-                <span class="featured-status status-default">NO DATA</span>
-            </div>
-            <div class="featured-empty-text">Aktuell keine Spiele verfügbar</div>
-        </div>
+        {% if error %}
+        <div class="error-box">{{ error }}</div>
         {% endif %}
-    </div>
-</section>
 
-{% if error %}
-<div class="error-box">{{ error }}</div>
-{% endif %}
+        <!-- HERO -->
+        <section class="hero-grid">
+            <div class="hero-main">
+                <div class="hero-overlay"></div>
+                <div class="hero-content">
+                    <div class="hero-kicker">AI Match Predictions</div>
+                    <h1>AI Match Predictions<br>für Europa</h1>
+                    <p>Daten. Trends. Gewinnstrategien.</p>
 
-<section class="matches">
-    <div class="section-head">
-        <h2>Live & Upcoming Matches</h2>
-        <span class="live-badge" id="liveStatus">Live Update aktiv</span>
-    </div>
-
-    <div class="match-grid" id="matchGrid">
-        {% for m in matches %}
-        <div class="match-card {% if m.status in ['IN_PLAY', 'LIVE', 'PAUSED'] %}live-glow{% endif %}">
-            <div class="team">
-                <img src="{{ m.home_logo }}" alt="{{ m.home }}">
-                <span>{{ m.home }}</span>
-            </div>
-
-            <div class="vs">
-                {% if m.score_home is not none and m.score_away is not none %}
-                    <div class="score {% if m.status in ['IN_PLAY', 'LIVE', 'PAUSED'] %}score-live{% endif %}">{{ m.score_home }} - {{ m.score_away }}</div>
-                {% else %}
-                    <div class="score">VS</div>
-                {% endif %}
-                <div class="time">{{ m.time }}</div>
-                <div class="status status-{{ m.status|lower }}">{{ m.status }}</div>
-            </div>
-
-            <div class="team">
-                <img src="{{ m.away_logo }}" alt="{{ m.away }}">
-                <span>{{ m.away }}</span>
-            </div>
-        </div>
-        {% endfor %}
-    </div>
-</section>
-
-<section class="content-grid">
-    <section class="table-section">
-        <h2>Tabelle</h2>
-
-        <table>
-            <tr>
-                <th>#</th>
-                <th>Team</th>
-                <th>Punkte</th>
-            </tr>
-
-            {% for t in table %}
-            <tr>
-                <td>{{ t.pos }}</td>
-                <td class="team-cell">
-                    <img src="{{ t.logo }}" alt="{{ t.team }}">
-                    {{ t.team }}
-                </td>
-                <td>{{ t.points }}</td>
-            </tr>
-            {% endfor %}
-        </table>
-    </section>
-
-    <section class="scorers">
-        <h2>Top Scorer</h2>
-
-        {% for s in scorers %}
-        <div class="scorer-row">
-            <div class="scorer-left">
-                <img src="{{ s.logo }}" alt="{{ s.team }}">
-                <div>
-                    <div>{{ s.name }}</div>
-                    <small>{{ s.team }}</small>
+                    <div class="hero-buttons">
+                        <a href="/premium?league={{ league }}" class="btn btn-green btn-large">Vorhersagen ansehen</a>
+                        <a href="/register?league={{ league }}" class="btn btn-outline btn-large">Kostenlos testen</a>
+                    </div>
                 </div>
             </div>
-            <span class="goals">{{ s.goals }}</span>
+
+            <aside class="hero-side-card">
+                <div class="side-card-head">
+                    <div class="side-card-title">AI Analyse</div>
+                    <span class="pill pill-green">PREMIUM</span>
+                </div>
+
+                <ul class="feature-list">
+                    <li>Form Analyse</li>
+                    <li>Head-to-Head</li>
+                    <li>Goal Trend</li>
+                    <li>Injury Impact</li>
+                </ul>
+
+                <div class="ai-result-box">
+                    <div class="small-label">Ergebnis:</div>
+                    {% if featured_match %}
+                        <strong>{{ featured_match.home }} Win</strong>
+                    {% else %}
+                        <strong>Home Win</strong>
+                    {% endif %}
+                    <div class="confidence-text">(High Confidence)</div>
+                </div>
+
+                <div class="premium-note">🔒 Premium Feature</div>
+            </aside>
+        </section>
+
+        <!-- MAIN GRID -->
+        <section class="dashboard-grid">
+
+            <!-- LEFT SIDE -->
+            <div class="dashboard-left">
+
+                <!-- TOP MATCHES -->
+                <section class="section-block">
+                    <div class="section-title-wrap">
+                        <h2>🔥 Top Matches</h2>
+                        <p>Heute wichtigste Spiele & Vorhersagen</p>
+                    </div>
+
+                    <div class="top-matches-grid">
+                        {% for m in matches[:2] %}
+                        <article class="prediction-card">
+                            <div class="prediction-teams">
+                                <div class="prediction-team">
+                                    <img src="{{ m.home_logo }}" alt="{{ m.home }}">
+                                    <span>{{ m.home }}</span>
+                                </div>
+
+                                <div class="prediction-versus">vs</div>
+
+                                <div class="prediction-team">
+                                    <img src="{{ m.away_logo }}" alt="{{ m.away }}">
+                                    <span>{{ m.away }}</span>
+                                </div>
+                            </div>
+
+                            <div class="prediction-meta">
+                                <span>📅 {{ m.time }}</span>
+                                <span>•</span>
+                                <span>{{ league|capitalize }}</span>
+                            </div>
+
+                            <div class="prediction-box">
+                                <div class="prediction-left">
+                                    <div class="small-label">Prediction:</div>
+                                    <div class="prediction-result">
+                                        {% if m.home %}{{ m.home }} Win{% else %}Home Win{% endif %}
+                                    </div>
+                                    <div class="prediction-percent">
+                                        {% if loop.index == 1 %}68%{% else %}29%{% endif %}
+                                    </div>
+                                </div>
+
+                                <div class="prediction-right">
+                                    <div class="small-label">Confidence</div>
+                                    <div class="confidence-bar">
+                                        <span style="width:{% if loop.index == 1 %}68{% else %}29{% endif %}%"></span>
+                                    </div>
+                                    <div class="confidence-value">
+                                        {% if loop.index == 1 %}8.2/10{% else %}6.7/10{% endif %}
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="prediction-footer">
+                                <div class="tip-text">💡 Tipp: {% if loop.index == 1 %}Over 2.5 Goals{% else %}Under 3.5 Goals{% endif %}</div>
+                                <div class="prediction-actions">
+                                    <a href="#" class="mini-btn">Details</a>
+                                    <a href="#" class="mini-btn mini-btn-live">Live</a>
+                                </div>
+                            </div>
+                        </article>
+                        {% endfor %}
+                    </div>
+                </section>
+
+                <!-- LIVE IN PLAY -->
+                <section class="section-block">
+                    <div class="section-title-wrap">
+                        <h2>🟢 Live & In-Play</h2>
+                        <p>Echtzeit Vorhersagen & Updates</p>
+                    </div>
+
+                    {% if featured_match %}
+                    <div class="live-highlight-card {% if featured_match.status in ['IN_PLAY', 'LIVE', 'PAUSED'] %}live-glow{% endif %}">
+                        <div class="live-team-side">
+                            <img src="{{ featured_match.home_logo }}" alt="{{ featured_match.home }}">
+                            <div>
+                                <div class="live-team-name">{{ featured_match.home }}</div>
+                                <div class="live-team-sub">{{ featured_match.away }}</div>
+                            </div>
+                        </div>
+
+                        <div class="live-score-block">
+                            {% if featured_match.score_home is not none and featured_match.score_away is not none %}
+                                <div class="live-big-score">{{ featured_match.score_home }} - {{ featured_match.score_away }}</div>
+                            {% else %}
+                                <div class="live-big-score">VS</div>
+                            {% endif %}
+                            <div class="live-minute">{{ featured_match.status }} · {{ featured_match.time }}</div>
+                        </div>
+
+                        <div class="live-prediction-side">
+                            <div class="small-label">Live Prediction:</div>
+                            <div class="live-prediction-result">{{ featured_match.home }} Win</div>
+                            <div class="live-prediction-percent">73%</div>
+                        </div>
+                    </div>
+                    {% endif %}
+                </section>
+
+                <!-- TABLE + SCORERS -->
+                <section class="bottom-duo-grid">
+
+                    <section class="panel-box">
+                        <div class="panel-header">
+                            <div>
+                                <div class="panel-kicker">League</div>
+                                <h3>Tabelle</h3>
+                            </div>
+                        </div>
+
+                        <div class="table-mobile-wrap">
+                            <table class="styled-table">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Team</th>
+                                        <th>Punkte</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for t in table %}
+                                    <tr>
+                                        <td>{{ t.pos }}</td>
+                                        <td class="table-team-cell">
+                                            <img src="{{ t.logo }}" alt="{{ t.team }}">
+                                            <span>{{ t.team }}</span>
+                                        </td>
+                                        <td><strong>{{ t.points }}</strong></td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </section>
+
+                    <section class="panel-box">
+                        <div class="panel-header">
+                            <div>
+                                <div class="panel-kicker">Players</div>
+                                <h3>Top Scorer</h3>
+                            </div>
+                        </div>
+
+                        <div class="scorer-stack">
+                            {% for s in scorers[:8] %}
+                            <div class="scorer-card">
+                                <div class="scorer-left">
+                                    <img src="{{ s.logo }}" alt="{{ s.team }}">
+                                    <div>
+                                        <div class="scorer-name">{{ s.name }}</div>
+                                        <div class="scorer-team">{{ s.team }}</div>
+                                    </div>
+                                </div>
+                                <div class="scorer-right">{{ s.goals }}</div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </section>
+
+                </section>
+            </div>
+
+            <!-- RIGHT SIDE -->
+            <aside class="dashboard-right">
+
+                <div class="premium-upgrade-card">
+                    <div class="upgrade-title">💎 Premium</div>
+                    <div class="upgrade-subtitle">Upgrade auf Premium</div>
+
+                    <ul class="upgrade-list">
+                        <li>Unlimitierte Vorhersagen</li>
+                        <li>AI Analysen</li>
+                        <li>Live Insights</li>
+                        <li>Early Access</li>
+                    </ul>
+
+                    <a href="/premium?league={{ league }}" class="btn btn-green btn-block">Jetzt freischalten</a>
+                </div>
+
+                <div class="sidebar-card">
+                    <div class="sidebar-title">💠 Top Teams heute</div>
+
+                    <div class="team-heat-row">
+                        <div class="team-heat-left">
+                            <img src="{{ table[0].logo if table|length > 0 else '/static/images/default.png' }}" alt="">
+                            <span>{{ table[0].team if table|length > 0 else 'FC Bayern München' }}</span>
+                        </div>
+                        <span class="tag-hot">Hot</span>
+                    </div>
+
+                    <div class="team-heat-row">
+                        <div class="team-heat-left">
+                            <img src="{{ table[1].logo if table|length > 1 else '/static/images/default.png' }}" alt="">
+                            <span>{{ table[1].team if table|length > 1 else 'Bayer Leverkusen' }}</span>
+                        </div>
+                        <span class="tag-hot">Hot</span>
+                    </div>
+
+                    <div class="team-heat-row">
+                        <div class="team-heat-left">
+                            <img src="{{ table[2].logo if table|length > 2 else '/static/images/default.png' }}" alt="">
+                            <span>{{ table[2].team if table|length > 2 else 'RB Leipzig' }}</span>
+                        </div>
+                        <span class="tag-cold">Cold</span>
+                    </div>
+                </div>
+
+                <a href="#" class="btn btn-outline btn-block sidebar-live-btn">Zum Live-Bereich</a>
+            </aside>
+        </section>
+    </div>
+</main>
+
+<footer class="site-footer">
+    <div class="container footer-grid">
+        <div>
+            <div class="footer-brand">MatchPredictions</div>
+            <p>AI-gestützte Fussballvorhersagen für Europas Top Ligen.</p>
         </div>
-        {% endfor %}
-    </section>
-</section>
+
+        <div>
+            <h4>Navigation</h4>
+            <ul>
+                <li>Matches</li>
+                <li>Predictions</li>
+                <li>Stats</li>
+                <li>Premium</li>
+            </ul>
+        </div>
+
+        <div>
+            <h4>Rechtliches</h4>
+            <ul>
+                <li>Impressum</li>
+                <li>Datenschutz</li>
+                <li>AGB</li>
+            </ul>
+        </div>
+
+        <div>
+            <h4>Stay Updated</h4>
+            <p>Erhalte die besten Vorhersagen per E-Mail.</p>
+            <div class="newsletter-box">
+                <input type="email" placeholder="Deine E-Mail">
+                <button>Abonnieren</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer-bottom">
+        © 2025 MatchPredictions. Alle Rechte vorbehalten.
+    </div>
+</footer>
 
 <script>
 const currentLeague = "{{ league }}";
@@ -161,101 +353,45 @@ function isLiveStatus(status) {
     return ["IN_PLAY", "LIVE", "PAUSED"].includes(s);
 }
 
-function renderFeaturedMatch(matches) {
-    const featured = document.getElementById("featuredMatch");
-    if (!featured || !matches || matches.length === 0) return;
-
-    const liveMatches = matches.filter(m => isLiveStatus(m.status));
-    const m = liveMatches.length > 0 ? liveMatches[0] : matches[0];
-
-    const scoreHtml = (m.score_home !== null && m.score_away !== null)
-        ? `${m.score_home} - ${m.score_away}`
-        : `VS`;
-
-    const liveClass = isLiveStatus(m.status) ? "live-glow" : "";
-    const scoreLiveClass = isLiveStatus(m.status) ? "score-live" : "";
-
-    featured.className = `featured-match-card ${liveClass}`;
-
-    featured.innerHTML = `
-        <div class="featured-topline">
-            <span class="featured-label">Featured Match</span>
-            <span class="featured-status status-${String(m.status || 'default').toLowerCase()}">${m.status || 'UNKNOWN'}</span>
-        </div>
-
-        <div class="featured-main">
-            <div class="featured-team">
-                <img src="${m.home_logo}" alt="${m.home}">
-                <div class="featured-team-name">${m.home}</div>
-            </div>
-
-            <div class="featured-center">
-                <div class="featured-score ${scoreLiveClass}">${scoreHtml}</div>
-                <div class="featured-time">${m.time}</div>
-            </div>
-
-            <div class="featured-team">
-                <img src="${m.away_logo}" alt="${m.away}">
-                <div class="featured-team-name">${m.away}</div>
-            </div>
-        </div>
-    `;
-}
-
 function renderMatches(matches) {
-    const grid = document.getElementById("matchGrid");
-
-    if (!matches || matches.length === 0) {
-        grid.innerHTML = "<p>Keine Spiele verfügbar</p>";
-        return;
-    }
-
-    let html = "";
-
-    matches.forEach(m => {
-        const scoreHtml = (m.score_home !== null && m.score_away !== null)
-            ? `<div class="score ${isLiveStatus(m.status) ? 'score-live' : ''}">${m.score_home} - ${m.score_away}</div>`
-            : `<div class="score">VS</div>`;
-
-        html += `
-            <div class="match-card ${isLiveStatus(m.status) ? 'live-glow' : ''}">
-                <div class="team">
-                    <img src="${m.home_logo}" alt="${m.home}">
-                    <span>${m.home}</span>
-                </div>
-
-                <div class="vs">
-                    ${scoreHtml}
-                    <div class="time">${m.time}</div>
-                    <div class="status status-${String(m.status || 'default').toLowerCase()}">${m.status || 'UNKNOWN'}</div>
-                </div>
-
-                <div class="team">
-                    <img src="${m.away_logo}" alt="${m.away}">
-                    <span>${m.away}</span>
-                </div>
-            </div>
-        `;
-    });
-
-    grid.innerHTML = html;
+    const cards = document.querySelector(".top-matches-grid");
+    if (!cards || !matches || matches.length === 0) return;
 }
 
 async function refreshLiveMatches() {
     try {
         const res = await fetch(`/api/live-matches?league=${currentLeague}`);
         const data = await res.json();
-
         if (data.success) {
-            renderFeaturedMatch(data.matches);
-            renderMatches(data.matches);
-            document.getElementById("liveStatus").textContent = "Live Update aktiv";
-        } else {
-            document.getElementById("liveStatus").textContent = "Live Update Fehler";
+            const featuredCard = document.querySelector(".live-highlight-card");
+            if (featuredCard && data.matches.length > 0) {
+                const liveMatches = data.matches.filter(m => isLiveStatus(m.status));
+                const m = liveMatches.length > 0 ? liveMatches[0] : data.matches[0];
+
+                featuredCard.className = `live-highlight-card ${isLiveStatus(m.status) ? 'live-glow' : ''}`;
+                featuredCard.innerHTML = `
+                    <div class="live-team-side">
+                        <img src="${m.home_logo}" alt="${m.home}">
+                        <div>
+                            <div class="live-team-name">${m.home}</div>
+                            <div class="live-team-sub">${m.away}</div>
+                        </div>
+                    </div>
+
+                    <div class="live-score-block">
+                        <div class="live-big-score">${(m.score_home !== null && m.score_away !== null) ? `${m.score_home} - ${m.score_away}` : 'VS'}</div>
+                        <div class="live-minute">${m.status} · ${m.time}</div>
+                    </div>
+
+                    <div class="live-prediction-side">
+                        <div class="small-label">Live Prediction:</div>
+                        <div class="live-prediction-result">${m.home} Win</div>
+                        <div class="live-prediction-percent">73%</div>
+                    </div>
+                `;
+            }
         }
-    } catch (err) {
-        document.getElementById("liveStatus").textContent = "Live Update Fehler";
-    }
+    } catch (err) {}
 }
 
 setInterval(refreshLiveMatches, 60000);
