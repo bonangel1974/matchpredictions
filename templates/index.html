@@ -10,6 +10,7 @@
 
 <header class="site-header">
     <div class="container header-inner">
+
         <div class="brand">
             <div class="brand-mark">M</div>
             <div>MatchPredictions</div>
@@ -17,21 +18,46 @@
 
         <div class="mobile-nav-scroll">
             <nav class="main-nav">
-                <a href="/?league=bundesliga" class="{% if league == 'bundesliga' %}active{% endif %}">Deutschland</a>
-                <a href="/?league=switzerland" class="{% if league == 'switzerland' %}active{% endif %}">Schweiz</a>
-                <a href="/?league=austria" class="{% if league == 'austria' %}active{% endif %}">Österreich</a>
-                <a href="/?league=premierleague" class="{% if league == 'premierleague' %}active{% endif %}">England</a>
-                <a href="/?league=seriea" class="{% if league == 'seriea' %}active{% endif %}">Italien</a>
-                <a href="/?league=ligue1" class="{% if league == 'ligue1' %}active{% endif %}">Frankreich</a>
-                <a href="/?league=championsleague" class="{% if league == 'championsleague' %}active{% endif %}">Europa</a>
-                <a href="#" class="live-link"><span class="live-dot"></span>Live</a>
+                <a href="/?league=bundesliga&lang=de" class="{% if league == 'bundesliga' %}active{% endif %}">Deutschland</a>
+                <a href="/?league=switzerland&lang=de" class="{% if league == 'switzerland' %}active{% endif %}">Schweiz</a>
+                <a href="/?league=austria&lang=de" class="{% if league == 'austria' %}active{% endif %}">Österreich</a>
+                <a href="/?league=premierleague&lang=de" class="{% if league == 'premierleague' %}active{% endif %}">England</a>
+                <a href="/?league=seriea&lang=de" class="{% if league == 'seriea' %}active{% endif %}">Italien</a>
+                <a href="/?league=ligue1&lang=de" class="{% if league == 'ligue1' %}active{% endif %}">Frankreich</a>
+                <a href="/?league=championsleague&lang=de" class="{% if league == 'championsleague' %}active{% endif %}">Europa</a>
+                <a href="#" class="live-link"><span class="live-dot"></span><span>Live</span></a>
             </nav>
         </div>
 
-        <div class="header-actions">
-            <a class="btn btn-dark" href="/login?league={{ league }}">Login</a>
-            <a class="btn btn-green" href="/premium?league={{ league }}">Premium</a>
+        <div class="header-right">
+            <div class="language-switch">
+                <a href="/?league={{ league }}&lang=de" class="lang-btn {% if request.args.get('lang', 'de') == 'de' %}active{% endif %}">
+                    <img src="https://flagcdn.com/w40/de.png" alt="Deutsch">
+                    <span>DE</span>
+                </a>
+
+                <a href="/?league={{ league }}&lang=en" class="lang-btn {% if request.args.get('lang') == 'en' %}active{% endif %}">
+                    <img src="https://flagcdn.com/w40/gb.png" alt="English">
+                    <span>EN</span>
+                </a>
+
+                <a href="/?league={{ league }}&lang=fr" class="lang-btn {% if request.args.get('lang') == 'fr' %}active{% endif %}">
+                    <img src="https://flagcdn.com/w40/fr.png" alt="Français">
+                    <span>FR</span>
+                </a>
+
+                <a href="/?league={{ league }}&lang=it" class="lang-btn {% if request.args.get('lang') == 'it' %}active{% endif %}">
+                    <img src="https://flagcdn.com/w40/it.png" alt="Italiano">
+                    <span>IT</span>
+                </a>
+            </div>
+
+            <div class="header-actions">
+                <a class="btn btn-dark header-btn" href="/login?league={{ league }}">Login</a>
+                <a class="btn btn-green header-btn" href="/premium?league={{ league }}">Premium</a>
+            </div>
         </div>
+
     </div>
 </header>
 
