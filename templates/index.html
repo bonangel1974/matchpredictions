@@ -1,16 +1,28 @@
 <!DOCTYPE html>
-<html lang="de">
+<html lang="{{ lang }}">
 <head>
     <meta charset="UTF-8">
-   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MatchPredictions</title>
     <link rel="stylesheet" href="/static/css/style.css">
 </head>
 <body>
 
 <header class="site-header">
-    <div class="container header-inner">
+    <div class="container header-mobile-top">
+        <div class="brand">
+            <div class="brand-mark">M</div>
+            <div>MatchPredictions</div>
+        </div>
 
+        <button class="burger-btn" id="burgerBtn" aria-label="Menu" aria-expanded="false" aria-controls="mobileMenu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+    </div>
+
+    <div class="container header-desktop">
         <div class="brand">
             <div class="brand-mark">M</div>
             <div>MatchPredictions</div>
@@ -18,48 +30,84 @@
 
         <div class="mobile-nav-scroll">
             <nav class="main-nav">
-                <a href="/?league=bundesliga&lang=de" class="{% if league == 'bundesliga' %}active{% endif %}">Deutschland</a>
-                <a href="/?league=switzerland&lang=de" class="{% if league == 'switzerland' %}active{% endif %}">Schweiz</a>
-                <a href="/?league=austria&lang=de" class="{% if league == 'austria' %}active{% endif %}">Österreich</a>
-                <a href="/?league=premierleague&lang=de" class="{% if league == 'premierleague' %}active{% endif %}">England</a>
-                <a href="/?league=seriea&lang=de" class="{% if league == 'seriea' %}active{% endif %}">Italien</a>
-                <a href="/?league=ligue1&lang=de" class="{% if league == 'ligue1' %}active{% endif %}">Frankreich</a>
-                <a href="/?league=championsleague&lang=de" class="{% if league == 'championsleague' %}active{% endif %}">Europa</a>
-                <a href="#" class="live-link"><span class="live-dot"></span><span>Live</span></a>
+                <a href="/?league=bundesliga&lang={{ lang }}" class="{% if league == 'bundesliga' %}active{% endif %}">{{ t.nav_germany }}</a>
+                <a href="/?league=switzerland&lang={{ lang }}" class="{% if league == 'switzerland' %}active{% endif %}">{{ t.nav_switzerland }}</a>
+                <a href="/?league=austria&lang={{ lang }}" class="{% if league == 'austria' %}active{% endif %}">{{ t.nav_austria }}</a>
+                <a href="/?league=premierleague&lang={{ lang }}" class="{% if league == 'premierleague' %}active{% endif %}">{{ t.nav_england }}</a>
+                <a href="/?league=seriea&lang={{ lang }}" class="{% if league == 'seriea' %}active{% endif %}">{{ t.nav_italy }}</a>
+                <a href="/?league=ligue1&lang={{ lang }}" class="{% if league == 'ligue1' %}active{% endif %}">{{ t.nav_france }}</a>
+                <a href="/?league=championsleague&lang={{ lang }}" class="{% if league == 'championsleague' %}active{% endif %}">{{ t.nav_europe }}</a>
+                <a href="#" class="live-link"><span class="live-dot"></span><span>{{ t.live }}</span></a>
             </nav>
         </div>
 
         <div class="header-right">
             <div class="language-switch">
-                <a href="/?league={{ league }}&lang=de" class="lang-btn {% if request.args.get('lang', 'de') == 'de' %}active{% endif %}">
+                <a href="/?league={{ league }}&lang=de" class="lang-btn {% if lang == 'de' %}active{% endif %}">
                     <img src="https://flagcdn.com/w40/de.png" alt="Deutsch">
                     <span>DE</span>
                 </a>
-
-                <a href="/?league={{ league }}&lang=en" class="lang-btn {% if request.args.get('lang') == 'en' %}active{% endif %}">
+                <a href="/?league={{ league }}&lang=en" class="lang-btn {% if lang == 'en' %}active{% endif %}">
                     <img src="https://flagcdn.com/w40/gb.png" alt="English">
                     <span>EN</span>
                 </a>
-
-                <a href="/?league={{ league }}&lang=fr" class="lang-btn {% if request.args.get('lang') == 'fr' %}active{% endif %}">
+                <a href="/?league={{ league }}&lang=fr" class="lang-btn {% if lang == 'fr' %}active{% endif %}">
                     <img src="https://flagcdn.com/w40/fr.png" alt="Français">
                     <span>FR</span>
                 </a>
-
-                <a href="/?league={{ league }}&lang=it" class="lang-btn {% if request.args.get('lang') == 'it' %}active{% endif %}">
+                <a href="/?league={{ league }}&lang=it" class="lang-btn {% if lang == 'it' %}active{% endif %}">
                     <img src="https://flagcdn.com/w40/it.png" alt="Italiano">
                     <span>IT</span>
                 </a>
             </div>
 
             <div class="header-actions">
-                <a class="btn btn-dark header-btn" href="/login?league={{ league }}">Login</a>
-                <a class="btn btn-green header-btn" href="/premium?league={{ league }}">Premium</a>
+                <a class="btn btn-dark header-btn" href="/login?league={{ league }}&lang={{ lang }}">{{ t.login }}</a>
+                <a class="btn btn-green header-btn" href="/premium?league={{ league }}&lang={{ lang }}">{{ t.premium }}</a>
             </div>
         </div>
+    </div>
 
+    <div class="mobile-menu" id="mobileMenu">
+        <div class="container mobile-menu-inner">
+            <nav class="mobile-menu-nav">
+                <a href="/?league=bundesliga&lang={{ lang }}" class="{% if league == 'bundesliga' %}active{% endif %}">{{ t.nav_germany }}</a>
+                <a href="/?league=switzerland&lang={{ lang }}" class="{% if league == 'switzerland' %}active{% endif %}">{{ t.nav_switzerland }}</a>
+                <a href="/?league=austria&lang={{ lang }}" class="{% if league == 'austria' %}active{% endif %}">{{ t.nav_austria }}</a>
+                <a href="/?league=premierleague&lang={{ lang }}" class="{% if league == 'premierleague' %}active{% endif %}">{{ t.nav_england }}</a>
+                <a href="/?league=seriea&lang={{ lang }}" class="{% if league == 'seriea' %}active{% endif %}">{{ t.nav_italy }}</a>
+                <a href="/?league=ligue1&lang={{ lang }}" class="{% if league == 'ligue1' %}active{% endif %}">{{ t.nav_france }}</a>
+                <a href="/?league=championsleague&lang={{ lang }}" class="{% if league == 'championsleague' %}active{% endif %}">{{ t.nav_europe }}</a>
+                <a href="#" class="mobile-live-link"><span class="live-dot"></span><span>{{ t.live }}</span></a>
+            </nav>
+
+            <div class="mobile-language-switch">
+                <a href="/?league={{ league }}&lang=de" class="lang-btn {% if lang == 'de' %}active{% endif %}">
+                    <img src="https://flagcdn.com/w40/de.png" alt="Deutsch">
+                    <span>DE</span>
+                </a>
+                <a href="/?league={{ league }}&lang=en" class="lang-btn {% if lang == 'en' %}active{% endif %}">
+                    <img src="https://flagcdn.com/w40/gb.png" alt="English">
+                    <span>EN</span>
+                </a>
+                <a href="/?league={{ league }}&lang=fr" class="lang-btn {% if lang == 'fr' %}active{% endif %}">
+                    <img src="https://flagcdn.com/w40/fr.png" alt="Français">
+                    <span>FR</span>
+                </a>
+                <a href="/?league={{ league }}&lang=it" class="lang-btn {% if lang == 'it' %}active{% endif %}">
+                    <img src="https://flagcdn.com/w40/it.png" alt="Italiano">
+                    <span>IT</span>
+                </a>
+            </div>
+
+            <div class="mobile-header-actions">
+                <a class="btn btn-dark" href="/login?league={{ league }}&lang={{ lang }}">{{ t.login }}</a>
+                <a class="btn btn-green" href="/premium?league={{ league }}&lang={{ lang }}">{{ t.premium }}</a>
+            </div>
+        </div>
     </div>
 </header>
+
 <main class="page-wrap">
     <div class="container">
 
@@ -74,13 +122,13 @@
                     <div class="hero-glow"></div>
 
                     <div class="hero-content">
-                        <div class="hero-kicker">AI Match Predictions</div>
-                        <h1 class="hero-title"><span class="accent">AI</span> Match Predictions<br>für Europa</h1>
-                        <p class="hero-subtitle">Daten. Trends. Gewinnstrategien.</p>
+                        <div class="hero-kicker">{{ t.hero_kicker }}</div>
+                        <h1 class="hero-title"><span class="accent">AI</span> {{ t.hero_title_line1 }}<br>{{ t.hero_title_line2 }}</h1>
+                        <p class="hero-subtitle">{{ t.hero_subtitle }}</p>
 
                         <div class="hero-buttons">
-                            <a href="/premium?league={{ league }}" class="btn btn-green btn-large">Vorhersagen ansehen</a>
-                            <a href="/register?league={{ league }}" class="btn btn-outline btn-large">Kostenlos testen</a>
+                            <a href="/premium?league={{ league }}&lang={{ lang }}" class="btn btn-green btn-large">{{ t.hero_btn_predictions }}</a>
+                            <a href="/register?league={{ league }}&lang={{ lang }}" class="btn btn-outline btn-large">{{ t.hero_btn_trial }}</a>
                         </div>
                     </div>
                 </div>
@@ -88,30 +136,30 @@
                 <div class="hero-side">
                     <div class="ai-panel">
                         <div class="panel-head">
-                            <h3 class="panel-title">AI Analyse</h3>
-                            <span class="panel-chip">PREMIUM</span>
+                            <h3 class="panel-title">{{ t.ai_analysis }}</h3>
+                            <span class="panel-chip">{{ t.premium_badge }}</span>
                         </div>
 
                         <ul class="feature-list">
-                            <li><span class="feature-check">✓</span> Form Analyse</li>
-                            <li><span class="feature-check">✓</span> Head-to-Head</li>
-                            <li><span class="feature-check">✓</span> Goal Trend</li>
-                            <li><span class="feature-check">✓</span> Injury Impact</li>
+                            <li><span class="feature-check">✓</span> {{ t.form_analysis }}</li>
+                            <li><span class="feature-check">✓</span> {{ t.head_to_head }}</li>
+                            <li><span class="feature-check">✓</span> {{ t.goal_trend }}</li>
+                            <li><span class="feature-check">✓</span> {{ t.injury_impact }}</li>
                         </ul>
 
                         <div class="ai-result">
-                            <div class="ai-result-label">Ergebnis:</div>
+                            <div class="ai-result-label">{{ t.result }}</div>
                             <div class="ai-result-value">
                                 {% if is_premium and featured_match %}
                                     {{ featured_match.home }} Win
                                 {% else %}
-                                    🔒 Nur für Premium
+                                    🔒 {{ t.premium_only }}
                                 {% endif %}
                             </div>
-                            <div class="confidence-text">{% if is_premium %}(High Confidence){% else %}Prediction nach Abo sichtbar{% endif %}</div>
+                            <div class="confidence-text">{% if is_premium %}(High Confidence){% else %}{{ t.premium_after_sub }}{% endif %}</div>
                         </div>
 
-                        <div class="premium-note">🔒 Premium Feature</div>
+                        <div class="premium-note">🔒 {{ t.premium_feature }}</div>
                     </div>
                 </div>
             </div>
@@ -123,8 +171,8 @@
                 <div>
                     <div class="section-head">
                         <div class="section-title-wrap">
-                            <h2 class="section-title">🔥 Top Matches</h2>
-                            <div class="section-subtitle">Heute wichtigste Spiele & Vorhersagen</div>
+                            <h2 class="section-title">🔥 {{ t.top_matches }}</h2>
+                            <div class="section-subtitle">{{ t.top_matches_sub }}</div>
                         </div>
                     </div>
 
@@ -156,12 +204,12 @@
                             {% if is_premium %}
                             <div class="prediction-box">
                                 <div>
-                                    <div class="prediction-label">Prediction: <strong>{% if loop.index == 1 %}{{ m.home }} Win{% else %}Draw{% endif %}</strong></div>
+                                    <div class="prediction-label">{{ t.prediction }}: <strong>{% if loop.index == 1 %}{{ m.home }} Win{% else %}Draw{% endif %}</strong></div>
                                     <div class="prediction-percent">{% if loop.index == 1 %}68%{% else %}29%{% endif %}</div>
                                 </div>
 
                                 <div class="confidence-box">
-                                    <div class="confidence-title">Confidence</div>
+                                    <div class="confidence-title">{{ t.confidence }}</div>
                                     <div class="progress">
                                         <div class="progress-bar" style="width:{% if loop.index == 1 %}68{% else %}29{% endif %}%"></div>
                                     </div>
@@ -170,18 +218,18 @@
                             </div>
                             {% else %}
                             <div class="prediction-lock-box">
-                                <div class="prediction-lock-title">🔒 Prediction nur für Premium</div>
-                                <div class="prediction-lock-text">Vorhersagen, Confidence und Tipps werden nach Abo-Freischaltung angezeigt.</div>
-                                <a href="/premium?league={{ league }}" class="btn btn-green btn-sm">Premium freischalten</a>
+                                <div class="prediction-lock-title">🔒 {{ t.prediction_premium_only }}</div>
+                                <div class="prediction-lock-text">{{ t.prediction_locked_text }}</div>
+                                <a href="/premium?league={{ league }}&lang={{ lang }}" class="btn btn-green btn-sm">{{ t.unlock_premium }}</a>
                             </div>
                             {% endif %}
 
                             <div class="card-footer">
-                                <div class="tip">💡 Tipp: {% if is_premium %}{% if loop.index == 1 %}Over 2.5 Goals{% else %}Under 3.5 Goals{% endif %}{% else %}Nur für Premium{% endif %}</div>
+                                <div class="tip">💡 {{ t.tip }}: {% if is_premium %}{% if loop.index == 1 %}Over 2.5 Goals{% else %}Under 3.5 Goals{% endif %}{% else %}{{ t.tip_premium_only }}{% endif %}</div>
 
                                 <div class="footer-actions">
-                                    <a href="#" class="btn btn-dark btn-sm">Details</a>
-                                    <a href="#" class="btn btn-outline btn-sm btn-live">Live</a>
+                                    <a href="#" class="btn btn-dark btn-sm">{{ t.details }}</a>
+                                    <a href="#" class="btn btn-outline btn-sm btn-live">{{ t.live }}</a>
                                 </div>
                             </div>
                         </article>
@@ -191,8 +239,8 @@
                     <section class="section">
                         <div class="section-head">
                             <div class="section-title-wrap">
-                                <h2 class="section-title">🟢 Live & In-Play</h2>
-                                <div class="section-subtitle">Echtzeit Vorhersagen & Updates</div>
+                                <h2 class="section-title">🟢 {{ t.live_in_play }}</h2>
+                                <div class="section-subtitle">{{ t.live_in_play_sub }}</div>
                             </div>
                         </div>
 
@@ -218,18 +266,18 @@
 
                                 {% if is_premium %}
                                 <div class="live-prediction">
-                                    <div class="live-prediction-label">Live Prediction:</div>
+                                    <div class="live-prediction-label">{{ t.live_prediction }}</div>
                                     <div class="live-prediction-value">{{ featured_match.home }} Win</div>
                                 </div>
 
                                 <div class="live-percent">73%</div>
                                 {% else %}
                                 <div class="live-prediction live-locked">
-                                    <div class="live-prediction-label">Live Prediction:</div>
-                                    <div class="live-prediction-value">🔒 Nur für Premium</div>
+                                    <div class="live-prediction-label">{{ t.live_prediction }}</div>
+                                    <div class="live-prediction-value">🔒 {{ t.premium_only }}</div>
                                 </div>
 
-                                <div class="live-percent locked-percent">Abo</div>
+                                <div class="live-percent locked-percent">{{ t.subscription }}</div>
                                 {% endif %}
                             </div>
                             {% endif %}
@@ -240,8 +288,8 @@
                         <div class="bottom-duo-grid">
                             <div class="panel-box">
                                 <div class="panel-header">
-                                    <div class="panel-kicker">League</div>
-                                    <h3>Tabelle</h3>
+                                    <div class="panel-kicker">{{ t.league }}</div>
+                                    <h3>{{ t.table }}</h3>
                                 </div>
 
                                 <div class="table-mobile-wrap">
@@ -250,18 +298,18 @@
                                             <tr>
                                                 <th>#</th>
                                                 <th>Team</th>
-                                                <th>Punkte</th>
+                                                <th>{% if lang == 'de' %}Punkte{% elif lang == 'fr' %}Points{% elif lang == 'it' %}Punti{% else %}Points{% endif %}</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            {% for t in table %}
+                                            {% for trow in table %}
                                             <tr>
-                                                <td>{{ t.pos }}</td>
+                                                <td>{{ trow.pos }}</td>
                                                 <td class="table-team-cell">
-                                                    <img src="{{ t.logo }}" alt="{{ t.team }}">
-                                                    <span>{{ t.team }}</span>
+                                                    <img src="{{ trow.logo }}" alt="{{ trow.team }}">
+                                                    <span>{{ trow.team }}</span>
                                                 </td>
-                                                <td><strong>{{ t.points }}</strong></td>
+                                                <td><strong>{{ trow.points }}</strong></td>
                                             </tr>
                                             {% endfor %}
                                         </tbody>
@@ -271,8 +319,8 @@
 
                             <div class="panel-box">
                                 <div class="panel-header">
-                                    <div class="panel-kicker">Players</div>
-                                    <h3>Top Scorer</h3>
+                                    <div class="panel-kicker">{{ t.players }}</div>
+                                    <h3>{{ t.top_scorer }}</h3>
                                 </div>
 
                                 <div class="scorer-stack">
@@ -296,28 +344,28 @@
 
                 <aside class="right-rail">
                     <div class="premium-panel">
-                        <div class="upgrade-title">💎 Premium</div>
-                        <div class="upgrade-subtitle">Upgrade auf Premium</div>
+                        <div class="upgrade-title">💎 {{ t.premium }}</div>
+                        <div class="upgrade-subtitle">{{ t.upgrade_premium }}</div>
 
                         <ul class="bullet-list">
-                            <li><span class="feature-check">✓</span> Unlimitierte Vorhersagen</li>
-                            <li><span class="feature-check">✓</span> AI Analysen</li>
-                            <li><span class="feature-check">✓</span> Live Insights</li>
-                            <li><span class="feature-check">✓</span> Early Access</li>
+                            <li><span class="feature-check">✓</span> {{ t.unlimited_predictions }}</li>
+                            <li><span class="feature-check">✓</span> {{ t.ai_analysis_full }}</li>
+                            <li><span class="feature-check">✓</span> {{ t.live_insights }}</li>
+                            <li><span class="feature-check">✓</span> {{ t.early_access }}</li>
                         </ul>
 
-                        <a href="/premium?league={{ league }}" class="btn btn-green full-width-btn">Jetzt freischalten</a>
+                        <a href="/premium?league={{ league }}&lang={{ lang }}" class="btn btn-green full-width-btn">{{ t.unlock_now }}</a>
                     </div>
 
                     <div class="top-teams-panel">
-                        <div class="sidebar-title">💠 Top Teams heute</div>
+                        <div class="sidebar-title">💠 {{ t.top_teams_today }}</div>
 
                         <div class="top-team-row">
                             <div class="team-mini">
                                 <img class="team-mini-logo" src="{{ table[0].logo if table|length > 0 else '/static/images/default.png' }}" alt="">
                                 <span>{{ table[0].team if table|length > 0 else 'FC Bayern München' }}</span>
                             </div>
-                            <span class="hot-tag">Hot</span>
+                            <span class="hot-tag">{{ t.hot }}</span>
                         </div>
 
                         <div class="top-team-row">
@@ -325,7 +373,7 @@
                                 <img class="team-mini-logo" src="{{ table[1].logo if table|length > 1 else '/static/images/default.png' }}" alt="">
                                 <span>{{ table[1].team if table|length > 1 else 'Borussia Dortmund' }}</span>
                             </div>
-                            <span class="hot-tag">Hot</span>
+                            <span class="hot-tag">{{ t.hot }}</span>
                         </div>
 
                         <div class="top-team-row">
@@ -333,10 +381,10 @@
                                 <img class="team-mini-logo" src="{{ table[2].logo if table|length > 2 else '/static/images/default.png' }}" alt="">
                                 <span>{{ table[2].team if table|length > 2 else 'VfB Stuttgart' }}</span>
                             </div>
-                            <span class="cold-tag">Cold</span>
+                            <span class="cold-tag">{{ t.cold }}</span>
                         </div>
 
-                        <a href="#" class="btn btn-outline full-width-btn" style="margin-top:18px;">Zum Live-Bereich</a>
+                        <a href="#" class="btn btn-outline full-width-btn" style="margin-top:18px;">{{ t.to_live_area }}</a>
                     </div>
                 </aside>
             </div>
@@ -351,42 +399,55 @@
                 <div class="brand-mark">M</div>
                 <span>MatchPredictions</span>
             </div>
-            <div class="footer-text">AI-gestützte Fussballvorhersagen für Europas Top Ligen.</div>
+            <div class="footer-text">{{ t.footer_text }}</div>
         </div>
 
         <div>
-            <h4 class="footer-title">Navigation</h4>
+            <h4 class="footer-title">{{ t.navigation }}</h4>
             <ul class="footer-links">
-                <li><a href="#">Matches</a></li>
-                <li><a href="#">Predictions</a></li>
-                <li><a href="#">Stats</a></li>
-                <li><a href="#">Premium</a></li>
+                <li><a href="#">{{ t.matches }}</a></li>
+                <li><a href="#">{{ t.predictions }}</a></li>
+                <li><a href="#">{{ t.stats }}</a></li>
+                <li><a href="#">{{ t.premium }}</a></li>
             </ul>
         </div>
 
         <div>
-            <h4 class="footer-title">Rechtliches</h4>
+            <h4 class="footer-title">{{ t.legal }}</h4>
             <ul class="footer-links">
-                <li><a href="#">Impressum</a></li>
-                <li><a href="#">Datenschutz</a></li>
-                <li><a href="#">AGB</a></li>
+                <li><a href="#">{{ t.imprint }}</a></li>
+                <li><a href="#">{{ t.privacy }}</a></li>
+                <li><a href="#">{{ t.terms }}</a></li>
             </ul>
         </div>
 
         <div>
-            <h4 class="footer-title">Stay Updated</h4>
-            <div class="footer-text">Erhalte die besten Vorhersagen per E-Mail.</div>
+            <h4 class="footer-title">{{ t.stay_updated }}</h4>
+            <div class="footer-text">{{ t.newsletter_text }}</div>
             <div class="subscribe-box">
-                <input type="email" placeholder="Deine E-Mail">
-                <a href="#" class="btn btn-green">Abonnieren</a>
+                <input type="email" placeholder="{{ t.email_placeholder }}">
+                <a href="#" class="btn btn-green">{{ t.subscribe }}</a>
             </div>
         </div>
     </div>
 
     <div class="container footer-bottom">
-        © 2025 MatchPredictions. Alle Rechte vorbehalten.
+        © 2025 MatchPredictions. All rights reserved.
     </div>
 </footer>
+
+<script>
+const burgerBtn = document.getElementById("burgerBtn");
+const mobileMenu = document.getElementById("mobileMenu");
+
+if (burgerBtn && mobileMenu) {
+    burgerBtn.addEventListener("click", () => {
+        const isOpen = mobileMenu.classList.toggle("open");
+        burgerBtn.classList.toggle("open");
+        burgerBtn.setAttribute("aria-expanded", isOpen ? "true" : "false");
+    });
+}
+</script>
 
 </body>
 </html>
