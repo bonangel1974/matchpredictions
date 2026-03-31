@@ -55,7 +55,6 @@ def load_matches(league_code: str):
         away_team = m.get("awayTeam", {})
         score = m.get("score", {})
         full_time = score.get("fullTime", {})
-        status = m.get("status", "")
 
         matches.append({
             "home": home_team.get("name", "Home"),
@@ -63,7 +62,7 @@ def load_matches(league_code: str):
             "home_logo": find_logo(home_team.get("name", "")),
             "away_logo": find_logo(away_team.get("name", "")),
             "time": format_kickoff(m.get("utcDate", "")),
-            "status": status,
+            "status": m.get("status", ""),
             "score_home": full_time.get("home"),
             "score_away": full_time.get("away")
         })
@@ -87,6 +86,7 @@ def load_table(league_code: str):
         for row in standings[0].get("table", [])[:10]:
             team = row.get("team", {})
             team_name = team.get("name", "")
+
             table.append({
                 "pos": row.get("position", ""),
                 "team": team_name,
@@ -111,6 +111,7 @@ def load_scorers(league_code: str):
     for s in data_scorers.get("scorers", [])[:10]:
         team = s.get("team", {})
         team_name = team.get("name", "")
+
         scorers.append({
             "name": s.get("player", {}).get("name", ""),
             "team": team_name,
@@ -140,10 +141,8 @@ def home():
         table = load_table(league_code)
         scorers = load_scorers(league_code)
 
-        # Featured Match: zuerst LIVE, sonst erstes Spiel
         if matches:
             live_statuses = {"IN_PLAY", "LIVE", "PAUSED"}
-
             live_matches = [
                 m for m in matches
                 if str(m.get("status", "")).upper() in live_statuses
@@ -164,9 +163,9 @@ def home():
         scorers=scorers,
         featured_match=featured_match,
         error=error,
-        league=league_key
+        league=league_key,
+        is_premium=False
     )
-
 
 
 @app.route("/api/live-matches")

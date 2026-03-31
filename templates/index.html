@@ -41,54 +41,56 @@
         {% if error %}
         <div class="error-box">{{ error }}</div>
         {% endif %}
-<section class="hero">
-    <div class="hero-grid">
-        <div class="hero-main hero-animated">
-            <div class="hero-overlay"></div>
-            <div class="hero-glow"></div>
-            <div class="hero-content">
-                <div class="hero-kicker">AI Match Predictions</div>
-                <h1 class="hero-title"><span class="accent">AI</span> Match Predictions<br>für Europa</h1>
-                <p class="hero-subtitle">Daten. Trends. Gewinnstrategien.</p>
 
-                <div class="hero-buttons">
-                    <a href="/premium?league={{ league }}" class="btn btn-green btn-large">Vorhersagen ansehen</a>
-                    <a href="/register?league={{ league }}" class="btn btn-outline btn-large">Kostenlos testen</a>
-                </div>
-            </div>
-        </div>
+        <section class="hero">
+            <div class="hero-grid">
+                <div class="hero-main hero-animated">
+                    <div class="hero-overlay"></div>
+                    <div class="hero-glow"></div>
 
-        <div class="hero-side">
-            <div class="ai-panel">
-                <div class="panel-head">
-                    <h3 class="panel-title">AI Analyse</h3>
-                    <span class="panel-chip">PREMIUM</span>
-                </div>
+                    <div class="hero-content">
+                        <div class="hero-kicker">AI Match Predictions</div>
+                        <h1 class="hero-title"><span class="accent">AI</span> Match Predictions<br>für Europa</h1>
+                        <p class="hero-subtitle">Daten. Trends. Gewinnstrategien.</p>
 
-                <ul class="feature-list">
-                    <li><span class="feature-check">✓</span> Form Analyse</li>
-                    <li><span class="feature-check">✓</span> Head-to-Head</li>
-                    <li><span class="feature-check">✓</span> Goal Trend</li>
-                    <li><span class="feature-check">✓</span> Injury Impact</li>
-                </ul>
-
-                <div class="ai-result">
-                    <div class="ai-result-label">Ergebnis:</div>
-                    <div class="ai-result-value">
-                        {% if featured_match %}
-                            {{ featured_match.home }} Win
-                        {% else %}
-                            Home Win
-                        {% endif %}
+                        <div class="hero-buttons">
+                            <a href="/premium?league={{ league }}" class="btn btn-green btn-large">Vorhersagen ansehen</a>
+                            <a href="/register?league={{ league }}" class="btn btn-outline btn-large">Kostenlos testen</a>
+                        </div>
                     </div>
-                    <div class="confidence-text">(High Confidence)</div>
                 </div>
 
-                <div class="premium-note">🔒 Premium Feature</div>
+                <div class="hero-side">
+                    <div class="ai-panel">
+                        <div class="panel-head">
+                            <h3 class="panel-title">AI Analyse</h3>
+                            <span class="panel-chip">PREMIUM</span>
+                        </div>
+
+                        <ul class="feature-list">
+                            <li><span class="feature-check">✓</span> Form Analyse</li>
+                            <li><span class="feature-check">✓</span> Head-to-Head</li>
+                            <li><span class="feature-check">✓</span> Goal Trend</li>
+                            <li><span class="feature-check">✓</span> Injury Impact</li>
+                        </ul>
+
+                        <div class="ai-result">
+                            <div class="ai-result-label">Ergebnis:</div>
+                            <div class="ai-result-value">
+                                {% if is_premium and featured_match %}
+                                    {{ featured_match.home }} Win
+                                {% else %}
+                                    🔒 Nur für Premium
+                                {% endif %}
+                            </div>
+                            <div class="confidence-text">{% if is_premium %}(High Confidence){% else %}Prediction nach Abo sichtbar{% endif %}</div>
+                        </div>
+
+                        <div class="premium-note">🔒 Premium Feature</div>
+                    </div>
+                </div>
             </div>
-        </div>
-    </div>
-</section>
+        </section>
 
         <section class="section">
             <div class="main-grid">
@@ -97,7 +99,7 @@
                     <div class="section-head">
                         <div class="section-title-wrap">
                             <h2 class="section-title">🔥 Top Matches</h2>
-                            <div class="section-subtitle">Heute wichtigste Spiele &amp; Vorhersagen</div>
+                            <div class="section-subtitle">Heute wichtigste Spiele & Vorhersagen</div>
                         </div>
                     </div>
 
@@ -126,6 +128,7 @@
 
                             <div class="meta-line">📅 {{ m.time }} · {{ league|capitalize }}</div>
 
+                            {% if is_premium %}
                             <div class="prediction-box">
                                 <div>
                                     <div class="prediction-label">Prediction: <strong>{% if loop.index == 1 %}{{ m.home }} Win{% else %}Draw{% endif %}</strong></div>
@@ -140,9 +143,16 @@
                                     <div class="confidence-value">{% if loop.index == 1 %}8.2/10{% else %}6.7/10{% endif %}</div>
                                 </div>
                             </div>
+                            {% else %}
+                            <div class="prediction-lock-box">
+                                <div class="prediction-lock-title">🔒 Prediction nur für Premium</div>
+                                <div class="prediction-lock-text">Vorhersagen, Confidence und Tipps werden nach Abo-Freischaltung angezeigt.</div>
+                                <a href="/premium?league={{ league }}" class="btn btn-green btn-sm">Premium freischalten</a>
+                            </div>
+                            {% endif %}
 
                             <div class="card-footer">
-                                <div class="tip">💡 Tipp: {% if loop.index == 1 %}Over 2.5 Goals{% else %}Under 3.5 Goals{% endif %}</div>
+                                <div class="tip">💡 Tipp: {% if is_premium %}{% if loop.index == 1 %}Over 2.5 Goals{% else %}Under 3.5 Goals{% endif %}{% else %}Nur für Premium{% endif %}</div>
 
                                 <div class="footer-actions">
                                     <a href="#" class="btn btn-dark btn-sm">Details</a>
@@ -156,8 +166,8 @@
                     <section class="section">
                         <div class="section-head">
                             <div class="section-title-wrap">
-                                <h2 class="section-title">🟢 Live &amp; In-Play</h2>
-                                <div class="section-subtitle">Echtzeit Vorhersagen &amp; Updates</div>
+                                <h2 class="section-title">🟢 Live & In-Play</h2>
+                                <div class="section-subtitle">Echtzeit Vorhersagen & Updates</div>
                             </div>
                         </div>
 
@@ -181,12 +191,21 @@
                                     <div class="live-minute">{{ featured_match.status }} · {{ featured_match.time }}</div>
                                 </div>
 
+                                {% if is_premium %}
                                 <div class="live-prediction">
                                     <div class="live-prediction-label">Live Prediction:</div>
                                     <div class="live-prediction-value">{{ featured_match.home }} Win</div>
                                 </div>
 
                                 <div class="live-percent">73%</div>
+                                {% else %}
+                                <div class="live-prediction live-locked">
+                                    <div class="live-prediction-label">Live Prediction:</div>
+                                    <div class="live-prediction-value">🔒 Nur für Premium</div>
+                                </div>
+
+                                <div class="live-percent locked-percent">Abo</div>
+                                {% endif %}
                             </div>
                             {% endif %}
                         </div>
@@ -279,7 +298,7 @@
                         <div class="top-team-row">
                             <div class="team-mini">
                                 <img class="team-mini-logo" src="{{ table[1].logo if table|length > 1 else '/static/images/default.png' }}" alt="">
-                                <span>{{ table[1].team if table|length > 1 else 'Bayer Leverkusen' }}</span>
+                                <span>{{ table[1].team if table|length > 1 else 'Borussia Dortmund' }}</span>
                             </div>
                             <span class="hot-tag">Hot</span>
                         </div>
@@ -287,7 +306,7 @@
                         <div class="top-team-row">
                             <div class="team-mini">
                                 <img class="team-mini-logo" src="{{ table[2].logo if table|length > 2 else '/static/images/default.png' }}" alt="">
-                                <span>{{ table[2].team if table|length > 2 else 'RB Leipzig' }}</span>
+                                <span>{{ table[2].team if table|length > 2 else 'VfB Stuttgart' }}</span>
                             </div>
                             <span class="cold-tag">Cold</span>
                         </div>
