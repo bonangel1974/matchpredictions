@@ -417,33 +417,24 @@ TRANSLATIONS = {
 # =========================================================
 
 def detect_country_code():
-    """
-    Aktuell einfache Lösung:
-    - nutzt ?country=CH (zum Testen)
-    - später kannst du echte GeoIP integrieren
-    """
     query_country = request.args.get("country")
-
     if query_country:
         return query_country.upper()
-
     return None
 
 
 def get_auto_defaults_from_country():
-    """
-    Setzt automatisch:
-    - Liga
-    - Sprache
-    basierend auf Land
-    """
-
     country_code = detect_country_code()
-
     if country_code and country_code in COUNTRY_DEFAULTS:
         return COUNTRY_DEFAULTS[country_code]
-
     return DEFAULT_PREFS
+
+
+def get_translation(lang: str):
+    if lang not in TRANSLATIONS:
+        lang = "de"
+    return TRANSLATIONS[lang]
+
 
 
 # =========================================================
