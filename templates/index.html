@@ -31,12 +31,19 @@
         <div class="mobile-nav-scroll">
             <nav class="main-nav">
                 <a href="/?league=bundesliga&lang={{ lang }}" class="{% if league == 'bundesliga' %}active{% endif %}">{{ t.nav_germany }}</a>
-                <a href="/?league=switzerland&lang={{ lang }}" class="{% if league == 'switzerland' %}active{% endif %}">{{ t.nav_switzerland }}</a>
-                <a href="/?league=austria&lang={{ lang }}" class="{% if league == 'austria' %}active{% endif %}">{{ t.nav_austria }}</a>
                 <a href="/?league=premierleague&lang={{ lang }}" class="{% if league == 'premierleague' %}active{% endif %}">{{ t.nav_england }}</a>
                 <a href="/?league=seriea&lang={{ lang }}" class="{% if league == 'seriea' %}active{% endif %}">{{ t.nav_italy }}</a>
                 <a href="/?league=ligue1&lang={{ lang }}" class="{% if league == 'ligue1' %}active{% endif %}">{{ t.nav_france }}</a>
+                <a href="/?league=laliga&lang={{ lang }}" class="{% if league == 'laliga' %}active{% endif %}">LaLiga</a>
+                <a href="/?league=eredivisie&lang={{ lang }}" class="{% if league == 'eredivisie' %}active{% endif %}">Eredivisie</a>
+                <a href="/?league=primeiraliga&lang={{ lang }}" class="{% if league == 'primeiraliga' %}active{% endif %}">Primeira Liga</a>
+                <a href="/?league=championship&lang={{ lang }}" class="{% if league == 'championship' %}active{% endif %}">Championship</a>
+                <a href="/?league=brazil&lang={{ lang }}" class="{% if league == 'brazil' %}active{% endif %}">Brazil</a>
                 <a href="/?league=championsleague&lang={{ lang }}" class="{% if league == 'championsleague' %}active{% endif %}">{{ t.nav_europe }}</a>
+                <a href="/?league=euro&lang={{ lang }}" class="{% if league == 'euro' %}active{% endif %}">EURO</a>
+                <a href="/?league=worldcup&lang={{ lang }}" class="{% if league == 'worldcup' %}active{% endif %}">World Cup</a>
+                <a href="/?league=switzerland&lang={{ lang }}" class="{% if league == 'switzerland' %}active{% endif %}">{{ t.nav_switzerland }}</a>
+                <a href="/?league=austria&lang={{ lang }}" class="{% if league == 'austria' %}active{% endif %}">{{ t.nav_austria }}</a>
                 <a href="#" class="live-link"><span class="live-dot"></span><span>{{ t.live }}</span></a>
             </nav>
         </div>
@@ -72,12 +79,19 @@
         <div class="container mobile-menu-inner">
             <nav class="mobile-menu-nav">
                 <a href="/?league=bundesliga&lang={{ lang }}" class="{% if league == 'bundesliga' %}active{% endif %}">{{ t.nav_germany }}</a>
-                <a href="/?league=switzerland&lang={{ lang }}" class="{% if league == 'switzerland' %}active{% endif %}">{{ t.nav_switzerland }}</a>
-                <a href="/?league=austria&lang={{ lang }}" class="{% if league == 'austria' %}active{% endif %}">{{ t.nav_austria }}</a>
                 <a href="/?league=premierleague&lang={{ lang }}" class="{% if league == 'premierleague' %}active{% endif %}">{{ t.nav_england }}</a>
                 <a href="/?league=seriea&lang={{ lang }}" class="{% if league == 'seriea' %}active{% endif %}">{{ t.nav_italy }}</a>
                 <a href="/?league=ligue1&lang={{ lang }}" class="{% if league == 'ligue1' %}active{% endif %}">{{ t.nav_france }}</a>
+                <a href="/?league=laliga&lang={{ lang }}" class="{% if league == 'laliga' %}active{% endif %}">LaLiga</a>
+                <a href="/?league=eredivisie&lang={{ lang }}" class="{% if league == 'eredivisie' %}active{% endif %}">Eredivisie</a>
+                <a href="/?league=primeiraliga&lang={{ lang }}" class="{% if league == 'primeiraliga' %}active{% endif %}">Primeira Liga</a>
+                <a href="/?league=championship&lang={{ lang }}" class="{% if league == 'championship' %}active{% endif %}">Championship</a>
+                <a href="/?league=brazil&lang={{ lang }}" class="{% if league == 'brazil' %}active{% endif %}">Brazil</a>
                 <a href="/?league=championsleague&lang={{ lang }}" class="{% if league == 'championsleague' %}active{% endif %}">{{ t.nav_europe }}</a>
+                <a href="/?league=euro&lang={{ lang }}" class="{% if league == 'euro' %}active{% endif %}">EURO</a>
+                <a href="/?league=worldcup&lang={{ lang }}" class="{% if league == 'worldcup' %}active{% endif %}">World Cup</a>
+                <a href="/?league=switzerland&lang={{ lang }}" class="{% if league == 'switzerland' %}active{% endif %}">{{ t.nav_switzerland }}</a>
+                <a href="/?league=austria&lang={{ lang }}" class="{% if league == 'austria' %}active{% endif %}">{{ t.nav_austria }}</a>
                 <a href="#" class="mobile-live-link"><span class="live-dot"></span><span>{{ t.live }}</span></a>
             </nav>
 
@@ -151,7 +165,7 @@
                             <div class="ai-result-label">{{ t.result }}</div>
                             <div class="ai-result-value">
                                 {% if is_premium and featured_match %}
-                                    {{ featured_match.home }} Win
+                                    {{ t.home_win }}
                                 {% else %}
                                     🔒 {{ t.premium_only }}
                                 {% endif %}
@@ -204,7 +218,7 @@
                             {% if is_premium %}
                             <div class="prediction-box">
                                 <div>
-                                    <div class="prediction-label">{{ t.prediction }}: <strong>{% if loop.index == 1 %}{{ m.home }} Win{% else %}Draw{% endif %}</strong></div>
+                                    <div class="prediction-label">{{ t.prediction }}: <strong>{% if loop.index == 1 %}{{ t.home_win }}{% else %}{{ t.draw }}{% endif %}</strong></div>
                                     <div class="prediction-percent">{% if loop.index == 1 %}68%{% else %}29%{% endif %}</div>
                                 </div>
 
@@ -225,7 +239,7 @@
                             {% endif %}
 
                             <div class="card-footer">
-                                <div class="tip">💡 {{ t.tip }}: {% if is_premium %}{% if loop.index == 1 %}Over 2.5 Goals{% else %}Under 3.5 Goals{% endif %}{% else %}{{ t.tip_premium_only }}{% endif %}</div>
+                                <div class="tip">💡 {{ t.tip }}: {% if is_premium %}{% if loop.index == 1 %}{{ t.over_goals }}{% else %}{{ t.under_goals }}{% endif %}{% else %}{{ t.tip_premium_only }}{% endif %}</div>
 
                                 <div class="footer-actions">
                                     <a href="#" class="btn btn-dark btn-sm">{{ t.details }}</a>
@@ -267,7 +281,7 @@
                                 {% if is_premium %}
                                 <div class="live-prediction">
                                     <div class="live-prediction-label">{{ t.live_prediction }}</div>
-                                    <div class="live-prediction-value">{{ featured_match.home }} Win</div>
+                                    <div class="live-prediction-value">{{ t.home_win }}</div>
                                 </div>
 
                                 <div class="live-percent">73%</div>
@@ -298,7 +312,7 @@
                                             <tr>
                                                 <th>#</th>
                                                 <th>Team</th>
-                                                <th>{% if lang == 'de' %}Punkte{% elif lang == 'fr' %}Points{% elif lang == 'it' %}Punti{% else %}Points{% endif %}</th>
+                                                <th>{{ t.points }}</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -432,7 +446,7 @@
     </div>
 
     <div class="container footer-bottom">
-        © 2025 MatchPredictions. All rights reserved.
+        © 2025 MatchPredictions. {{ t.all_rights_reserved }}
     </div>
 </footer>
 

@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, jsonify
+from flask import Flask, render_template, request, jsonify, make_response
 import requests
 import os
 from datetime import datetime, timedelta, timezone
@@ -13,16 +13,67 @@ HEADERS = {
     "X-Auth-Token": API_KEY
 }
 
+# Alle aktuell kostenlosen / relevanten Wettbewerbe von football-data.org
 LEAGUES = {
-    "bundesliga": "BL1",
-    "switzerland": "CLI",
-    "austria": "BSA",
-    "premierleague": "PL",
-    "seriea": "SA",
-    "ligue1": "FL1",
+    "worldcup": "WC",
     "championsleague": "CL",
+    "bundesliga": "BL1",
+    "eredivisie": "DED",
+    "brazil": "BSA",
+    "laliga": "PD",
+    "ligue1": "FL1",
+    "championship": "ELC",
+    "primeiraliga": "PPL",
     "euro": "EC",
-    "worldcup": "WC"
+    "seriea": "SA",
+    "premierleague": "PL"
+}
+
+# Für späteren zweiten Anbieter vorbereitet
+LEAGUE_PROVIDERS = {
+    "worldcup": "fd",
+    "championsleague": "fd",
+    "bundesliga": "fd",
+    "eredivisie": "fd",
+    "brazil": "fd",
+    "laliga": "fd",
+    "ligue1": "fd",
+    "championship": "fd",
+    "primeiraliga": "fd",
+    "euro": "fd",
+    "seriea": "fd",
+    "premierleague": "fd",
+
+    # Platzhalter für später
+    "switzerland": "api2",
+    "austria": "api2",
+    "albania": "api2",
+    "turkey": "api2",
+    "hungary": "api2"
+}
+
+DEFAULT_PREFS = {
+    "league": "bundesliga",
+    "lang": "de"
+}
+
+# Solange der zweite Anbieter noch nicht drin ist,
+# bekommen diese Länder eine passende Sprachvorgabe,
+# aber liga-seitig einen sicheren football-data-Fallback.
+COUNTRY_DEFAULTS = {
+    "CH": {"league": "bundesliga", "lang": "de"},
+    "DE": {"league": "bundesliga", "lang": "de"},
+    "AT": {"league": "bundesliga", "lang": "de"},
+    "IT": {"league": "seriea", "lang": "it"},
+    "FR": {"league": "ligue1", "lang": "fr"},
+    "GB": {"league": "premierleague", "lang": "en"},
+    "AL": {"league": "premierleague", "lang": "en"},
+    "TR": {"league": "premierleague", "lang": "en"},
+    "HU": {"league": "premierleague", "lang": "en"},
+    "NL": {"league": "eredivisie", "lang": "en"},
+    "PT": {"league": "primeiraliga", "lang": "en"},
+    "ES": {"league": "laliga", "lang": "en"},
+    "BR": {"league": "brazil", "lang": "en"},
 }
 
 TRANSLATIONS = {
@@ -93,7 +144,13 @@ TRANSLATIONS = {
         "stay_updated": "Stay Updated",
         "newsletter_text": "Erhalte die besten Vorhersagen per E-Mail.",
         "email_placeholder": "Deine E-Mail",
-        "subscribe": "Abonnieren"
+        "subscribe": "Abonnieren",
+        "points": "Punkte",
+        "draw": "Unentschieden",
+        "home_win": "Heimsieg",
+        "over_goals": "Über 2.5 Tore",
+        "under_goals": "Unter 3.5 Tore",
+        "all_rights_reserved": "Alle Rechte vorbehalten."
     },
     "en": {
         "nav_germany": "Germany",
@@ -162,7 +219,13 @@ TRANSLATIONS = {
         "stay_updated": "Stay Updated",
         "newsletter_text": "Get the best predictions by email.",
         "email_placeholder": "Your email",
-        "subscribe": "Subscribe"
+        "subscribe": "Subscribe",
+        "points": "Points",
+        "draw": "Draw",
+        "home_win": "Home Win",
+        "over_goals": "Over 2.5 Goals",
+        "under_goals": "Under 3.5 Goals",
+        "all_rights_reserved": "All rights reserved."
     },
     "fr": {
         "nav_germany": "Allemagne",
@@ -231,7 +294,13 @@ TRANSLATIONS = {
         "stay_updated": "Stay Updated",
         "newsletter_text": "Recevez les meilleures prédictions par e-mail.",
         "email_placeholder": "Votre e-mail",
-        "subscribe": "S'abonner"
+        "subscribe": "S'abonner",
+        "points": "Points",
+        "draw": "Match nul",
+        "home_win": "Victoire à domicile",
+        "over_goals": "Plus de 2.5 buts",
+        "under_goals": "Moins de 3.5 buts",
+        "all_rights_reserved": "Tous droits réservés."
     },
     "it": {
         "nav_germany": "Germania",
@@ -300,16 +369,76 @@ TRANSLATIONS = {
         "stay_updated": "Stay Updated",
         "newsletter_text": "Ricevi i migliori pronostici via e-mail.",
         "email_placeholder": "La tua e-mail",
-        "subscribe": "Abbonati"
+        "subscribe": "Abbonati",
+        "points": "Punti",
+        "draw": "Pareggio",
+        "home_win": "Vittoria casa",
+        "over_goals": "Oltre 2.5 gol",
+        "under_goals": "Sotto 3.5 gol",
+        "all_rights_reserved": "Tutti i diritti riservati."
     }
 }
 
 
-def get_translation():
-    lang = request.args.get("lang", "de")
-    if lang not in TRANSLATIONS:
-        lang = "de"
-    return lang, TRANSLATIONS[lang]
+def detect_country_code():
+    """
+    Platzhalter für spätere echte Geo-IP Erkennung.
+    Für Tests kannst du ?country=CH usw. benutzen.
+    """
+    query_country = request.args.get("country")
+    if query_country:
+        return query_country.upper()
+    return None
+
+
+def get_auto_defaults_from_country():
+    country_code = detect_country_code()
+    if country_code and country_code in COUNTRY_DEFAULTS:
+        return COUNTRY_DEFAULTS[country_code]
+    return DEFAULT_PREFS
+
+
+def get_user_preferences():
+    query_lang = request.args.get("lang")
+    query_league = request.args.get("league")
+
+    cookie_lang = request.cookies.get("preferred_lang")
+    cookie_league = request.cookies.get("preferred_league")
+    manual_override = request.cookies.get("manual_override", "false")
+
+    if query_lang or query_league:
+        final_lang = query_lang or cookie_lang or DEFAULT_PREFS["lang"]
+        final_league = query_league or cookie_league or DEFAULT_PREFS["league"]
+
+        if final_lang not in TRANSLATIONS:
+            final_lang = DEFAULT_PREFS["lang"]
+
+        if final_league not in LEAGUES and final_league not in LEAGUE_PROVIDERS:
+            final_league = DEFAULT_PREFS["league"]
+
+        return {
+            "lang": final_lang,
+            "league": final_league,
+            "manual_override": True
+        }
+
+    if manual_override == "true" and cookie_lang and cookie_league:
+        final_lang = cookie_lang if cookie_lang in TRANSLATIONS else DEFAULT_PREFS["lang"]
+        final_league = cookie_league if (cookie_league in LEAGUES or cookie_league in LEAGUE_PROVIDERS) else DEFAULT_PREFS["league"]
+
+        return {
+            "lang": final_lang,
+            "league": final_league,
+            "manual_override": True
+        }
+
+    auto_defaults = get_auto_defaults_from_country()
+
+    return {
+        "lang": auto_defaults["lang"],
+        "league": auto_defaults["league"],
+        "manual_override": False
+    }
 
 
 def format_kickoff(utc_value: str) -> str:
@@ -322,7 +451,7 @@ def format_kickoff(utc_value: str) -> str:
         return utc_value
 
 
-def load_matches(league_code: str):
+def load_matches_fd(league_code: str):
     matches = []
 
     today = datetime.now(timezone.utc).date()
@@ -356,7 +485,7 @@ def load_matches(league_code: str):
     return matches
 
 
-def load_table(league_code: str):
+def load_table_fd(league_code: str):
     table = []
 
     res_table = requests.get(
@@ -383,7 +512,7 @@ def load_table(league_code: str):
     return table
 
 
-def load_scorers(league_code: str):
+def load_scorers_fd(league_code: str):
     scorers = []
 
     res_scorers = requests.get(
@@ -408,11 +537,66 @@ def load_scorers(league_code: str):
     return scorers
 
 
+# Platzhalter für späteren zweiten Anbieter
+def load_matches_api2(league_key: str):
+    return []
+
+
+def load_table_api2(league_key: str):
+    return []
+
+
+def load_scorers_api2(league_key: str):
+    return []
+
+
+def get_provider_for_league(league_key: str):
+    return LEAGUE_PROVIDERS.get(league_key, "fd")
+
+
+def load_matches(league_key: str):
+    provider = get_provider_for_league(league_key)
+
+    if provider == "fd":
+        league_code = LEAGUES.get(league_key)
+        if not league_code:
+            return []
+        return load_matches_fd(league_code)
+
+    return load_matches_api2(league_key)
+
+
+def load_table(league_key: str):
+    provider = get_provider_for_league(league_key)
+
+    if provider == "fd":
+        league_code = LEAGUES.get(league_key)
+        if not league_code:
+            return []
+        return load_table_fd(league_code)
+
+    return load_table_api2(league_key)
+
+
+def load_scorers(league_key: str):
+    provider = get_provider_for_league(league_key)
+
+    if provider == "fd":
+        league_code = LEAGUES.get(league_key)
+        if not league_code:
+            return []
+        return load_scorers_fd(league_code)
+
+    return load_scorers_api2(league_key)
+
+
 @app.route("/")
 def home():
-    lang, t = get_translation()
-    league_key = request.args.get("league", "bundesliga")
-    league_code = LEAGUES.get(league_key, "BL1")
+    prefs = get_user_preferences()
+
+    lang = prefs["lang"]
+    league_key = prefs["league"]
+    t = TRANSLATIONS.get(lang, TRANSLATIONS["de"])
 
     matches = []
     table = []
@@ -424,9 +608,9 @@ def home():
         if not API_KEY:
             raise Exception("API_KEY fehlt. Bitte in Render setzen.")
 
-        matches = load_matches(league_code)
-        table = load_table(league_code)
-        scorers = load_scorers(league_code)
+        matches = load_matches(league_key)
+        table = load_table(league_key)
+        scorers = load_scorers(league_key)
 
         if matches:
             live_statuses = {"IN_PLAY", "LIVE", "PAUSED"}
@@ -443,7 +627,7 @@ def home():
     except Exception as e:
         error = str(e)
 
-    return render_template(
+    response = make_response(render_template(
         "index.html",
         matches=matches,
         table=table,
@@ -454,19 +638,28 @@ def home():
         lang=lang,
         t=t,
         is_premium=False
-    )
+    ))
+
+    max_age = 60 * 60 * 24 * 365
+
+    response.set_cookie("preferred_lang", lang, max_age=max_age)
+    response.set_cookie("preferred_league", league_key, max_age=max_age)
+
+    if prefs["manual_override"]:
+        response.set_cookie("manual_override", "true", max_age=max_age)
+
+    return response
 
 
 @app.route("/api/live-matches")
 def api_live_matches():
     league_key = request.args.get("league", "bundesliga")
-    league_code = LEAGUES.get(league_key, "BL1")
 
     try:
         if not API_KEY:
             return jsonify({"success": False, "error": "API_KEY fehlt", "matches": []})
 
-        matches = load_matches(league_code)
+        matches = load_matches(league_key)
         return jsonify({"success": True, "matches": matches})
 
     except Exception as e:
@@ -475,3 +668,4 @@ def api_live_matches():
 
 if __name__ == "__main__":
     app.run(debug=True)
+    
