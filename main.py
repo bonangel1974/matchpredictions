@@ -25,6 +25,7 @@ HEADERS_API2 = {
 
 CURRENT_SEASON = int(os.environ.get("FOOTBALL_SEASON", "2024"))
 
+
 # =========================================================
 # LIGEN
 # football-data = alles Kostenlose / Gute
@@ -409,6 +410,40 @@ TRANSLATIONS = {
         "all_rights_reserved": "Tutti i diritti riservati."
     }
 }
+
+
+
+# COUNTRY DETECTION (EINFACH / ERWEITERBAR)
+# =========================================================
+
+def detect_country_code():
+    """
+    Aktuell einfache Lösung:
+    - nutzt ?country=CH (zum Testen)
+    - später kannst du echte GeoIP integrieren
+    """
+    query_country = request.args.get("country")
+
+    if query_country:
+        return query_country.upper()
+
+    return None
+
+
+def get_auto_defaults_from_country():
+    """
+    Setzt automatisch:
+    - Liga
+    - Sprache
+    basierend auf Land
+    """
+
+    country_code = detect_country_code()
+
+    if country_code and country_code in COUNTRY_DEFAULTS:
+        return COUNTRY_DEFAULTS[country_code]
+
+    return DEFAULT_PREFS
 
 
 # =========================================================
