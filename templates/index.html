@@ -73,6 +73,7 @@
 
                     <div class="top-matches-grid">
                         {% for m in matches[:2] %}
+                        {% set prediction = predictions.get(get_match_key(m)) %}
                         <article class="match-prediction-card">
                             <div class="match-row">
                                 <div class="club">
@@ -101,17 +102,17 @@
                                 <div>
                                     <div class="prediction-label">
                                         {{ t.prediction }}:
-                                        <strong>{% if loop.index == 1 %}{{ t.home_win }}{% else %}{{ t.draw }}{% endif %}</strong>
+                                        <strong>{{ t[prediction.result_key] if prediction else t.home_win }}</strong>
                                     </div>
-                                    <div class="prediction-percent">{% if loop.index == 1 %}68%{% else %}29%{% endif %}</div>
+                                    <div class="prediction-percent">{{ prediction.confidence_percent if prediction else 68 }}%</div>
                                 </div>
 
                                 <div class="confidence-box">
                                     <div class="confidence-title">{{ t.confidence }}</div>
                                     <div class="progress">
-                                        <div class="progress-bar" style="width:{% if loop.index == 1 %}68{% else %}29{% endif %}%"></div>
+                                        <div class="progress-bar" style="width:{{ prediction.confidence_percent if prediction else 68 }}%"></div>
                                     </div>
-                                    <div class="confidence-value">{% if loop.index == 1 %}8.2/10{% else %}6.7/10{% endif %}</div>
+                                    <div class="confidence-value">{{ prediction.confidence_score if prediction else '8.2/10' }}</div>
                                 </div>
                             </div>
                             {% else %}
@@ -125,8 +126,8 @@
                             <div class="card-footer">
                                 <div class="tip">
                                     💡 {{ t.tip }}:
-                                    {% if is_premium %}
-                                        {% if loop.index == 1 %}{{ t.over_goals }}{% else %}{{ t.under_goals }}{% endif %}
+                                    {% if is_premium and prediction %}
+                                        {{ t[prediction.tip_key] }}
                                     {% else %}
                                         {{ t.tip_premium_only }}
                                     {% endif %}
@@ -296,4 +297,48 @@
         </section>
     </div>
 </main>
+
+<footer class="site-footer">
+    <div class="container footer-grid">
+        <div>
+            <div class="footer-brand">
+                <div class="brand-mark">M</div>
+                <span>{{ t.brand }}</span>
+            </div>
+            <div class="footer-text">{{ t.footer_text }}</div>
+        </div>
+
+        <div>
+            <h4 class="footer-title">{{ t.navigation }}</h4>
+            <ul class="footer-links">
+                <li><a href="#">{{ t.matches }}</a></li>
+                <li><a href="#">{{ t.predictions }}</a></li>
+                <li><a href="#">{{ t.stats }}</a></li>
+                <li><a href="#">{{ t.premium }}</a></li>
+            </ul>
+        </div>
+
+        <div>
+            <h4 class="footer-title">{{ t.legal }}</h4>
+            <ul class="footer-links">
+                <li><a href="#">{{ t.imprint }}</a></li>
+                <li><a href="#">{{ t.privacy }}</a></li>
+                <li><a href="#">{{ t.terms }}</a></li>
+            </ul>
+        </div>
+
+        <div>
+            <h4 class="footer-title">{{ t.stay_updated }}</h4>
+            <div class="footer-text">{{ t.newsletter_text }}</div>
+            <div class="subscribe-box">
+                <input type="email" placeholder="{{ t.email_placeholder }}">
+                <a href="#" class="btn btn-green">{{ t.subscribe }}</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="container footer-bottom">
+        © 2025 {{ t.brand }}. {{ t.all_rights_reserved }}
+    </div>
+</footer>
 {% endblock %}
