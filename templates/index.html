@@ -1,127 +1,6 @@
-<!DOCTYPE html>
-<html lang="{{ lang }}">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MatchPredictions</title>
-    <link rel="stylesheet" href="/static/css/style.css">
-</head>
-<body>
+{% extends "base.html" %}
 
-<header class="site-header">
-    <div class="container header-mobile-top">
-        <div class="brand">
-            <div class="brand-mark">M</div>
-            <div>MatchPredictions</div>
-        </div>
-
-        <button class="burger-btn" id="burgerBtn" aria-label="Menu" aria-expanded="false" aria-controls="mobileMenu">
-            <span></span>
-            <span></span>
-            <span></span>
-        </button>
-    </div>
-
-    <div class="container header-desktop">
-        <div class="brand">
-            <div class="brand-mark">M</div>
-            <div>MatchPredictions</div>
-        </div>
-
-        <div class="mobile-nav-scroll">
-            <nav class="main-nav">
-                <a href="/?league=bundesliga&lang={{ lang }}" class="{% if league == 'bundesliga' %}active{% endif %}">{{ t.nav_germany }}</a>
-                <a href="/?league=premierleague&lang={{ lang }}" class="{% if league == 'premierleague' %}active{% endif %}">{{ t.nav_england }}</a>
-                <a href="/?league=seriea&lang={{ lang }}" class="{% if league == 'seriea' %}active{% endif %}">{{ t.nav_italy }}</a>
-                <a href="/?league=ligue1&lang={{ lang }}" class="{% if league == 'ligue1' %}active{% endif %}">{{ t.nav_france }}</a>
-                <a href="/?league=laliga&lang={{ lang }}" class="{% if league == 'laliga' %}active{% endif %}">LaLiga</a>
-                <a href="/?league=eredivisie&lang={{ lang }}" class="{% if league == 'eredivisie' %}active{% endif %}">Eredivisie</a>
-                <a href="/?league=primeiraliga&lang={{ lang }}" class="{% if league == 'primeiraliga' %}active{% endif %}">Primeira Liga</a>
-                <a href="/?league=championship&lang={{ lang }}" class="{% if league == 'championship' %}active{% endif %}">Championship</a>
-                <a href="/?league=brazil&lang={{ lang }}" class="{% if league == 'brazil' %}active{% endif %}">Brazil</a>
-                <a href="/?league=championsleague&lang={{ lang }}" class="{% if league == 'championsleague' %}active{% endif %}">{{ t.nav_europe }}</a>
-                <a href="/?league=euro&lang={{ lang }}" class="{% if league == 'euro' %}active{% endif %}">EURO</a>
-                <a href="/?league=worldcup&lang={{ lang }}" class="{% if league == 'worldcup' %}active{% endif %}">World Cup</a>
-                <a href="/?league=switzerland&lang={{ lang }}" class="{% if league == 'switzerland' %}active{% endif %}">{{ t.nav_switzerland }}</a>
-                <a href="/?league=austria&lang={{ lang }}" class="{% if league == 'austria' %}active{% endif %}">{{ t.nav_austria }}</a>
-                <a href="#" class="live-link"><span class="live-dot"></span><span>{{ t.live }}</span></a>
-            </nav>
-        </div>
-
-        <div class="header-right">
-            <div class="language-switch">
-                <a href="/?league={{ league }}&lang=de" class="lang-btn {% if lang == 'de' %}active{% endif %}">
-                    <img src="https://flagcdn.com/w40/de.png" alt="Deutsch">
-                    <span>DE</span>
-                </a>
-                <a href="/?league={{ league }}&lang=en" class="lang-btn {% if lang == 'en' %}active{% endif %}">
-                    <img src="https://flagcdn.com/w40/gb.png" alt="English">
-                    <span>EN</span>
-                </a>
-                <a href="/?league={{ league }}&lang=fr" class="lang-btn {% if lang == 'fr' %}active{% endif %}">
-                    <img src="https://flagcdn.com/w40/fr.png" alt="Français">
-                    <span>FR</span>
-                </a>
-                <a href="/?league={{ league }}&lang=it" class="lang-btn {% if lang == 'it' %}active{% endif %}">
-                    <img src="https://flagcdn.com/w40/it.png" alt="Italiano">
-                    <span>IT</span>
-                </a>
-            </div>
-
-            <div class="header-actions">
-                <a class="btn btn-dark header-btn" href="/login?league={{ league }}&lang={{ lang }}">{{ t.login }}</a>
-                <a class="btn btn-green header-btn" href="/premium?league={{ league }}&lang={{ lang }}">{{ t.premium }}</a>
-            </div>
-        </div>
-    </div>
-
-    <div class="mobile-menu" id="mobileMenu">
-        <div class="container mobile-menu-inner">
-            <nav class="mobile-menu-nav">
-                <a href="/?league=bundesliga&lang={{ lang }}" class="{% if league == 'bundesliga' %}active{% endif %}">{{ t.nav_germany }}</a>
-                <a href="/?league=premierleague&lang={{ lang }}" class="{% if league == 'premierleague' %}active{% endif %}">{{ t.nav_england }}</a>
-                <a href="/?league=seriea&lang={{ lang }}" class="{% if league == 'seriea' %}active{% endif %}">{{ t.nav_italy }}</a>
-                <a href="/?league=ligue1&lang={{ lang }}" class="{% if league == 'ligue1' %}active{% endif %}">{{ t.nav_france }}</a>
-                <a href="/?league=laliga&lang={{ lang }}" class="{% if league == 'laliga' %}active{% endif %}">LaLiga</a>
-                <a href="/?league=eredivisie&lang={{ lang }}" class="{% if league == 'eredivisie' %}active{% endif %}">Eredivisie</a>
-                <a href="/?league=primeiraliga&lang={{ lang }}" class="{% if league == 'primeiraliga' %}active{% endif %}">Primeira Liga</a>
-                <a href="/?league=championship&lang={{ lang }}" class="{% if league == 'championship' %}active{% endif %}">Championship</a>
-                <a href="/?league=brazil&lang={{ lang }}" class="{% if league == 'brazil' %}active{% endif %}">Brazil</a>
-                <a href="/?league=championsleague&lang={{ lang }}" class="{% if league == 'championsleague' %}active{% endif %}">{{ t.nav_europe }}</a>
-                <a href="/?league=euro&lang={{ lang }}" class="{% if league == 'euro' %}active{% endif %}">EURO</a>
-                <a href="/?league=worldcup&lang={{ lang }}" class="{% if league == 'worldcup' %}active{% endif %}">World Cup</a>
-                <a href="/?league=switzerland&lang={{ lang }}" class="{% if league == 'switzerland' %}active{% endif %}">{{ t.nav_switzerland }}</a>
-                <a href="/?league=austria&lang={{ lang }}" class="{% if league == 'austria' %}active{% endif %}">{{ t.nav_austria }}</a>
-                <a href="#" class="mobile-live-link"><span class="live-dot"></span><span>{{ t.live }}</span></a>
-            </nav>
-
-            <div class="mobile-language-switch">
-                <a href="/?league={{ league }}&lang=de" class="lang-btn {% if lang == 'de' %}active{% endif %}">
-                    <img src="https://flagcdn.com/w40/de.png" alt="Deutsch">
-                    <span>DE</span>
-                </a>
-                <a href="/?league={{ league }}&lang=en" class="lang-btn {% if lang == 'en' %}active{% endif %}">
-                    <img src="https://flagcdn.com/w40/gb.png" alt="English">
-                    <span>EN</span>
-                </a>
-                <a href="/?league={{ league }}&lang=fr" class="lang-btn {% if lang == 'fr' %}active{% endif %}">
-                    <img src="https://flagcdn.com/w40/fr.png" alt="Français">
-                    <span>FR</span>
-                </a>
-                <a href="/?league={{ league }}&lang=it" class="lang-btn {% if lang == 'it' %}active{% endif %}">
-                    <img src="https://flagcdn.com/w40/it.png" alt="Italiano">
-                    <span>IT</span>
-                </a>
-            </div>
-
-            <div class="mobile-header-actions">
-                <a class="btn btn-dark" href="/login?league={{ league }}&lang={{ lang }}">{{ t.login }}</a>
-                <a class="btn btn-green" href="/premium?league={{ league }}&lang={{ lang }}">{{ t.premium }}</a>
-            </div>
-        </div>
-    </div>
-</header>
-
+{% block content %}
 <main class="page-wrap">
     <div class="container">
 
@@ -170,7 +49,9 @@
                                     🔒 {{ t.premium_only }}
                                 {% endif %}
                             </div>
-                            <div class="confidence-text">{% if is_premium %}(High Confidence){% else %}{{ t.premium_after_sub }}{% endif %}</div>
+                            <div class="confidence-text">
+                                {% if is_premium %}(High Confidence){% else %}{{ t.premium_after_sub }}{% endif %}
+                            </div>
                         </div>
 
                         <div class="premium-note">🔒 {{ t.premium_feature }}</div>
@@ -218,7 +99,10 @@
                             {% if is_premium %}
                             <div class="prediction-box">
                                 <div>
-                                    <div class="prediction-label">{{ t.prediction }}: <strong>{% if loop.index == 1 %}{{ t.home_win }}{% else %}{{ t.draw }}{% endif %}</strong></div>
+                                    <div class="prediction-label">
+                                        {{ t.prediction }}:
+                                        <strong>{% if loop.index == 1 %}{{ t.home_win }}{% else %}{{ t.draw }}{% endif %}</strong>
+                                    </div>
                                     <div class="prediction-percent">{% if loop.index == 1 %}68%{% else %}29%{% endif %}</div>
                                 </div>
 
@@ -239,7 +123,14 @@
                             {% endif %}
 
                             <div class="card-footer">
-                                <div class="tip">💡 {{ t.tip }}: {% if is_premium %}{% if loop.index == 1 %}{{ t.over_goals }}{% else %}{{ t.under_goals }}{% endif %}{% else %}{{ t.tip_premium_only }}{% endif %}</div>
+                                <div class="tip">
+                                    💡 {{ t.tip }}:
+                                    {% if is_premium %}
+                                        {% if loop.index == 1 %}{{ t.over_goals }}{% else %}{{ t.under_goals }}{% endif %}
+                                    {% else %}
+                                        {{ t.tip_premium_only }}
+                                    {% endif %}
+                                </div>
 
                                 <div class="footer-actions">
                                     <a href="#" class="btn btn-dark btn-sm">{{ t.details }}</a>
@@ -405,63 +296,4 @@
         </section>
     </div>
 </main>
-
-<footer class="site-footer">
-    <div class="container footer-grid">
-        <div>
-            <div class="footer-brand">
-                <div class="brand-mark">M</div>
-                <span>MatchPredictions</span>
-            </div>
-            <div class="footer-text">{{ t.footer_text }}</div>
-        </div>
-
-        <div>
-            <h4 class="footer-title">{{ t.navigation }}</h4>
-            <ul class="footer-links">
-                <li><a href="#">{{ t.matches }}</a></li>
-                <li><a href="#">{{ t.predictions }}</a></li>
-                <li><a href="#">{{ t.stats }}</a></li>
-                <li><a href="#">{{ t.premium }}</a></li>
-            </ul>
-        </div>
-
-        <div>
-            <h4 class="footer-title">{{ t.legal }}</h4>
-            <ul class="footer-links">
-                <li><a href="#">{{ t.imprint }}</a></li>
-                <li><a href="#">{{ t.privacy }}</a></li>
-                <li><a href="#">{{ t.terms }}</a></li>
-            </ul>
-        </div>
-
-        <div>
-            <h4 class="footer-title">{{ t.stay_updated }}</h4>
-            <div class="footer-text">{{ t.newsletter_text }}</div>
-            <div class="subscribe-box">
-                <input type="email" placeholder="{{ t.email_placeholder }}">
-                <a href="#" class="btn btn-green">{{ t.subscribe }}</a>
-            </div>
-        </div>
-    </div>
-
-    <div class="container footer-bottom">
-        © 2025 MatchPredictions. {{ t.all_rights_reserved }}
-    </div>
-</footer>
-
-<script>
-const burgerBtn = document.getElementById("burgerBtn");
-const mobileMenu = document.getElementById("mobileMenu");
-
-if (burgerBtn && mobileMenu) {
-    burgerBtn.addEventListener("click", () => {
-        const isOpen = mobileMenu.classList.toggle("open");
-        burgerBtn.classList.toggle("open");
-        burgerBtn.setAttribute("aria-expanded", isOpen ? "true" : "false");
-    });
-}
-</script>
-
-</body>
-</html>
+{% endblock %}
