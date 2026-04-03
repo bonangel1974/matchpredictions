@@ -181,7 +181,18 @@ TRANSLATIONS = {
         "under_goals": "Unter 3.5 Tore",
         "all_rights_reserved": "Alle Rechte vorbehalten.",
         "label_leagues": "Ligen",
-        "label_language": "Sprache"
+        "label_language": "Sprache",
+        "nav_laliga": "LaLiga",
+        "nav_eredivisie": "Eredivisie",
+        "nav_primeiraliga": "Primeira Liga",
+        "nav_championship": "Championship",
+        "nav_brazil": "Brasilien",
+        "nav_euro": "EURO",
+        "nav_worldcup": "Weltmeisterschaft",
+        "nav_turkey": "Türkei",
+        "nav_hungary": "Ungarn",
+        "nav_albania": "Albanien"
+
     },
     "en": {
         "brand": "MatchPredictions",
@@ -258,8 +269,20 @@ TRANSLATIONS = {
         "over_goals": "Over 2.5 Goals",
         "under_goals": "Under 3.5 Goals",
         "all_rights_reserved": "All rights reserved.",
+                        
         "label_leagues": "Leagues",
-        "label_language": "Language"
+        "label_language": "Language",
+        "nav_laliga": "LaLiga",
+        "nav_eredivisie": "Eredivisie",
+        "nav_primeiraliga": "Primeira Liga",
+        "nav_championship": "Championship",
+        "nav_brazil": "Brazil",
+        "nav_euro": "EURO",
+        "nav_worldcup": "World Cup",
+        "nav_turkey": "Turkey",
+        "nav_hungary": "Hungary",
+        "nav_albania": "Albania"
+
     },
     "fr": {
         "brand": "MatchPredictions",
@@ -336,8 +359,20 @@ TRANSLATIONS = {
         "over_goals": "Plus de 2.5 buts",
         "under_goals": "Moins de 3.5 buts",
         "all_rights_reserved": "Tous droits réservés.",
+            
         "label_leagues": "Ligues",
-        "label_language": "Langue"
+        "label_language": "Langue",
+        "nav_laliga": "LaLiga",
+        "nav_eredivisie": "Eredivisie",
+        "nav_primeiraliga": "Primeira Liga",
+        "nav_championship": "Championship",
+        "nav_brazil": "Brésil",
+        "nav_euro": "EURO",
+        "nav_worldcup": "Coupe du monde",
+        "nav_turkey": "Turquie",
+        "nav_hungary": "Hongrie",
+        "nav_albania": "Albanie"
+            
     },
     "it": {
         "brand": "MatchPredictions",
@@ -414,8 +449,20 @@ TRANSLATIONS = {
         "over_goals": "Oltre 2.5 gol",
         "under_goals": "Sotto 3.5 gol",
         "all_rights_reserved": "Tutti i diritti riservati.",
+       
         "label_leagues": "Campionati",
-        "label_language": "Lingua"
+        "label_language": "Lingua",
+        "nav_laliga": "LaLiga",
+        "nav_eredivisie": "Eredivisie",
+        "nav_primeiraliga": "Primeira Liga",
+        "nav_championship": "Championship",
+        "nav_brazil": "Brasile",
+        "nav_euro": "EURO",
+        "nav_worldcup": "Coppa del Mondo",
+        "nav_turkey": "Turchia",
+        "nav_hungary": "Ungheria",
+        "nav_albania": "Albania"
+
     }
 }
 
