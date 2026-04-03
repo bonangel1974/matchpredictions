@@ -2079,3 +2079,503 @@ body {
     display: inline-flex;
   }
 }
+
+/* =========================================================
+   HEADER / BASE LAYOUT
+========================================================= */
+
+.site-header {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    background: rgba(4, 10, 24, 0.94);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.25);
+}
+
+.header-mobile-top {
+    display: none;
+}
+
+.header-desktop {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 24px;
+    padding: 16px 0 14px;
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    min-width: fit-content;
+}
+
+.brand-mark {
+    width: 46px;
+    height: 46px;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.7rem;
+    font-weight: 800;
+    color: #03120a;
+    background: linear-gradient(135deg, #7bff63 0%, #2ddf4f 100%);
+    box-shadow: 0 10px 24px rgba(61, 255, 96, 0.28);
+}
+
+.brand > div:last-child {
+    font-size: 2rem;
+    font-weight: 800;
+    color: #ffffff;
+    letter-spacing: -0.02em;
+}
+
+.mobile-nav-scroll {
+    flex: 1;
+    min-width: 0;
+}
+
+.section-mini-label {
+    font-size: 0.72rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: rgba(255, 255, 255, 0.55);
+    margin-bottom: 10px;
+}
+
+.header-right {
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+    min-width: fit-content;
+}
+
+.language-group {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.language-switch {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.language-switch a {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 14px;
+    border-radius: 16px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    text-decoration: none;
+    color: rgba(255, 255, 255, 0.88);
+    font-weight: 700;
+    transition: all 0.2s ease;
+}
+
+.language-switch a:hover {
+    background: rgba(255, 255, 255, 0.06);
+    border-color: rgba(255, 255, 255, 0.14);
+    transform: translateY(-1px);
+}
+
+.language-switch a.active {
+    background: rgba(85, 125, 255, 0.14);
+    border-color: rgba(85, 125, 255, 0.34);
+    box-shadow: inset 0 0 0 1px rgba(85, 125, 255, 0.16);
+}
+
+.language-switch img {
+    width: 24px;
+    height: 24px;
+    object-fit: cover;
+    border-radius: 999px;
+    flex-shrink: 0;
+}
+
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.header-actions .btn,
+.mobile-header-actions .btn {
+    min-width: 130px;
+    justify-content: center;
+}
+
+.burger-btn {
+    display: none;
+    width: 48px;
+    height: 48px;
+    padding: 0;
+    border-radius: 14px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    background: rgba(255, 255, 255, 0.03);
+    cursor: pointer;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+}
+
+.burger-btn span {
+    display: block;
+    width: 22px;
+    height: 2px;
+    border-radius: 99px;
+    margin: 0 auto;
+    background: #ffffff;
+    transition: all 0.2s ease;
+}
+
+.burger-btn.open span:nth-child(1) {
+    transform: translateY(7px) rotate(45deg);
+}
+
+.burger-btn.open span:nth-child(2) {
+    opacity: 0;
+}
+
+.burger-btn.open span:nth-child(3) {
+    transform: translateY(-7px) rotate(-45deg);
+}
+
+/* =========================================================
+   LEAGUE BAR
+========================================================= */
+
+.league-nav {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    overflow-x: auto;
+    white-space: nowrap;
+    padding-bottom: 4px;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(86, 128, 255, 0.35) transparent;
+}
+
+.league-nav::-webkit-scrollbar {
+    height: 6px;
+}
+
+.league-nav::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.league-nav::-webkit-scrollbar-thumb {
+    background: rgba(86, 128, 255, 0.35);
+    border-radius: 999px;
+}
+
+.league-nav a {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 16px;
+    border-radius: 16px;
+    text-decoration: none;
+    color: rgba(255, 255, 255, 0.82);
+    font-weight: 700;
+    font-size: 0.98rem;
+    background: rgba(255, 255, 255, 0.025);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    position: relative;
+    transition: all 0.2s ease;
+}
+
+.league-nav a:hover {
+    color: #ffffff;
+    background: rgba(255, 255, 255, 0.055);
+    border-color: rgba(255, 255, 255, 0.12);
+    transform: translateY(-1px);
+}
+
+.league-nav a.active {
+    color: #ffffff;
+    background: rgba(73, 114, 255, 0.14);
+    border-color: rgba(73, 114, 255, 0.28);
+    box-shadow:
+        0 0 0 1px rgba(73, 114, 255, 0.10),
+        0 10px 24px rgba(24, 57, 180, 0.16);
+}
+
+.league-nav a.active::after {
+    content: "";
+    position: absolute;
+    left: 14px;
+    right: 14px;
+    bottom: -7px;
+    height: 4px;
+    border-radius: 999px;
+    background: linear-gradient(90deg, #4d8cff 0%, #4fd0ff 100%);
+}
+
+.nav-flag {
+    font-size: 1rem;
+    line-height: 1;
+}
+
+.live-link {
+    color: #98ff87 !important;
+}
+
+.live-link .live-dot,
+.mobile-live-link .live-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 999px;
+    background: #7bff63;
+    box-shadow: 0 0 0 5px rgba(123, 255, 99, 0.12);
+    display: inline-block;
+    flex-shrink: 0;
+}
+
+/* =========================================================
+   MOBILE MENU
+========================================================= */
+
+.mobile-menu {
+    display: none;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    background:
+        linear-gradient(180deg, rgba(6, 12, 29, 0.98) 0%, rgba(4, 10, 24, 0.98) 100%);
+}
+
+.mobile-menu.open {
+    display: block;
+}
+
+.mobile-menu-inner {
+    padding: 18px 0 26px;
+}
+
+.mobile-menu-label {
+    margin-top: 6px;
+    margin-bottom: 12px;
+}
+
+.mobile-menu-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.mobile-menu-nav a,
+.mobile-live-link {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 16px 18px;
+    border-radius: 18px;
+    text-decoration: none;
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 1.05rem;
+    font-weight: 700;
+    background: rgba(255, 255, 255, 0.025);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    transition: all 0.2s ease;
+}
+
+.mobile-menu-nav a.active {
+    color: #ffffff;
+    background: rgba(73, 114, 255, 0.14);
+    border-color: rgba(73, 114, 255, 0.28);
+}
+
+.mobile-language-switch {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-top: 14px;
+}
+
+.mobile-language-switch a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 68px;
+    padding: 12px 14px;
+    border-radius: 16px;
+    text-decoration: none;
+    color: rgba(255, 255, 255, 0.88);
+    font-weight: 800;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.mobile-language-switch a.active {
+    background: rgba(73, 114, 255, 0.14);
+    border-color: rgba(73, 114, 255, 0.28);
+}
+
+.mobile-header-actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    margin-top: 18px;
+}
+
+/* =========================================================
+   GENERIC BUTTON POLISH
+========================================================= */
+
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 14px 22px;
+    border-radius: 18px;
+    font-weight: 800;
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+
+.btn-dark {
+    color: #ffffff;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.btn-dark:hover {
+    background: rgba(255, 255, 255, 0.06);
+}
+
+.btn-green {
+    color: #ffffff;
+    background: linear-gradient(135deg, #79df56 0%, #31d34a 100%);
+    border: 1px solid rgba(83, 255, 113, 0.28);
+    box-shadow: 0 18px 35px rgba(65, 232, 79, 0.22);
+}
+
+.btn-green:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 22px 40px rgba(65, 232, 79, 0.28);
+}
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 1280px) {
+    .header-desktop {
+        gap: 18px;
+    }
+
+    .brand > div:last-child {
+        font-size: 1.7rem;
+    }
+
+    .league-nav a {
+        padding: 11px 14px;
+        font-size: 0.94rem;
+    }
+
+    .language-switch a {
+        padding: 10px 12px;
+    }
+}
+
+@media (max-width: 1100px) {
+    .language-group {
+        display: none;
+    }
+
+    .burger-btn {
+        display: inline-flex;
+    }
+
+    .header-desktop {
+        align-items: center;
+    }
+}
+
+@media (max-width: 920px) {
+    .header-desktop {
+        display: none;
+    }
+
+    .header-mobile-top {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        padding: 16px 0;
+    }
+
+    .header-mobile-top .brand > div:last-child {
+        font-size: 1.35rem;
+    }
+
+    .header-mobile-top .brand-mark {
+        width: 42px;
+        height: 42px;
+        font-size: 1.4rem;
+    }
+}
+
+@media (max-width: 640px) {
+    .mobile-header-actions {
+        grid-template-columns: 1fr;
+    }
+
+    .mobile-menu-nav a,
+    .mobile-live-link {
+        font-size: 1rem;
+        padding: 15px 16px;
+    }
+
+    .mobile-language-switch {
+        gap: 8px;
+    }
+
+    .mobile-language-switch a {
+        min-width: 60px;
+        padding: 11px 12px;
+    }
+}
+
+.section-mini-label {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.58);
+    margin-bottom: 10px;
+}
+
+.section-mini-label-right {
+    text-align: left;
+    margin-bottom: 8px;
+}
+
+.language-group {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.mobile-menu-label {
+    margin-top: 10px;
+    margin-bottom: 12px;
+}
+
+.league-bar .section-mini-label {
+    padding-top: 10px;
+}
+
+@media (max-width: 1100px) {
+    .language-group {
+        display: none;
+    }
+}

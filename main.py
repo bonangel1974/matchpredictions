@@ -179,7 +179,9 @@ TRANSLATIONS = {
         "home_win": "Heimsieg",
         "over_goals": "Über 2.5 Tore",
         "under_goals": "Unter 3.5 Tore",
-        "all_rights_reserved": "Alle Rechte vorbehalten."
+        "all_rights_reserved": "Alle Rechte vorbehalten.",
+        "label_leagues": "Ligen",
+        "label_language": "Sprache"
     },
     "en": {
         "brand": "MatchPredictions",
@@ -255,7 +257,9 @@ TRANSLATIONS = {
         "home_win": "Home Win",
         "over_goals": "Over 2.5 Goals",
         "under_goals": "Under 3.5 Goals",
-        "all_rights_reserved": "All rights reserved."
+        "all_rights_reserved": "All rights reserved.",
+        "label_leagues": "Leagues",
+        "label_language": "Language"
     },
     "fr": {
         "brand": "MatchPredictions",
@@ -331,7 +335,9 @@ TRANSLATIONS = {
         "home_win": "Victoire à domicile",
         "over_goals": "Plus de 2.5 buts",
         "under_goals": "Moins de 3.5 buts",
-        "all_rights_reserved": "Tous droits réservés."
+        "all_rights_reserved": "Tous droits réservés.",
+        "label_leagues": "Ligues",
+        "label_language": "Langue"
     },
     "it": {
         "brand": "MatchPredictions",
@@ -407,7 +413,9 @@ TRANSLATIONS = {
         "home_win": "Vittoria casa",
         "over_goals": "Oltre 2.5 gol",
         "under_goals": "Sotto 3.5 gol",
-        "all_rights_reserved": "Tutti i diritti riservati."
+        "all_rights_reserved": "Tutti i diritti riservati.",
+        "label_leagues": "Campionati",
+        "label_language": "Lingua"
     }
 }
 
