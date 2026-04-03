@@ -24,22 +24,50 @@
         </button>
     </div>
 
-    <!-- DESKTOP HEADER -->
+    <!-- DESKTOP TOP ROW -->
     <div class="container header-desktop">
-
         <div class="brand">
             <div class="brand-mark">M</div>
             <div>{{ t.brand }}</div>
         </div>
 
-        <!-- LEAGUE NAV -->
-        <div class="mobile-nav-scroll">
+        <div class="header-right">
+            <div class="language-group">
+                <div class="section-mini-label">{{ t.label_language }}</div>
 
-            <div class="section-mini-label">
-                {{ t.label_leagues }}
+                <div class="language-switch">
+                    <a href="/?league={{ league }}&lang=de" class="{% if lang == 'de' %}active{% endif %}">
+                        <img src="https://flagcdn.com/w40/de.png" alt="Deutsch">
+                        <span>DE</span>
+                    </a>
+                    <a href="/?league={{ league }}&lang=en" class="{% if lang == 'en' %}active{% endif %}">
+                        <img src="https://flagcdn.com/w40/gb.png" alt="English">
+                        <span>EN</span>
+                    </a>
+                    <a href="/?league={{ league }}&lang=fr" class="{% if lang == 'fr' %}active{% endif %}">
+                        <img src="https://flagcdn.com/w40/fr.png" alt="Français">
+                        <span>FR</span>
+                    </a>
+                    <a href="/?league={{ league }}&lang=it" class="{% if lang == 'it' %}active{% endif %}">
+                        <img src="https://flagcdn.com/w40/it.png" alt="Italiano">
+                        <span>IT</span>
+                    </a>
+                </div>
             </div>
 
-            <nav class="main-nav league-nav">
+            <div class="header-actions">
+                <a class="btn btn-dark" href="/login?league={{ league }}&lang={{ lang }}">{{ t.login }}</a>
+                <a class="btn btn-green" href="/premium?league={{ league }}&lang={{ lang }}">{{ t.premium }}</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- DESKTOP LEAGUE BAR -->
+    <div class="league-bar">
+        <div class="container">
+            <div class="section-mini-label">{{ t.label_leagues }}</div>
+
+            <nav class="league-nav">
                 <a href="/?league=bundesliga&lang={{ lang }}" class="{% if league == 'bundesliga' %}active{% endif %}">
                     <span class="nav-flag">🇩🇪</span><span>{{ t.nav_germany }}</span>
                 </a>
@@ -113,75 +141,72 @@
                 </a>
             </nav>
         </div>
-
-        <!-- RIGHT SIDE -->
-        <div class="header-right">
-
-            <div class="language-group">
-                <div class="section-mini-label">
-                    {{ t.label_language }}
-                </div>
-
-                <div class="language-switch">
-                    <a href="/?league={{ league }}&lang=de" class="{% if lang == 'de' %}active{% endif %}">
-                        <img src="https://flagcdn.com/w40/de.png" alt="Deutsch">
-                        <span>DE</span>
-                    </a>
-                    <a href="/?league={{ league }}&lang=en" class="{% if lang == 'en' %}active{% endif %}">
-                        <img src="https://flagcdn.com/w40/gb.png" alt="English">
-                        <span>EN</span>
-                    </a>
-                    <a href="/?league={{ league }}&lang=fr" class="{% if lang == 'fr' %}active{% endif %}">
-                        <img src="https://flagcdn.com/w40/fr.png" alt="Français">
-                        <span>FR</span>
-                    </a>
-                    <a href="/?league={{ league }}&lang=it" class="{% if lang == 'it' %}active{% endif %}">
-                        <img src="https://flagcdn.com/w40/it.png" alt="Italiano">
-                        <span>IT</span>
-                    </a>
-                </div>
-            </div>
-
-            <div class="header-actions">
-                <a class="btn btn-dark" href="/login?league={{ league }}&lang={{ lang }}">{{ t.login }}</a>
-                <a class="btn btn-green" href="/premium?league={{ league }}&lang={{ lang }}">{{ t.premium }}</a>
-            </div>
-
-        </div>
     </div>
 
     <!-- MOBILE MENU -->
     <div class="mobile-menu" id="mobileMenu">
         <div class="container mobile-menu-inner">
 
-            <div class="section-mini-label mobile-menu-label">
-                {{ t.label_leagues }}
-            </div>
+            <div class="section-mini-label mobile-menu-label">{{ t.label_leagues }}</div>
 
             <nav class="mobile-menu-nav">
-                <a href="/?league=bundesliga&lang={{ lang }}" class="{% if league == 'bundesliga' %}active{% endif %}"><span class="nav-flag">🇩🇪</span><span>{{ t.nav_germany }}</span></a>
-                <a href="/?league=premierleague&lang={{ lang }}" class="{% if league == 'premierleague' %}active{% endif %}"><span class="nav-flag">🇬🇧</span><span>{{ t.nav_england }}</span></a>
-                <a href="/?league=seriea&lang={{ lang }}" class="{% if league == 'seriea' %}active{% endif %}"><span class="nav-flag">🇮🇹</span><span>{{ t.nav_italy }}</span></a>
-                <a href="/?league=ligue1&lang={{ lang }}" class="{% if league == 'ligue1' %}active{% endif %}"><span class="nav-flag">🇫🇷</span><span>{{ t.nav_france }}</span></a>
-                <a href="/?league=laliga&lang={{ lang }}" class="{% if league == 'laliga' %}active{% endif %}"><span class="nav-flag">🇪🇸</span><span>LaLiga</span></a>
-                <a href="/?league=eredivisie&lang={{ lang }}" class="{% if league == 'eredivisie' %}active{% endif %}"><span class="nav-flag">🇳🇱</span><span>Eredivisie</span></a>
-                <a href="/?league=primeiraliga&lang={{ lang }}" class="{% if league == 'primeiraliga' %}active{% endif %}"><span class="nav-flag">🇵🇹</span><span>Primeira Liga</span></a>
-                <a href="/?league=championship&lang={{ lang }}" class="{% if league == 'championship' %}active{% endif %}"><span class="nav-flag">🏴</span><span>Championship</span></a>
-                <a href="/?league=brazil&lang={{ lang }}" class="{% if league == 'brazil' %}active{% endif %}"><span class="nav-flag">🇧🇷</span><span>Brazil</span></a>
-                <a href="/?league=championsleague&lang={{ lang }}" class="{% if league == 'championsleague' %}active{% endif %}"><span class="nav-flag">⭐</span><span>{{ t.nav_europe }}</span></a>
-                <a href="/?league=euro&lang={{ lang }}" class="{% if league == 'euro' %}active{% endif %}"><span class="nav-flag">🏆</span><span>EURO</span></a>
-                <a href="/?league=worldcup&lang={{ lang }}" class="{% if league == 'worldcup' %}active{% endif %}"><span class="nav-flag">🌍</span><span>World Cup</span></a>
-                <a href="/?league=switzerland&lang={{ lang }}" class="{% if league == 'switzerland' %}active{% endif %}"><span class="nav-flag">🇨🇭</span><span>{{ t.nav_switzerland }}</span></a>
-                <a href="/?league=austria&lang={{ lang }}" class="{% if league == 'austria' %}active{% endif %}"><span class="nav-flag">🇦🇹</span><span>{{ t.nav_austria }}</span></a>
-                <a href="/?league=turkey&lang={{ lang }}" class="{% if league == 'turkey' %}active{% endif %}"><span class="nav-flag">🇹🇷</span><span>Türkiye</span></a>
-                <a href="/?league=hungary&lang={{ lang }}" class="{% if league == 'hungary' %}active{% endif %}"><span class="nav-flag">🇭🇺</span><span>Hungary</span></a>
-                <a href="/?league=albania&lang={{ lang }}" class="{% if league == 'albania' %}active{% endif %}"><span class="nav-flag">🇦🇱</span><span>Albania</span></a>
-                <a href="#" class="mobile-live-link"><span class="live-dot"></span><span>{{ t.live }}</span></a>
+                <a href="/?league=bundesliga&lang={{ lang }}" class="{% if league == 'bundesliga' %}active{% endif %}">
+                    <span class="nav-flag">🇩🇪</span><span>{{ t.nav_germany }}</span>
+                </a>
+                <a href="/?league=premierleague&lang={{ lang }}" class="{% if league == 'premierleague' %}active{% endif %}">
+                    <span class="nav-flag">🇬🇧</span><span>{{ t.nav_england }}</span>
+                </a>
+                <a href="/?league=seriea&lang={{ lang }}" class="{% if league == 'seriea' %}active{% endif %}">
+                    <span class="nav-flag">🇮🇹</span><span>{{ t.nav_italy }}</span>
+                </a>
+                <a href="/?league=ligue1&lang={{ lang }}" class="{% if league == 'ligue1' %}active{% endif %}">
+                    <span class="nav-flag">🇫🇷</span><span>{{ t.nav_france }}</span>
+                </a>
+                <a href="/?league=laliga&lang={{ lang }}" class="{% if league == 'laliga' %}active{% endif %}">
+                    <span class="nav-flag">🇪🇸</span><span>LaLiga</span>
+                </a>
+                <a href="/?league=eredivisie&lang={{ lang }}" class="{% if league == 'eredivisie' %}active{% endif %}">
+                    <span class="nav-flag">🇳🇱</span><span>Eredivisie</span>
+                </a>
+                <a href="/?league=primeiraliga&lang={{ lang }}" class="{% if league == 'primeiraliga' %}active{% endif %}">
+                    <span class="nav-flag">🇵🇹</span><span>Primeira Liga</span>
+                </a>
+                <a href="/?league=championship&lang={{ lang }}" class="{% if league == 'championship' %}active{% endif %}">
+                    <span class="nav-flag">🏴</span><span>Championship</span>
+                </a>
+                <a href="/?league=brazil&lang={{ lang }}" class="{% if league == 'brazil' %}active{% endif %}">
+                    <span class="nav-flag">🇧🇷</span><span>Brazil</span>
+                </a>
+                <a href="/?league=championsleague&lang={{ lang }}" class="{% if league == 'championsleague' %}active{% endif %}">
+                    <span class="nav-flag">⭐</span><span>{{ t.nav_europe }}</span>
+                </a>
+                <a href="/?league=euro&lang={{ lang }}" class="{% if league == 'euro' %}active{% endif %}">
+                    <span class="nav-flag">🏆</span><span>EURO</span>
+                </a>
+                <a href="/?league=worldcup&lang={{ lang }}" class="{% if league == 'worldcup' %}active{% endif %}">
+                    <span class="nav-flag">🌍</span><span>World Cup</span>
+                </a>
+                <a href="/?league=switzerland&lang={{ lang }}" class="{% if league == 'switzerland' %}active{% endif %}">
+                    <span class="nav-flag">🇨🇭</span><span>{{ t.nav_switzerland }}</span>
+                </a>
+                <a href="/?league=austria&lang={{ lang }}" class="{% if league == 'austria' %}active{% endif %}">
+                    <span class="nav-flag">🇦🇹</span><span>{{ t.nav_austria }}</span>
+                </a>
+                <a href="/?league=turkey&lang={{ lang }}" class="{% if league == 'turkey' %}active{% endif %}">
+                    <span class="nav-flag">🇹🇷</span><span>Türkiye</span>
+                </a>
+                <a href="/?league=hungary&lang={{ lang }}" class="{% if league == 'hungary' %}active{% endif %}">
+                    <span class="nav-flag">🇭🇺</span><span>Hungary</span>
+                </a>
+                <a href="/?league=albania&lang={{ lang }}" class="{% if league == 'albania' %}active{% endif %}">
+                    <span class="nav-flag">🇦🇱</span><span>Albania</span>
+                </a>
+                <a href="#" class="mobile-live-link">
+                    <span class="live-dot"></span><span>{{ t.live }}</span>
+                </a>
             </nav>
 
-            <div class="section-mini-label mobile-menu-label">
-                {{ t.label_language }}
-            </div>
+            <div class="section-mini-label mobile-menu-label">{{ t.label_language }}</div>
 
             <div class="mobile-language-switch">
                 <a href="/?league={{ league }}&lang=de" class="{% if lang == 'de' %}active{% endif %}">DE</a>
@@ -194,7 +219,6 @@
                 <a class="btn btn-dark" href="/login?league={{ league }}&lang={{ lang }}">{{ t.login }}</a>
                 <a class="btn btn-green" href="/premium?league={{ league }}&lang={{ lang }}">{{ t.premium }}</a>
             </div>
-
         </div>
     </div>
 
